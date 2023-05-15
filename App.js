@@ -11,7 +11,7 @@ import SessionScreen from "./screens/SessionScreen";
 import SpotsScreen from "./screens/SpotsScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 
-import FavoriteSpotsScreens from "./screens/Signup_favorite_spots";
+import FavoriteSpotsScreens from "./screens/Signup_Favorite_spots";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
