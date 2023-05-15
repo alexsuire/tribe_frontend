@@ -1,11 +1,17 @@
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet, Text, View } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import LoginScreen from "./screens/LoginScreen";
+import HomeScreen from "./screens/HomeScreen";
+import SessionScreen from "./screens/SessionScreen";
+import SpotsScreen from "./screens/SpotsScreen";
+import ProfileScreen from "./screens/ProfileScreen";
 
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import LoginScreen from './screens/LoginScreen';
-import HomeScreen from './screens/HomeScreen';
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 import SignupScreen from './screens/SignupScreen';
 import SigninScreen from './screens/SigninScreen';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -17,23 +23,6 @@ import users from './reducers/users';
 const store = configureStore({
  reducer: { users },
 });
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import LoginScreen from "./screens/LoginScreen";
-import HomeScreen from "./screens/HomeScreen";
-import FontAwesome from "react-native-vector-icons/FontAwesome";
-import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-import SessionScreen from "./screens/SessionScreen";
-import SpotsScreen from "./screens/SpotsScreen";
-import ProfileScreen from "./screens/ProfileScreen";
-
-import FavoriteSpotsScreens from "./screens/Signup_favorite_spots";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-const Stack = createNativeStackNavigator();
-const Tab = createBottomTabNavigator();
 
 const TabNavigator = () => {
   return (
