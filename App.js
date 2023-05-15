@@ -3,7 +3,10 @@ import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import LoginScreen from './screens/LoginScreen';
 import HomeScreen from './screens/HomeScreen';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+
 import FavoriteSpotsScreens from './screens/Signup_favorite_spots';
 
 const Stack = createNativeStackNavigator();
@@ -27,8 +30,8 @@ const TabNavigator = () => {
       tabBarInactiveTintColor: '#335561',
       headerShown: false,
     })}>
-      <Tab.Screen name="Map" component={MapScreen} />
-      <Tab.Screen name="Places" component={PlacesScreen} />
+      <Tab.Screen name="Home" component={HomeScreen} />
+      {/* <Tab.Screen name="Places" component={PlacesScreen} /> */}
     </Tab.Navigator>
   );
 };
@@ -37,7 +40,7 @@ export default function App() {
   return (
     <NavigationContainer>
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="FavoriteSpots" component={FavoriteSpotsScreens} />
+      <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="TabNavigator" component={TabNavigator} />
     </Stack.Navigator>
   </NavigationContainer>
