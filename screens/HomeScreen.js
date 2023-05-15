@@ -9,6 +9,6 @@ import {
 } from "react-native";
 
 export default function HomeScreen({ navigation }) {
-  return <Text>yo</Text>;
+  return <Text>yoo</Text>;
 }
 
