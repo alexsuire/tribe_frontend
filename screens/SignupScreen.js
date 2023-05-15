@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import {
     Image,
     KeyboardAvoidingView,
@@ -7,20 +8,49 @@ import {
     TextInput,
     TouchableOpacity, View
   } from "react-native";
-  import { useState } from 'react'; 
+  import { useDispatch, useSelector } from 'react-redux'
+  import { login } from '../reducers/users';
+
   
   export default function SignupScreen({ navigation }) {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+
+    const dispatch = useDispatch();
+    const [signupEmail, setSignupEmail] = useState('');
+    const [signupPassword, setSignupPassword] = useState('');
+
+    // const handleRegisterSignUp = () => {
+    //     fetch('http:////10.33.210.115:3000/users/signup', {
+    //         method: 'POST',
+    //         headers: { 'Content-Type': 'application/json' },
+    //         body: JSON.stringify({ email: signupEmail, password: signupPassword }),
+    //     }).then(response => response.json())
+    //         .then(data => {
+    //             if (data.result) {
+    //                 console.log(data)
+    //                 dispatch(login({ email: signupEmail, token: data.token, firstname: data.firstname, lastname: data.lastname, age: data.age, password: signupPassword, level: data.level }));
+    //                 navigation.navigate('Signup_basic_info');
+    //             }
+    //             setSignupEmail('');
+    //             setSignupPassword('');
+
+    //         });
+    // };
+
+        const handleRegisterSignUp = () => {
+            dispatch(login({ email: signupEmail, password: signupPassword}));
+            navigation.navigate('Signup_basic_info');
+            setSignupEmail('');
+            setSignupPassword('');
+        }
 
     return ( 
     <View style={styles.container}>
         <Text style={styles.title}>Tribe</Text>
         <Text style={styles.titlesignup}>Signup</Text>
-        <TextInput placeholder="Email" onChangeText={(value) => setEmail(value)} value={email} style={styles.input} />
-        <TextInput placeholder="Password" onChangeText={(value) => setPassword(value)} value={password} style={styles.input} />
+        <TextInput placeholder="Email" id="signupEmail" onChangeText={(value) => setSignupEmail(value)} value={signupEmail} style={styles.input} />
+        <TextInput placeholder="Password" id="signupPassword" onChangeText={(value) => setSignupPassword(value)} value={signupPassword} style={styles.input} />
 
-        <TouchableOpacity onPress={() => handleSubmitHome()} style={styles.button} activeOpacity={0.8}>
+        <TouchableOpacity onPress={handleRegisterSignUp} style={styles.button} activeOpacity={0.8}>
                 <Text style={styles.textButton}>Suivant</Text>
         </TouchableOpacity>
 
