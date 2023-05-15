@@ -7,6 +7,7 @@ import LoginScreen from './screens/LoginScreen';
 import HomeScreen from './screens/HomeScreen';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
+import FavoriteSpotsScreens from './screens/Signup_favorite_spots';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
