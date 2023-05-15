@@ -18,8 +18,6 @@ import {
     const [signupEmail, setSignupEmail] = useState('');
     const [signupPassword, setSignupPassword] = useState('');
 
-   console.log("email", signupEmail)
-
     // const handleRegisterSignUp = () => {
     //     fetch('http:////10.33.210.115:3000/users/signup', {
     //         method: 'POST',
