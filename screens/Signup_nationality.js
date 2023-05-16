@@ -35,10 +35,10 @@ export default function Signup_nationality({ navigation }) {
 
   console.log("nationalites", nationalities);
 
-  const favspot =
-    nationalities.length > 0
-      ? nationalities.map((data, i) => <Nationality key={i} {...data} />)
-      : null;
+//   const nation =
+//     nationalities.length > 0
+//       ? nationalities.map((data, i) => <Nationality key={i} {...data} />)
+//       : null;
 
   return (
     <KeyboardAvoidingView
@@ -50,7 +50,7 @@ export default function Signup_nationality({ navigation }) {
           Choose your nationality(ies)
         </Text>
       </View>
-      <View style={styles.spots}>{favspot}</View>
+      <View style={styles.spots}></View>
     </KeyboardAvoidingView>
   );
 }

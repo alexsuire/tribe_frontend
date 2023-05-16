@@ -9,7 +9,7 @@ import {
   View,
 } from "react-native";
 import React, { useState, useEffect } from "react";
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 import Favorite_spots_signup from "../components/Favorite_spots_signup";
 
 export default function Signup_favorite_spots({ navigation }) {
@@ -18,8 +18,7 @@ export default function Signup_favorite_spots({ navigation }) {
 
   const count = useSelector((state) => state.count.value);
 
-  console.log("count",count)
-
+  console.log("count", count);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -52,7 +51,6 @@ export default function Signup_favorite_spots({ navigation }) {
         <Text style={{ fontFamily: "Lato-Bold" }}>
           Choose up to 3 favorite spots
         </Text>
-   
       </View>
       <View style={styles.spots}>{favspot}</View>
     </KeyboardAvoidingView>
@@ -70,8 +68,6 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     alignItems: "center",
     justifyContent: "center",
-    
-
   },
   top: {
     alignItems: "center",
