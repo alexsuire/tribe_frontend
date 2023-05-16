@@ -8,10 +8,12 @@ import HomeScreen from "./screens/HomeScreen";
 import SessionScreen from "./screens/SessionScreen";
 import SpotsScreen from "./screens/SpotsScreen";
 import ProfileScreen from "./screens/ProfileScreen";
+import Signup_favorite_spots from "./screens/Signup_favorite_spots";
 
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import SignupScreen from './screens/SignupScreen';
 import Signup_basic_infoScreen from './screens/Signup_basic_infoScreen';
+import Signup_levelScreen from './screens/Signup_levelScreen';
 
 import SigninScreen from './screens/SigninScreen';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -68,10 +70,12 @@ export default function App() {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Signup_favorite_spots" component={Signup_favorite_spots} />
+          {/* <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="Signup" component={SignupScreen} />
           <Stack.Screen name="Signup_basic_info" component={Signup_basic_infoScreen} />
-          <Stack.Screen name="Signin" component={SigninScreen} />
+          <Stack.Screen name="Signup_level" component={Signup_levelScreen} />
+          <Stack.Screen name="Signin" component={SigninScreen} /> */}
           <Stack.Screen name="TabNavigator" component={TabNavigator} />
         </Stack.Navigator>
       </NavigationContainer>

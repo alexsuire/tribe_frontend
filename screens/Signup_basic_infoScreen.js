@@ -11,7 +11,7 @@ import {
   import React, { useState } from 'react';
   import { useDispatch, useSelector } from 'react-redux'
   import { login } from '../reducers/users';
-//   import {useSelector} from 'react-redux';
+  
 
   
   
@@ -23,19 +23,20 @@ import {
     const [signupAge, setSignupAge] = useState('');
 
     const handleRegisterSignUp = () => {
-        dispatch(login({ email: signupEmail, password: signupPassword}));
-        navigation.navigate('Signup_basic_info');
+        dispatch(login({ firstname: signupFirstname, lastname: signupLastname, age: signupAge}));
+        navigation.navigate('Signup_level');
         setSignupFirstname('');
         setSignupLastname('');
         setSignupAge('');
     }
-    // const user = useSelector((state) => state.users.value)
-    // console.log('users', user)
+    const user = useSelector((state) => state.users.value)
+    console.log('users', user)
 
 return ( 
-    <View style={styles.container}>
+    <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.container}>        
         <Text style={styles.title}>Tribe</Text>
-        <Text style={styles.titlesignup}>Signup</Text>
         <TextInput placeholder="Firstname" id="signupFirstname" onChangeText={(value) => setSignupFirstname(value)} value={signupFirstname} style={styles.input} />
         <TextInput placeholder="Lastname" id="signupLastname" onChangeText={(value) => setSignupLastname(value)} value={signupLastname} style={styles.input} />
         <TextInput placeholder="Age" id="signupAge" onChangeText={(value) => setSignupAge(value)} value={signupAge} style={styles.input} />
@@ -44,8 +45,7 @@ return (
                 <Text style={styles.textButton}>Suivant</Text>
         </TouchableOpacity>
 
-    </View>
-);
+    </KeyboardAvoidingView>);
 }
 const styles = StyleSheet.create({
 container:{
@@ -56,7 +56,7 @@ container:{
 title:{
     fontSize: 50,
     fontWeight: "700",
-    color: 'blue',
+    color: '#0287D9',
     marginBottom: 20,
 },
 titlesignup:{

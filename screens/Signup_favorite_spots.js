@@ -18,7 +18,7 @@ export default function Signup_favorite_spots({ navigation }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:3000/spots");
+        const response = await fetch("http://10.33.210.115:3000/spots");
         const json = await response.json();
         const data = json.data;
         setSpots(data);

@@ -7,25 +7,37 @@ import {
     TextInput,
     TouchableOpacity, View
   } from "react-native";
-  import { useState } from 'react'; 
+  import { useState } from 'react';
+  import { useDispatch, useSelector } from 'react-redux'
+  import { logout } from '../reducers/users';
+ 
 
   
   export default function SigninScreen({ navigation }) {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const dispatch = useDispatch();
+
+    const [signinEmail, setSigninEmail] = useState('');
+    const [signinPassword, setSigninPassword] = useState('');
+
+    const handleSubmitHome = () => {
+        dispatch(logout({ email: signinEmail, password: signinPassword}));
+        navigation.navigate('TabNavigator');
+    }
 
     return ( 
-        <View style={styles.container}>
+        <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.container}> 
         <Text style={styles.title}>Tribe</Text>
         <Text style={styles.titlesignup}>Signin</Text>
-        <TextInput placeholder="Email" onChangeText={(value) => setEmail(value)} value={email} style={styles.input} />
-        <TextInput placeholder="Password" onChangeText={(value) => setPassword(value)} value={password} style={styles.input} />
+        <TextInput placeholder="Email" onChangeText={(value) => setSigninEmail(value)} value={signinEmail} style={styles.input} />
+        <TextInput placeholder="Password" onChangeText={(value) => setSigninPassword(value)} value={signinPassword} style={styles.input} />
 
         <TouchableOpacity onPress={() => handleSubmitHome()} style={styles.button} activeOpacity={0.8}>
                 <Text style={styles.textButton}>Suivant</Text>
         </TouchableOpacity>
         <Text>Forgot password ?</Text>
-    </View>
+    </KeyboardAvoidingView>
     );
   }
   const styles = StyleSheet.create({
@@ -37,7 +49,7 @@ import {
     title:{
         fontSize: 50,
         fontWeight: "700",
-        color: 'blue',
+        color: '#0287D9',
         marginBottom: 20,
     },
     titlesignup:{

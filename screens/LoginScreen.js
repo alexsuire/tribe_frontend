@@ -34,9 +34,7 @@ import {
             <TouchableOpacity onPress={SigninScreen} style={styles.button} activeOpacity={0.8}>
                 <Text style={styles.textButton}>Signin</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => handleSubmitHome()} style={styles.button} activeOpacity={0.8}>
-                <Text style={styles.textButton}>Go to map</Text>
-            </TouchableOpacity>
+           
         </View>
     );
   }
@@ -49,7 +47,7 @@ const styles = StyleSheet.create({
     title:{
         fontSize: 50,
         fontWeight: "700",
-        color: 'blue',
+        color: '#0287D9',
     },
     button: {
         display: 'flex',

@@ -44,7 +44,9 @@ import {
         }
 
     return ( 
-    <View style={styles.container}>
+    <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.container}>
         <Text style={styles.title}>Tribe</Text>
         <Text style={styles.titlesignup}>Signup</Text>
         <TextInput placeholder="Email" id="signupEmail" onChangeText={(value) => setSignupEmail(value)} value={signupEmail} style={styles.input} />
@@ -54,7 +56,7 @@ import {
                 <Text style={styles.textButton}>Suivant</Text>
         </TouchableOpacity>
 
-    </View>
+    </KeyboardAvoidingView>
 );
   }
   const styles = StyleSheet.create({
@@ -66,7 +68,7 @@ import {
     title:{
         fontSize: 50,
         fontWeight: "700",
-        color: 'blue',
+        color: '#0287D9',
         marginBottom: 20,
     },
     titlesignup:{
