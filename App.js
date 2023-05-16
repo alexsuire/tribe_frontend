@@ -27,8 +27,7 @@ const store = configureStore({
  reducer: { users },
 });
 
-const Stack = createNativeStackNavigator();
-const Tab = createBottomTabNavigator();
+
 
 const TabNavigator = () => {
   return (
@@ -69,7 +68,7 @@ export default function App() {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="favoritespot" component={FavoriteSpotsScreens} />
+          <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="Signup" component={SignupScreen} />
           <Stack.Screen name="Signup_basic_info" component={Signup_basic_infoScreen} />
           <Stack.Screen name="Signin" component={SigninScreen} />
