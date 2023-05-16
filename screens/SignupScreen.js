@@ -44,7 +44,9 @@ import {
         }
 
     return ( 
-    <View style={styles.container}>
+    <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.container}>
         <Text style={styles.title}>Tribe</Text>
         <Text style={styles.titlesignup}>Signup</Text>
         <TextInput placeholder="Email" id="signupEmail" onChangeText={(value) => setSignupEmail(value)} value={signupEmail} style={styles.input} />
@@ -54,7 +56,7 @@ import {
                 <Text style={styles.textButton}>Suivant</Text>
         </TouchableOpacity>
 
-    </View>
+    </KeyboardAvoidingView>
 );
   }
   const styles = StyleSheet.create({
@@ -66,12 +68,12 @@ import {
     title:{
         fontSize: 50,
         fontWeight: "700",
-        color: 'blue',
+        color: '#0287D9',
         marginBottom: 20,
     },
     titlesignup:{
         fontSize: 30,
-        fontWeight: "700",
+        fontWeight: "100",
         color: 'black',
         marginBottom: 20,
     },
@@ -80,18 +82,19 @@ import {
         borderColor: 'black',
         borderWidth: 1,
         width: "80%",
-        height: "7%",
+        height: 40,
         marginTop: 15,
         borderRadius: 7,
+        borderColor: '#E0CDA9',
     },
     button: {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        width: '50%',
+        width: '40%',
         height: '8%',
         marginTop: 30,
-        backgroundColor: '#ec6e5b',
+        backgroundColor: '#0287D9',
         borderRadius: 10,
         marginBottom: 10,
     },
