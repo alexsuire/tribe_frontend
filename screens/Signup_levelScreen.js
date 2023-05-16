@@ -6,11 +6,12 @@ import {
     Text,
     TextInput,
     TouchableOpacity,
-    View,
+    View
   } from "react-native";
   import React, { useState } from 'react';
   import { useDispatch, useSelector } from 'react-redux'
   import { login } from '../reducers/users';
+  import { SelectList } from 'react-native-dropdown-select-list'
 
   
   
@@ -18,7 +19,7 @@ import {
 
     const dispatch = useDispatch();
     const [signupLevel, setSignupLevel] = useState('');
-  
+    const [selected, setSelected] = React.useState("");
 
     const handleRegisterSignUp = () => {
         dispatch(login({ level: signupLevel}));
@@ -28,12 +29,25 @@ import {
     const user = useSelector((state) => state.users.value)
     console.log('users', user)
 
+    const data = [
+        {key:'1', value:'Débutant'},
+        {key:'2', value:'Intermediaire'},
+        {key:'3', value:'Confirmé'},
+        {key:'4', value:'Expert'},
+    ]
+
 return ( 
     <KeyboardAvoidingView
     behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     style={styles.container}> 
         <Text style={styles.title}>Tribe</Text>
-        <TextInput placeholder="Level" id="signupLevel" onChangeText={(value) => setSignupLevel(value)} value={signupLevel} style={styles.input} />
+        <SelectList 
+            setSelected={(val) => setSelected(val)} 
+            data={data} 
+            placeholder="Level" 
+            save="value"
+            style={styles.level}
+        />
 
         <TouchableOpacity onPress={handleRegisterSignUp} style={styles.button} activeOpacity={0.8}>
                 <Text style={styles.textButton}>Suivant</Text>
@@ -65,7 +79,7 @@ input:{
     borderColor: 'black',
     borderWidth: 1,
     width: "80%",
-    height: "7%",
+    height: 45,
     marginTop: 15,
     borderRadius: 7,
     borderColor: '#E0CDA9',
@@ -85,5 +99,9 @@ textButton: {
     color: '#ffffff',
     fontWeight: '600',
     fontSize: 23,      
+},
+level:{
+    width: 70,
+    fontSize: 80,
 },
 });
