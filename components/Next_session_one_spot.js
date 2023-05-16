@@ -44,7 +44,10 @@ const styles = StyleSheet.create({
     marginTop: "8%",
     left: 112,
     width: "70%",
-    // height: "100%",
+    shadowColor: "#171717",
+    shadowOffset: { width: -2, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
   },
 
   header: {

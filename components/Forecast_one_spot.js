@@ -64,6 +64,40 @@ export default function Forecast_one_spot() {
               color={"#0487D9"}
             />
           </View>
+          <View style={styles.secondColumn}>
+            <MaterialCommunityIcons
+              style={styles.star2}
+              name={"star"}
+              size={30}
+            >
+              <Text style={styles.numberStars}>0</Text>
+            </MaterialCommunityIcons>
+            <Text style={styles.wave2}>0.5m</Text>
+            <Text style={styles.wind2}>30km/h</Text>
+            <MaterialCommunityIcons
+              style={styles.cloud2}
+              name={"weather-partly-cloudy"}
+              size={30}
+              color={"#0487D9"}
+            />
+          </View>
+          <View style={styles.thirdColumn}>
+            <MaterialCommunityIcons
+              style={styles.star2}
+              name={"star"}
+              size={30}
+            >
+              <Text style={styles.numberStars}>4</Text>
+            </MaterialCommunityIcons>
+            <Text style={styles.wave2}>2m</Text>
+            <Text style={styles.wind2}>5km/h</Text>
+            <MaterialCommunityIcons
+              style={styles.cloud2}
+              name={"weather-partly-cloudy"}
+              size={30}
+              color={"#0487D9"}
+            />
+          </View>
         </View>
       </View>
     </View>
@@ -75,6 +109,10 @@ const styles = StyleSheet.create({
     left: 112,
     width: "70%",
     marginTop: "8%",
+    shadowColor: "#171717",
+    shadowOffset: { width: -2, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
   },
 
   header: {
@@ -123,11 +161,7 @@ const styles = StyleSheet.create({
     marginTop: 12,
     color: "white",
   },
-  border: {
-    fontSize: 20,
-    marginTop: 12,
-    color: "#646262",
-  },
+
   firstSession: {
     borderTopWidth: 0, // Remove the top border for the first session
   },
@@ -138,18 +172,21 @@ const styles = StyleSheet.create({
     borderColor: "#F0F0F0",
     paddingRight: 20,
     paddingTop: 20,
-    paddingLeft: 32,
+    paddingLeft: 30,
     paddingBottom: 20,
   },
-  star: {},
-  wave: { marginTop: 12 },
+  star: { borderBottomWidth: 1 },
+  wave: { marginTop: 12, borderBottomWidth: 1, borderColor: "black" },
   wind: { marginTop: 12 },
   cloud: { marginTop: 12 },
-  star2: { color: "#F2CB05", marginLeft: 20 },
+  star2: { color: "#F2CB05", marginLeft: 20, borderTopWidth: 1 },
   wave2: { marginTop: 20, fontSize: 10, color: "#646262", marginLeft: 32 },
   wind2: { marginTop: 25, fontSize: 10, color: "#646262", marginLeft: 28 },
   cloud2: { marginTop: 20, marginLeft: 28 },
-  contentRight: {},
+  contentRight: {
+    display: "flex",
+    flexDirection: "row",
+  },
   firstColumn: {
     display: "flex",
     flexDirection: "column",
@@ -157,5 +194,20 @@ const styles = StyleSheet.create({
     // paddingLeft: 32,
     paddingBottom: 20,
   },
+  secondColumn: {
+    display: "flex",
+    flexDirection: "column",
+    paddingTop: 20,
+    paddingLeft: 15,
+    paddingBottom: 20,
+  },
+  thirdColumn: {
+    display: "flex",
+    flexDirection: "column",
+    paddingTop: 20,
+    paddingLeft: 15,
+    paddingBottom: 20,
+  },
+
   numberStars: {},
 });

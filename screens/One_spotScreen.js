@@ -23,13 +23,13 @@ export default function One_spotScreen({ navigation }) {
         source={require("../assets/wavesfinal.png")}
       >
         <ScrollView contentContainerStyle={styles.scrollView}>
-          <View>
+          <View style={styles.all}>
             <Next_session_one_spot />
             <Forecast_one_spot />
+            <TouchableOpacity style={styles.button} activeOpacity={0.8}>
+              <Text style={styles.textButton}>See more</Text>
+            </TouchableOpacity>
           </View>
-          <TouchableOpacity style={styles.btn}>
-            <Text>map</Text>
-          </TouchableOpacity>
         </ScrollView>
       </ImageBackground>
     </View>
@@ -48,8 +48,18 @@ const styles = StyleSheet.create({
   scrollView: {
     paddingBottom: 250,
   },
-  btn: {
-    backgroundColor: "red",
-    marginTop: 100,
+  button: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "35%",
+    height: "7%",
+    marginTop: 20,
+    backgroundColor: "#5FB6DA",
+    borderRadius: 10,
+    marginBottom: 10,
+    left: 200,
   },
+  textButton: { color: "#ffffff", fontWeight: "600", fontSize: 14 },
+  all: { display: "flex", flexDirection: "column" },
 });

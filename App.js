@@ -25,6 +25,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import users from "./reducers/users";
 import count from "./reducers/count";
 import Signup_level from "./screens/Signup_levelScreen";
+import One_spotScreen from "./screens/One_spotScreen";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -72,7 +73,7 @@ export default function App() {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="One_spotScreen" component={One_spotScreen} />
+          <Stack.Screen name="One_spot" component={One_spotScreen} />
           <Stack.Screen name="Signup" component={SignupScreen} />
           <Stack.Screen
             name="Signup_basic_info"
