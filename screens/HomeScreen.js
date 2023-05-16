@@ -17,7 +17,7 @@ export default function HomeScreen({ navigation }) {
     <View style={styles.container}>
       <ImageBackground
         style={styles.water}
-        source={require("/Users/tim/Desktop/Tribe/tribe_frontend/assets/wave.png")}
+        source={require("../assets/wave.png")}
       >
         <SafeAreaView style={styles.components}>
           <My_next_session />
