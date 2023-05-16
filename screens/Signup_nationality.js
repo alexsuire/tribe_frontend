@@ -9,26 +9,23 @@ import {
   View,
 } from "react-native";
 import React, { useState, useEffect } from "react";
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 import Favorite_spots_signup from "../components/Favorite_spots_signup";
+import Nationality from "../components/Nationality";
 
-export default function Signup_favorite_spots({ navigation }) {
-  const [nickname, setNickname] = useState("");
-  const [spots, setSpots] = useState([]);
-
-  const count = useSelector((state) => state.count.value);
-
-  console.log("count",count)
-
+export default function Signup_nationality({ navigation }) {
+  const [nationalities, setNationalities] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:3000/spots");
+        const response = await fetch(
+          "http://localhost:3000/nationalities/allCountries"
+        );
         const json = await response.json();
         const data = json.data;
-        setSpots(data);
-        console.log(data);
+        console.log("fetchNatio", data);
+        setNationalities(data);
       } catch (error) {
         console.error(error);
       }
@@ -36,11 +33,11 @@ export default function Signup_favorite_spots({ navigation }) {
     fetchData();
   }, []);
 
-  console.log(spots);
+  console.log("nationalites", nationalities);
 
   const favspot =
-    spots.length > 0
-      ? spots.map((data, i) => <Favorite_spots_signup key={i} {...data} />)
+    nationalities.length > 0
+      ? nationalities.map((data, i) => <Nationality key={i} {...data} />)
       : null;
 
   return (
@@ -50,9 +47,8 @@ export default function Signup_favorite_spots({ navigation }) {
     >
       <View style={styles.top}>
         <Text style={{ fontFamily: "Lato-Bold" }}>
-          Choose up to 3 favorite spots
+          Choose your nationality(ies)
         </Text>
-   
       </View>
       <View style={styles.spots}>{favspot}</View>
     </KeyboardAvoidingView>
@@ -70,8 +66,6 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     alignItems: "center",
     justifyContent: "center",
-    
-
   },
   top: {
     alignItems: "center",
