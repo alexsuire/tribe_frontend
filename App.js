@@ -10,8 +10,7 @@ import SpotsScreen from "./screens/SpotsScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-const Stack = createNativeStackNavigator();
-const Tab = createBottomTabNavigator();
+
 import SignupScreen from './screens/SignupScreen';
 import SigninScreen from './screens/SigninScreen';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -23,6 +22,9 @@ import users from './reducers/users';
 const store = configureStore({
  reducer: { users },
 });
+
+const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 
 const TabNavigator = () => {
   return (
@@ -63,7 +65,7 @@ export default function App() {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="favoritespot" component={FavoriteSpotsScreens} />
           <Stack.Screen name="Signup" component={SignupScreen} />
           <Stack.Screen name="Signin" component={SigninScreen} />
           <Stack.Screen name="TabNavigator" component={TabNavigator} />

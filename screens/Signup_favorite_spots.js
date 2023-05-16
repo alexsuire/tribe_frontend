@@ -46,12 +46,7 @@ export default function Signup_favorite_spots({ navigation }) {
         <Text style={{ fontFamily: "Lato-Bold" }}>
           Choose up to 3 favorite spots
         </Text>
-        <TextInput
-          placeholder="..."
-          onChangeText={(value) => setNickname(value)}
-          value={nickname}
-          style={styles.input}
-        />
+   
       </View>
       <View style={styles.spots}>{favspot}</View>
     </KeyboardAvoidingView>
@@ -69,7 +64,7 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     alignItems: "center",
     justifyContent: "center",
-
+    
 
   },
   top: {
