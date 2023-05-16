@@ -56,7 +56,6 @@ export default function Nationality(props) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     margin: 8,
     width: 40,
     height: 100,

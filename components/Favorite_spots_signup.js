@@ -13,7 +13,10 @@ import { useSelector } from 'react-redux';
 import React, { useState, useEffect } from "react";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { useDispatch } from "react-redux";
-import { setCount } from "../reducers/count";
+import { incrementCount } from "../reducers/count";
+import { decrementCount } from "../reducers/count";
+import { selectSpot } from "../reducers/count";
+import { deselectSpot } from "../reducers/count";
 
 export default function Favorite_spots_signup(props) {
   const [checked, setChecked] = useState(false);
@@ -22,7 +25,6 @@ export default function Favorite_spots_signup(props) {
 
   const { checkedCount, selectedSpots } = useSelector((state) => state.count);
 
-  console.log(count)
 
 
   const onPress = () => {
@@ -37,6 +39,7 @@ export default function Favorite_spots_signup(props) {
     }
   };
 
+
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -48,14 +51,18 @@ export default function Favorite_spots_signup(props) {
           source={require("../assets/favoriteSpotsImage.jpg")}
           resizeMode="cover"
           style={styles.image}
+          
         >
-          <Text>{props.name}</Text>
-          {checked && (
-            <MaterialCommunityIcons name="check" color="green" size="30%" />
-          )}
-          {!checked && (
-            <MaterialCommunityIcons name="check" color="black" size="30%" />
-          )}
+          <View style={styles.propertyimage}>
+            <View style={styles.check}> 
+              {checked && (
+                <MaterialCommunityIcons name="check" color="green" size="20%" />
+              )}
+            </View>
+            <View style={styles.name}>
+              <Text style={styles.propertyname}>{props.name}</Text>
+            </View>
+          </View>
         </ImageBackground>
       </TouchableOpacity>
     </View>
@@ -65,17 +72,40 @@ export default function Favorite_spots_signup(props) {
 const styles = StyleSheet.create({
   container: {
     margin: 8,
-    width: "40%",
-    height: "25%",
+    width: "45%",
   },
   image: {
     width: "100%",
-    height: "100%",
+    height: 150,
     display: "flex",
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
   },
   opacity: {
-    backgroundColor: "black",
+    backgroundColor: "#E0CDA9",
+  },
+  propertyimage:{
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: 'center',
+    marginBottom: '30%',
+  },
+  check:{
+    backgroundColor: 'white',
+    borderRadius: 50,
+    height: 20,
+    margin: 5,
+    width: 20,
+    marginLeft: 130,
+  },
+ name:{
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+ },
+  propertyname:{
+    color: "black",
+    fontSize: 20,
+    fontWeight: 600,
   },
 });

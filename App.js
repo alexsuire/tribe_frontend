@@ -8,10 +8,12 @@ import HomeScreen from "./screens/HomeScreen";
 import SessionScreen from "./screens/SessionScreen";
 import SpotsScreen from "./screens/SpotsScreen";
 import ProfileScreen from "./screens/ProfileScreen";
+import Signup_favorite_spots from "./screens/Signup_favorite_spots";
 
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import SignupScreen from './screens/SignupScreen';
 import Signup_basic_infoScreen from './screens/Signup_basic_infoScreen';
+import Signup_levelScreen from './screens/Signup_levelScreen';
 
 import SigninScreen from './screens/SigninScreen';
 import SignupNationality from './screens/Signup_nationality';
@@ -22,6 +24,7 @@ import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import users from './reducers/users';
 import count from './reducers/count';
+import Signup_level from "./screens/Signup_levelScreen";
 
 
 const Stack = createNativeStackNavigator();
@@ -70,19 +73,25 @@ const TabNavigator = () => {
 export default function App() {
   return (
     <Provider store={store}>
+
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="Level" component={Signup_level} />
           <Stack.Screen name="nationality" component={SignupNationality} />
           <Stack.Screen name="Signup" component={SignupScreen} />
           <Stack.Screen name="Signup_basic_info" component={Signup_basic_infoScreen} />
+          <Stack.Screen name="Signup_favorite_spots" component={Signup_favorite_spots} />
+          <Stack.Screen name="Signup_level" component={Signup_levelScreen} />
           <Stack.Screen name="Signin" component={SigninScreen} />
           <Stack.Screen name="TabNavigator" component={TabNavigator} />
         </Stack.Navigator>
       </NavigationContainer>
+      
     </Provider>
 
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {
