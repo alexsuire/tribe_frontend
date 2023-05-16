@@ -24,7 +24,7 @@ import {
 
     const handleRegisterSignUp = () => {
         dispatch(login({ firstname: signupFirstname, lastname: signupLastname, age: signupAge}));
-        navigation.navigate('Signup_level');
+        navigation.navigate('Signup_favorite_spots');
         setSignupFirstname('');
         setSignupLastname('');
         setSignupAge('');
@@ -39,7 +39,7 @@ return (
         <Text style={styles.title}>Tribe</Text>
         <TextInput placeholder="Firstname" id="signupFirstname" onChangeText={(value) => setSignupFirstname(value)} value={signupFirstname} style={styles.input} />
         <TextInput placeholder="Lastname" id="signupLastname" onChangeText={(value) => setSignupLastname(value)} value={signupLastname} style={styles.input} />
-        <TextInput placeholder="Age" id="signupAge" onChangeText={(value) => setSignupAge(value)} value={signupAge} style={styles.input} />
+        <TextInput placeholder="Age" id="signupAge" onChangeText={(value) => setSignupAge(value)} value={signupAge} style={styles.input}   keyboardType="numeric" />
 
         <TouchableOpacity onPress={handleRegisterSignUp} style={styles.button} activeOpacity={0.8}>
                 <Text style={styles.textButton}>Suivant</Text>
@@ -73,15 +73,16 @@ input:{
     height: "7%",
     marginTop: 15,
     borderRadius: 7,
+    borderColor: '#E0CDA9',
 },
 button: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    width: '50%',
+    width: '40%',
     height: '8%',
     marginTop: 30,
-    backgroundColor: '#ec6e5b',
+    backgroundColor: '#0287D9',
     borderRadius: 10,
     marginBottom: 10,
 },
