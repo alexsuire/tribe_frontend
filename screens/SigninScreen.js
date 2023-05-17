@@ -24,30 +24,7 @@ import {
         navigation.navigate('TabNavigator');
     }
 
-    const handleForgotPassword = () => {
-        const transporter = nodemailer.createTransport({
-          service: 'gmail',
-          auth: {
-            user: 'votre_email@gmail.com',
-            pass: 'votre_mot_de_passe'
-          }
-        });
-    
-        const mailOptions = {
-          from: 'votre_email@gmail.com',
-          to: signinEmail,
-          subject: 'Mot de passe oublié',
-          text: `Votre mot de passe : ${signinPassword}`
-        };
-
-        transporter.sendMail(mailOptions, function(error, info){
-            if (error) {
-              console.log('Erreur lors de l\'envoi de l\'e-mail :', error);
-            } else {
-              console.log('E-mail envoyé avec succès :', info.response);
-            }
-        });
-    }
+   
 
     return ( 
         <KeyboardAvoidingView
@@ -61,9 +38,7 @@ import {
         <TouchableOpacity onPress={() => handleSubmitHome()} style={styles.button} activeOpacity={0.8}>
                 <Text style={styles.textButton}>Suivant</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => handleForgotPassword()}>
             <Text>Forgot password ?</Text>
-        </TouchableOpacity>
     </KeyboardAvoidingView>
     );
   }
@@ -90,7 +65,7 @@ import {
         borderColor: 'black',
         borderWidth: 1,
         width: "80%",
-        height: "7%",
+        height: 45,
         marginTop: 15,
         borderRadius: 7,
         borderColor: '#E0CDA9',

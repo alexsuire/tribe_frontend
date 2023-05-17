@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     Image,
     KeyboardAvoidingView,
@@ -10,6 +10,7 @@ import {
   } from "react-native";
   import { useDispatch, useSelector } from 'react-redux'
   import { login } from '../reducers/users';
+  import Ionicons from 'react-native-vector-icons/Ionicons';
 
   
   export default function SignupScreen({ navigation }) {
@@ -17,6 +18,9 @@ import {
     const dispatch = useDispatch();
     const [signupEmail, setSignupEmail] = useState('');
     const [signupPassword, setSignupPassword] = useState('');
+    const [isFormValid, setIsFormValid] = useState(false);
+    const [isEmailValid, setIsEmailValid] = useState(false);
+    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
     // const handleRegisterSignUp = () => {
     //     fetch('http:////10.33.210.115:3000/users/signup', {
@@ -36,12 +40,48 @@ import {
     //         });
     // };
 
-        const handleRegisterSignUp = () => {
-            dispatch(login({ email: signupEmail, password: signupPassword}));
-            navigation.navigate('Signup_basic_info');
-            setSignupEmail('');
-            setSignupPassword('');
+    const handleRegisterSignUp = () => {
+        if (isFormValid && isEmailValid) {
+          dispatch(login({ email: signupEmail, password: signupPassword }));
+          navigation.navigate('Signup_basic_info');
+          setSignupEmail('');
+          setSignupPassword('');
         }
+      };
+
+    const validateForm = () => {
+        if (signupEmail.trim() !== '' && signupPassword.trim() !== '') {
+            setIsFormValid(true);
+        } else {
+            setIsFormValid(false);
+        }
+    };
+        
+        useEffect(() => {
+        validateForm();
+        }, [signupEmail, signupPassword]);
+
+    const validateEmail = () => {
+    const emailRegex =  /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    setIsEmailValid(emailRegex.test(signupEmail));
+    };
+    
+    useEffect(() => {
+    validateEmail();
+    }, [signupEmail]);
+
+    const renderPasswordVisibilityButton = () => (
+        <TouchableOpacity
+          style={styles.togglePasswordButton}
+          onPress={() => setIsPasswordVisible(!isPasswordVisible)}
+        >
+          <Ionicons
+            name={isPasswordVisible ? 'eye' : 'eye-off'}
+            size={20}
+            color="#007AFF"
+          />
+        </TouchableOpacity>
+      );
 
     return ( 
     <KeyboardAvoidingView
@@ -49,11 +89,13 @@ import {
         style={styles.container}>
         <Text style={styles.title}>Tribe</Text>
         <Text style={styles.titlesignup}>Signup</Text>
-        <TextInput placeholder="Email" id="signupEmail" onChangeText={(value) => setSignupEmail(value)} value={signupEmail} style={styles.input} />
-        <TextInput placeholder="Password" id="signupPassword" onChangeText={(value) => setSignupPassword(value)} value={signupPassword} style={styles.input} />
-
-        <TouchableOpacity onPress={handleRegisterSignUp} style={styles.button} activeOpacity={0.8}>
-                <Text style={styles.textButton}>Suivant</Text>
+        <TextInput placeholder="Email" id="signupEmail" onChangeText={(value) => setSignupEmail(value)} value={signupEmail} style={[styles.inputemail, !isEmailValid && styles.invalidInput,]} />
+        <View style={styles.passwordContainer}>
+        <TextInput placeholder="Password" id="signupPassword" onChangeText={(value) => setSignupPassword(value)} value={signupPassword} style={styles.inputpassword} secureTextEntry={!isPasswordVisible}  />
+        {renderPasswordVisibilityButton()}
+        </View>
+        <TouchableOpacity onPress={handleRegisterSignUp} style={[styles.button, !isFormValid && styles.disabledButton]} disabled={!isFormValid} activeOpacity={0.8}>                
+            <Text style={styles.textButton}>Suivant</Text>
         </TouchableOpacity>
 
     </KeyboardAvoidingView>
@@ -77,12 +119,22 @@ import {
         color: 'black',
         marginBottom: 20,
     },
-    input:{
+    inputemail:{
+        textAlign: 'center',
+        borderColor: 'black',
+        borderWidth: 1,
+        width: "90%",
+        height: 45,
+        marginTop: 15,
+        borderRadius: 7,
+        borderColor: '#E0CDA9',
+    },
+    inputpassword:{
         textAlign: 'center',
         borderColor: 'black',
         borderWidth: 1,
         width: "80%",
-        height: 40,
+        height: 45,
         marginTop: 15,
         borderRadius: 7,
         borderColor: '#E0CDA9',
@@ -103,4 +155,28 @@ import {
         fontWeight: '600',
         fontSize: 23,      
     },
+    disabledButton: {
+        backgroundColor: '#ccc',
+    },
+    invalidInput: {
+    borderColor: 'red',
+    borderWidth: 1,
+    },
+    passwordContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        },
+    togglePasswordButton: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderColor: '#E0CDA9',
+        borderWidth: 1,
+        borderRadius: 5,
+        height: 30,
+        width: 30,
+        marginTop: 15,
+        marginLeft: 8,
+      },
+    
 });

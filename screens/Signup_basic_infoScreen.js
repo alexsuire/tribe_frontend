@@ -70,7 +70,7 @@ input:{
     borderColor: 'black',
     borderWidth: 1,
     width: "80%",
-    height: "7%",
+    height: 45,
     marginTop: 15,
     borderRadius: 7,
     borderColor: '#E0CDA9',
