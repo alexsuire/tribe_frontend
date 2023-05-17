@@ -13,7 +13,7 @@ import {
 import React, { useState, useEffect } from "react";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
-export default function One_spotScreen() {
+export default function Header_spot() {
   return (
     <View style={styles.container}>
       <SafeAreaView>

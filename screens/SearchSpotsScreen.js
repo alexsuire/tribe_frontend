@@ -18,7 +18,7 @@ import Next_session_one_spot from "../components/Next_session_one_spot";
 import Forecast_one_spot from "../components/Forecast_one_spot";
 import Spot from "../components/Spot";
 
-export default function One_spotScreen({ navigation }) {
+export default function SearchSpotScreen({ navigation }) {
   const [spots, setSpots] = useState([]);
   const [selectedSpot, setSelectedSpot] = useState("");
   const [filteredSpots, setFilteredSpots] = useState([]);

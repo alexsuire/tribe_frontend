@@ -18,7 +18,7 @@ import {
 } from "../reducers/count";
 import countries from "../data/countries.json";
 
-export default function Nationality(props) {
+export default function Nationality_signup(props) {
   const getShortName = (countryName) => {
     for (const [shortName, name] of Object.entries(countries)) {
       if (name === countryName) {

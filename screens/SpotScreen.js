@@ -14,7 +14,7 @@ import Header_one_spot from "../components/Header_spot";
 import Next_session_one_spot from "../components/NextSessions_spot";
 import Forecast_one_spot from "../components/Forecast_spot";
 
-export default function One_spotScreen({ navigation }) {
+export default function SpotScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <Header_one_spot />

@@ -9,7 +9,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Favorite_spots_signup from "../components/Favorite_spots_signup";
 
-export default function Signup_favorite_spots({ navigation }) {
+export default function SignupScreen2_spots({ navigation }) {
   const dispatch = useDispatch();
   const [spotsFetched, setSpotsFetched] = useState([]);
   const count = useSelector((state) => state.count.value);

@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
-export default function Forecast_one_spot() {
+export default function Forecast_spot() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>

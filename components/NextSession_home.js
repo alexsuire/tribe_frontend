@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import React, { useState, useEffect } from "react";
 
-export default function My_next_session() {
+export default function NextSession_home() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>

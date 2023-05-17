@@ -16,7 +16,7 @@ const sessionsData = [
   { date: "14/05/2023", hour: "6am - 8am", number: "3 people" },
 ];
 
-export default function Next_session_one_spot() {
+export default function NextSessions_spot() {
   const session = sessionsData.map((data, i) => {
     return (
       <View key={i} style={[styles.body, i === 0 && styles.firstSession]}>

@@ -12,7 +12,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginBasicScreen } from "../reducers/users";
 
-export default function Signup_basic_infoScreen({ navigation }) {
+export default function SignupScreen1_basic_info({ navigation }) {
   const dispatch = useDispatch();
   const [signupFirstname, setSignupFirstname] = useState("");
   const [signupLastname, setSignupLastname] = useState("");
