@@ -107,7 +107,7 @@ export default function Forecast_spot() {
 const styles = StyleSheet.create({
   container: {
     width: "70%",
-
+    marginTop: 40,
     shadowColor: "#171717",
     shadowOffset: { width: -2, height: 4 },
     shadowOpacity: 0.2,

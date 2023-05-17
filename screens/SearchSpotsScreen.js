@@ -15,6 +15,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 import Spot from "../components/Spot";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 export default function SearchSpotScreen({ navigation }) {
   const [spots, setSpots] = useState([]);
@@ -74,22 +75,26 @@ export default function SearchSpotScreen({ navigation }) {
           showsVerticalScrollIndicator={false}
         >
           <View style={styles.spots}>{selectedSpot.length > 0 && spot}</View>
-
-          {selectedSpot.length < 1 && (
-            <Text style={styles.initialText}> Find your favorite spots !</Text>
-          )}
+          <View style={styles.inactiveSpot}>
+            {selectedSpot.length < 1 && (
+              <Text style={styles.initialText}>
+                {" "}
+                Find your favorite spots !
+              </Text>
+            )}
+            <MaterialCommunityIcons
+              style={styles.map}
+              name={"map-outline"}
+              size={40}
+              color={"white"}
+            />
+          </View>
         </ScrollView>
       </View>
     </View>
   );
 }
 const styles = StyleSheet.create({
-  initialText: {
-    marginTop: 250,
-    color: "white",
-    fontWeight: 200,
-    fontSize: 20,
-  },
   container: {
     flex: 1,
     display: "flex",
@@ -148,4 +153,20 @@ const styles = StyleSheet.create({
   },
   textButton: { color: "#ffffff", fontWeight: "600", fontSize: 14 },
   all: { display: "flex", flexDirection: "column", alignItems: "center" },
+  inactiveSpot: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  initialText: {
+    marginTop: 220,
+    color: "white",
+    fontWeight: 200,
+    fontSize: 20,
+  },
+  map: {
+    display: "flex",
+    justifyContent: "flex-end",
+    marginTop: 20,
+  },
 });
