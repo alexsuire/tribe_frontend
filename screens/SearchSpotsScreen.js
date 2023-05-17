@@ -73,14 +73,12 @@ export default function SearchSpotScreen({ navigation }) {
         <ScrollView
           contentContainerStyle={styles.scrollView}
           showsVerticalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}
         >
           <View style={styles.spots}>{selectedSpot.length > 0 && spot}</View>
           <View style={styles.inactiveSpot}>
             {selectedSpot.length < 1 && (
-              <Text style={styles.initialText}>
-                {" "}
-                Find your favorite spots !
-              </Text>
+              <Text style={styles.initialText}>Find your favorite spots !</Text>
             )}
             <MaterialCommunityIcons
               style={styles.map}

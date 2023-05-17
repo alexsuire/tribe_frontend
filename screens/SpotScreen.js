@@ -22,7 +22,10 @@ export default function SpotScreen({ navigation }) {
         style={styles.wave2}
         source={require("../assets/wavesfinal.png")}
       >
-        <ScrollView contentContainerStyle={styles.scrollView}>
+        <ScrollView
+          contentContainerStyle={styles.scrollView}
+          showsVerticalScrollIndicator={false}
+        >
           <View style={styles.all}>
             <NextSessions_spot />
             <Forecast_spot />
@@ -44,7 +47,7 @@ const styles = StyleSheet.create({
   },
   wave2: {
     height: 800,
-    width: 500,
+    width: "100%",
   },
   scrollView: {
     paddingBottom: 320,
