@@ -14,8 +14,6 @@ import {
 import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
-import Next_session_one_spot from "../components/Next_session_one_spot";
-import Forecast_one_spot from "../components/Forecast_one_spot";
 import Spot from "../components/Spot";
 
 export default function SearchSpotScreen({ navigation }) {
@@ -26,7 +24,7 @@ export default function SearchSpotScreen({ navigation }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://10.33.210.113:3000/spots");
+        const response = await fetch("http://10.33.210.6:3000/spots");
         const json = await response.json();
         const data = json.data;
         setSpots(data);

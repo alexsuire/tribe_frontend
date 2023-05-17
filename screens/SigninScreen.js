@@ -17,7 +17,7 @@ export default function SigninScreen({ navigation }) {
   const [wrongUserInformations, setWrongUserInformations] = useState(false);
 
   const handleSubmitHome = () => {
-    fetch("http://localhost:3000/users/signin", {
+    fetch("http://10.33.210.6:3000/users/signin", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
