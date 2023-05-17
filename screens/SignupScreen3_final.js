@@ -1,48 +1,46 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Image,
   KeyboardAvoidingView,
   Platform,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
-  View,
-  FlatList
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { login } from '../reducers/users';
+import { loginCountry } from '../reducers/users';
 import { AutocompleteDropdown } from 'react-native-autocomplete-dropdown';
 import { SelectList } from 'react-native-dropdown-select-list'
 
 export default function Signup_level({ navigation }) {
-  const [selectedItem, setSelectedItem] = useState(null);
+  const [selectedCountry, setSelectedCountry] = useState(null);
   const [nationalities, setNationalities] = useState([]);
-  const [signupLevel, setSignupLevel] = useState('');
-  const [selected, setSelected] = React.useState("");
+  const [selectedLevel, setSelectedLevel] = React.useState("");
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.users.value);
-  
+  const user = useSelector(state => state.users.value)
 
+
+// Fetch les pays en BDD au chargement de la page
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchCountries = async () => {
       try {
-        const response = await fetch('http://10.33.210.115:3000/nationalities/allCountries');
+        const response = await fetch('http:localhost:3000/nationalities/allCountries');
         const json = await response.json();
         const data = json.data;
-        console.log('data', data)
         setNationalities(data);
       } catch (error) {
         console.error(error);
       }
     };
-    fetchData();
+    fetchCountries();
   }, []);
 
+
+// Map sur les pays pour récupérer seulement les noms de chaque et les ajoute dans la variable countryNames
 const countryNames = nationalities.map((item) => item.country)
 
 
-  
+
+// Map sur le nom des pays et crée un nouvel objet transformedCountries {id : index i, title: countryName}
   const transformedCountries = countryNames.map((country, index) => {
     return {
       id: index + 1,
@@ -50,16 +48,42 @@ const countryNames = nationalities.map((item) => item.country)
     };
   });
   
-  console.log(transformedCountries);
   
+//Au clic sur le bouton suivant : fetch la route qui retrouve un pays via son nom et renvoie son _ID, puis fetch la route qui crée un nouvel utilisateur en BDD
 
-  const handleRegisterSignUp = () => {
-    dispatch(login({ level: signupLevel }));
+  const CreateNewUser = async () => {
+    try {
+      const response = await fetch(`http://localhost:3000/nationalities/oneCountry/${selectedCountry.title}`);
+      const data = await response.json();
+      dispatch(loginCountry(data.data._id));
+  
+      // Exécuter le deuxième fetch seulement si le premier fetch a renvoyé des données
+      const secondResponse = await fetch('http://localhost:3000/users/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: user.email,
+          firstname: user.firstname,
+          lastname: user.lastname,
+          age: user.age,
+          password: user.password,
+          level: selectedLevel,
+          nationalities: user.country,
+          spots : user.spots
+        }),
+      });
+      const responseData = await secondResponse.json();
+      // Gérer les données de la réponse si nécessaire
+    } catch (error) {
+      // Gérer les erreurs
+      console.log(error);
+    }
+  
     navigation.navigate('TabNavigator');
-    setSignupLevel('');
   };
-
-    const data = [
+  
+// Data utilisée pour choisir le level du surfeur
+    const levelData = [
         {key:'1', value:'Débutant'},
         {key:'2', value:'Intermediaire'},
         {key:'3', value:'Confirmé'},
@@ -72,8 +96,8 @@ return (
     style={styles.container}> 
         <Text style={styles.title}>Tribe</Text>
         <SelectList 
-            setSelected={(val) => setSelected(val)} 
-            data={data} 
+            setSelected={(val) => setSelectedLevel(val)} 
+            data={levelData} 
             placeholder="Level" 
             save="value"
             style={styles.level}
@@ -83,17 +107,17 @@ return (
     closeOnBlur={true}
     closeOnSubmit={false}
     initialValue={{ id: '2' }} 
-    onSelectItem={setSelectedItem}
+    onSelectItem={setSelectedCountry}
     dataSet={transformedCountries}
     containerStyle={{
         width: '80%',
-        backgroundColor: 'white', // Set background color to white
-        borderColor: '#E0CDA9', // Set border color to black
-        borderWidth: 1, // Optional: Set border width
-        borderRadius: 7, // Optional: Set border radius
+        backgroundColor: 'white', 
+        borderColor: '#E0CDA9', 
+        borderWidth: 1, 
+        borderRadius: 7, 
     }}/>
 
-      <TouchableOpacity onPress={handleRegisterSignUp} style={styles.button} activeOpacity={0.8}>
+      <TouchableOpacity onPress={CreateNewUser} style={styles.button} activeOpacity={0.8}>
         <Text style={styles.textButton}>Suivant</Text>
       </TouchableOpacity>
     </KeyboardAvoidingView>

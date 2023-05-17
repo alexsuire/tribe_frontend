@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import {
-    Image,
     KeyboardAvoidingView,
     Platform,
     StyleSheet,
@@ -9,7 +8,7 @@ import {
     TouchableOpacity, View
   } from "react-native";
   import { useDispatch, useSelector } from 'react-redux'
-  import { login } from '../reducers/users';
+  import { loginScreen } from '../reducers/users';
   import Ionicons from 'react-native-vector-icons/Ionicons';
 
   
@@ -22,32 +21,19 @@ import {
     const [isEmailValid, setIsEmailValid] = useState(false);
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
-    // const handleRegisterSignUp = () => {
-    //     fetch('http:////10.33.210.115:3000/users/signup', {
-    //         method: 'POST',
-    //         headers: { 'Content-Type': 'application/json' },
-    //         body: JSON.stringify({ email: signupEmail, password: signupPassword }),
-    //     }).then(response => response.json())
-    //         .then(data => {
-    //             if (data.result) {
-    //                 console.log(data)
-    //                 dispatch(login({ email: signupEmail, token: data.token, firstname: data.firstname, lastname: data.lastname, age: data.age, password: signupPassword, level: data.level }));
-    //                 navigation.navigate('Signup_basic_info');
-    //             }
-    //             setSignupEmail('');
-    //             setSignupPassword('');
 
-    //         });
-    // };
-
+  // Au clic sur le bouton "suivant", enregistre l'email et le mot de passe et  redirige vers la page signup de choix des infos basiques
     const handleRegisterSignUp = () => {
         if (isFormValid && isEmailValid) {
-          dispatch(login({ email: signupEmail, password: signupPassword }));
-          navigation.navigate('Signup_basic_info');
+          dispatch(loginScreen({ email: signupEmail, password: signupPassword }));
+          navigation.navigate('Signup1_basic_info');
           setSignupEmail('');
           setSignupPassword('');
         }
       };
+
+
+  // Fonction pour vérifier si
 
     const validateForm = () => {
         if (signupEmail.trim() !== '' && signupPassword.trim() !== '') {
@@ -61,6 +47,7 @@ import {
         validateForm();
         }, [signupEmail, signupPassword]);
 
+  // Fonction pour vérifier si l'email est valide via un regex. Si oui set IsEmailValid en True
     const validateEmail = () => {
     const emailRegex =  /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     setIsEmailValid(emailRegex.test(signupEmail));
@@ -69,6 +56,8 @@ import {
     useEffect(() => {
     validateEmail();
     }, [signupEmail]);
+
+  // Fonction pour la gestion de l'affichage du mot de passe via une icon eye
 
     const renderPasswordVisibilityButton = () => (
         <TouchableOpacity
