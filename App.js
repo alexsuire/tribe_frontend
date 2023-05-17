@@ -6,23 +6,19 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import LoginScreen from "./screens/LoginScreen";
 import HomeScreen from "./screens/HomeScreen";
 import SessionScreen from "./screens/SessionScreen";
-import SpotsScreen from "./screens/SpotsScreen";
-import MapScreen from "./screens/MapScreen";
+import SearchSpotsScreen from "./screens/SearchSpotsScreen";
 import ProfileScreen from "./screens/ProfileScreen";
-import Signup_favorite_spots from "./screens/Signup_favorite_spots";
+import MapScreen from "./screens/MapScreen";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import SignupScreen from "./screens/SignupScreen";
-import Signup_basic_infoScreen from "./screens/Signup_basic_infoScreen";
-import Signup_levelScreen from "./screens/Signup_levelScreen";
 import SigninScreen from "./screens/SigninScreen";
-import SignupNationality from "./screens/Signup_nationality";
-import FontAwesome from "react-native-vector-icons/FontAwesome";
-import FavoriteSpotsScreens from "./screens/Signup_favorite_spots";
+import SignupScreen from "./screens/SignupScreen";
+import SignupScreen1_basic_info from "./screens/SignupScreen1_basic_info";
+import SignupScreen2_spots from "./screens/SignupScreen2_spots";
+import SignupScreen3_final from "./screens/SignupScreen3_final";
 import { Provider } from "react-redux";
 import users from "./reducers/users";
 import count from "./reducers/count";
-import Signup_level from "./screens/Signup_levelScreen";
-import One_spotScreen from "./screens/One_spotScreen";
+import SpotScreen from "./screens/SpotScreen";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { persistStore, persistReducer } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
@@ -31,7 +27,7 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
 const reducers = combineReducers({ users, count });
 const persistConfig = {
-  key: "applicationName",
+  key: "Tribe",
   version: 1,
   storage: AsyncStorage,
 };
@@ -76,7 +72,7 @@ const TabNavigator = () => {
     >
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Session" component={SessionScreen} />
-      <Tab.Screen name="Spots" component={SpotsScreen} />
+      <Tab.Screen name="Spots" component={SearchSpotsScreen} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
   );
@@ -85,22 +81,21 @@ const TabNavigator = () => {
 export default function App() {
   return (
     <Provider store={store}>
-      <NavigationContainer>
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Login" component={LoginScreen} />
-          <Stack.Screen name="Signup" component={SignupScreen} />
-          <Stack.Screen name="Signup_basic_info" component={Signup_basic_infoScreen} />
-          <Stack.Screen name="Signup_favorite_spots" component={Signup_favorite_spots} />
-          <Stack.Screen name="Signup_level" component={Signup_levelScreen} />
-          <Stack.Screen name="nationality" component={SignupNationality} />
-          <Stack.Screen name="Signin" component={SigninScreen} />
-          <Stack.Screen name="Home" component={HomeScreen} />
-          <Stack.Screen name="TabNavigator" component={TabNavigator} />
-          <Stack.Screen name="One_spot" component={One_spotScreen} />
-          <Stack.Screen name="Spots" component={SpotsScreen} /> b  
-          <Stack.Screen name="Map" component={MapScreen} />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <PersistGate persistor={persistor}>
+        <NavigationContainer>
+          <Stack.Navigator screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="LoginScreen" component={LoginScreen} />
+            <Stack.Screen name="SigninScreen" component={SigninScreen} />
+            <Stack.Screen name="SignupScreen" component={SignupScreen}/>
+            <Stack.Screen name="Signup1_basic_info" component={SignupScreen1_basic_info}/>
+            <Stack.Screen name="Signup2_spots" component={SignupScreen2_spots}/>
+            <Stack.Screen name="Signup3_final" component={SignupScreen3_final} />
+            <Stack.Screen name="SpotScreen" component={SpotScreen} />
+            <Stack.Screen name="MapScreen" component={MapScreen} />
+            <Stack.Screen name="TabNavigator" component={TabNavigator} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </PersistGate>
     </Provider>
   );
 }
