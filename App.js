@@ -32,7 +32,6 @@ const persistConfig = {
   storage: AsyncStorage,
 };
 
-
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -86,10 +85,19 @@ export default function App() {
           <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen name="LoginScreen" component={LoginScreen} />
             <Stack.Screen name="SigninScreen" component={SigninScreen} />
-            <Stack.Screen name="SignupScreen" component={SignupScreen}/>
-            <Stack.Screen name="Signup1_basic_info" component={SignupScreen1_basic_info}/>
-            <Stack.Screen name="Signup2_spots" component={SignupScreen2_spots}/>
-            <Stack.Screen name="Signup3_final" component={SignupScreen3_final} />
+            <Stack.Screen name="SignupScreen" component={SignupScreen} />
+            <Stack.Screen
+              name="Signup1_basic_info"
+              component={SignupScreen1_basic_info}
+            />
+            <Stack.Screen
+              name="Signup2_spots"
+              component={SignupScreen2_spots}
+            />
+            <Stack.Screen
+              name="Signup3_final"
+              component={SignupScreen3_final}
+            />
             <Stack.Screen name="SpotScreen" component={SpotScreen} />
             <Stack.Screen name="MapScreen" component={MapScreen} />
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
