@@ -70,7 +70,7 @@ export default function MapScreen({ navigation }) {
   <SafeAreaView  style={styles.container}>
     <View style={styles.inputSection}>
       <View style={styles.header}>
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Spots')}>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('SpotScreen')}>
             <FontAwesome name='arrow-circle-left' size={50} color='#0287D9' />
         </TouchableOpacity>
         <TextInput

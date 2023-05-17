@@ -10,22 +10,22 @@ import {
   ImageBackground,
   ScrollView,
 } from "react-native";
-import Header_one_spot from "../components/Header_spot";
-import Next_session_one_spot from "../components/NextSessions_spot";
-import Forecast_one_spot from "../components/Forecast_spot";
+import Header_spot from "../components/Header_spot";
+import NextSessions_spot from "../components/NextSessions_spot";
+import Forecast_spot from "../components/Forecast_spot";
 
 export default function SpotScreen({ navigation }) {
   return (
     <View style={styles.container}>
-      <Header_one_spot />
+      <Header_spot />
       <ImageBackground
         style={styles.wave2}
         source={require("../assets/wavesfinal.png")}
       >
         <ScrollView contentContainerStyle={styles.scrollView}>
           <View style={styles.all}>
-            <Next_session_one_spot />
-            <Forecast_one_spot />
+            <NextSessions_spot />
+            <Forecast_spot />
             <TouchableOpacity style={styles.button} activeOpacity={0.8}>
               <Text style={styles.textButton}>See more</Text>
             </TouchableOpacity>

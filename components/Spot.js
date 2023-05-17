@@ -7,10 +7,14 @@ import {
 } from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { useNavigation } from "@react-navigation/native";
+
+
 export default function Spot(props) {
+
   const navigation = useNavigation();
+  
   return (
-    <TouchableOpacity onPress={() => navigation.navigate("One_spot")}>
+    <TouchableOpacity onPress={() => navigation.navigate("SpotScreen")}>
       <View style={styles.container}>
         <Text style={styles.name}>{props.name}</Text>
         <Text style={styles.region}>{props.region}</Text>
