@@ -17,6 +17,7 @@ import { incrementCount } from "../reducers/count";
 import { decrementCount } from "../reducers/count";
 import { selectSpot } from "../reducers/count";
 import { deselectSpot } from "../reducers/count";
+import { AddFavoriteSpot,RemoveFavoriteSpot } from "../reducers/users"
 
 export default function Favorite_spots_signup(props) {
   const [checked, setChecked] = useState(false);
@@ -26,16 +27,18 @@ export default function Favorite_spots_signup(props) {
   const { checkedCount, selectedSpots } = useSelector((state) => state.count);
 
 
-
   const onPress = () => {
     if (checked) {
       setChecked(false);
       dispatch(decrementCount());
       dispatch(deselectSpot(props.id));
+      dispatch(RemoveFavoriteSpot(props._id))
+
     } else if (checkedCount < 3) {
       setChecked(true);
       dispatch(incrementCount());
       dispatch(selectSpot(props.id));
+      dispatch(AddFavoriteSpot(props._id))
     }
   };
 

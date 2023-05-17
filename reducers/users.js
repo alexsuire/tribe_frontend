@@ -1,21 +1,45 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  value: { email: null, token: null, lastname: null, firstname: null, age: null, password: null, level: null },
+  value: {
+    email: null,
+    token: null,
+    lastname: null,
+    firstname: null,
+    age: 0,
+    password: null,
+    level: null,
+    spots: [],
+    country: null
+  },
 };
 
 export const userSlice = createSlice({
-  name: 'user',
+  name: "user",
   initialState,
   reducers: {
-    login: (state, action) => {
+    loginScreen: (state, action) => {
       state.value.email = action.payload.email;
-      state.value.token = action.payload.token;
-      state.value.lastname= action.payload.lastname;
+      state.value.password = action.payload.password;
+    },
+    loginBasicScreen: (state, action) => {
+      state.value.lastname = action.payload.lastname;
       state.value.firstname = action.payload.firstname;
       state.value.age = action.payload.age;
-      state.value.password = action.payload.password;
-      state.value.level = action.payload.level;
+    },
+    AddFavoriteSpot: (state, action) => {
+      state.value.spots.push(action.payload);
+    },
+    RemoveFavoriteSpot: (state, action) => {
+      state.value.spots = state.value.spots.filter(
+        (spot) => spot !== action.payload
+      );
+    },
+    loginCountry: (state, action) => {
+      state.value.country = action.payload
+    },
+    loginLevel: (state, action) => {
+      state.value.level = action.payload
     },
     logout: (state) => {
       state.value.email = null;
@@ -24,5 +48,13 @@ export const userSlice = createSlice({
   },
 });
 
-export const { login, logout } = userSlice.actions;
+export const {
+  loginScreen,
+  loginBasicScreen,
+  AddFavoriteSpot,
+  RemoveFavoriteSpot,
+  logout,
+  loginCountry,
+  loginLevel
+} = userSlice.actions;
 export default userSlice.reducer;

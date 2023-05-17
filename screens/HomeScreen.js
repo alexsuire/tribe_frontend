@@ -10,9 +10,18 @@ import {
   TouchableOpacity,
   SafeAreaView,
 } from "react-native";
-import My_next_session from "../components/My_next_session";
+import My_next_session from "../components/NextSession_home";
+import { useDispatch, useSelector } from 'react-redux';
+
+
 
 export default function HomeScreen({ navigation }) {
+
+
+
+  const user = useSelector((state) => state.users.value);
+
+
   return (
     <View style={styles.container}>
       <ImageBackground

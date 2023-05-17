@@ -10,9 +10,9 @@ import {
   ImageBackground,
   ScrollView,
 } from "react-native";
-import Header_one_spot from "../components/Header_one_spot";
-import Next_session_one_spot from "../components/Next_session_one_spot";
-import Forecast_one_spot from "../components/Forecast_one_spot";
+import Header_one_spot from "../components/Header_spot";
+import Next_session_one_spot from "../components/NextSessions_spot";
+import Forecast_one_spot from "../components/Forecast_spot";
 
 export default function One_spotScreen({ navigation }) {
   return (
