@@ -42,7 +42,7 @@ export default function Next_session_one_spot() {
 const styles = StyleSheet.create({
   container: {
     marginTop: "8%",
-    left: 112,
+
     width: "70%",
     shadowColor: "#171717",
     shadowOffset: { width: -2, height: 4 },

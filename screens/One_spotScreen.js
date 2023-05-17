@@ -39,11 +39,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#FFFFFF",
+    display: "flex",
+    alignItems: "center",
   },
   wave2: {
     height: 800,
     width: 500,
-    right: 100,
   },
   scrollView: {
     paddingBottom: 250,
@@ -58,8 +59,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#5FB6DA",
     borderRadius: 10,
     marginBottom: 10,
-    left: 200,
   },
   textButton: { color: "#ffffff", fontWeight: "600", fontSize: 14 },
-  all: { display: "flex", flexDirection: "column" },
+  all: { display: "flex", flexDirection: "column", alignItems: "center" },
 });
