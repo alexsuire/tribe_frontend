@@ -76,6 +76,7 @@ export default function One_spotScreen({ navigation }) {
           showsVerticalScrollIndicator={false}
         >
           <View style={styles.spots}>{selectedSpot.length > 0 && spot}</View>
+
           {selectedSpot.length < 1 && (
             <Text style={styles.initialText}> Find your favorite spots !</Text>
           )}

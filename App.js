@@ -85,7 +85,8 @@ export default function App() {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
-          {/* <Stack.Screen name="Signup" component={SignupScreen} />
+          <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="Signup" component={SignupScreen} />
           <Stack.Screen
             name="Signup_basic_info"
             component={Signup_basic_infoScreen}
@@ -93,11 +94,11 @@ export default function App() {
           <Stack.Screen
             name="Signup_favorite_spots"
             component={Signup_favorite_spots}
-          /> */}
-          {/* <Stack.Screen name="Signup_level" component={Signup_levelScreen} /> */}
-          {/* <Stack.Screen name="Login" component={Signup_level} />
-          <Stack.Screen name="nationality" component={SignupNationality} /> */}
-          <Stack.Screen name="Login" component={LoginScreen} />
+          />
+          <Stack.Screen name="Signup_level" component={Signup_levelScreen} />
+          <Stack.Screen name="One_spot" component={One_spotScreen} />
+
+          <Stack.Screen name="nationality" component={SignupNationality} />
           <Stack.Screen name="Signin" component={SigninScreen} />
           <Stack.Screen name="TabNavigator" component={TabNavigator} />
         </Stack.Navigator>
