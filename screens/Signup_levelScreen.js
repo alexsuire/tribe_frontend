@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../reducers/users';
-import { AutocompleteDropdown } from 'react-native-autocomplete-dropdown';
+import { AutocompleteDropdown} from 'react-native-autocomplete-dropdown';
 import { SelectList } from 'react-native-dropdown-select-list'
 
 export default function Signup_level({ navigation }) {

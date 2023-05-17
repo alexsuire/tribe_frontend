@@ -7,6 +7,7 @@ import LoginScreen from "./screens/LoginScreen";
 import HomeScreen from "./screens/HomeScreen";
 import SessionScreen from "./screens/SessionScreen";
 import SpotsScreen from "./screens/SpotsScreen";
+import MapScreen from "./screens/MapScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import Signup_favorite_spots from "./screens/Signup_favorite_spots";
 
@@ -26,6 +27,7 @@ import users from "./reducers/users";
 import count from "./reducers/count";
 import Signup_level from "./screens/Signup_levelScreen";
 import One_spotScreen from "./screens/One_spotScreen";
+
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -73,14 +75,16 @@ export default function App() {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="Map" component={MapScreen} />
+        <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="Signup" component={SignupScreen} />
           <Stack.Screen name="Signup_basic_info" component={Signup_basic_infoScreen} />
           <Stack.Screen name="Signup_favorite_spots" component={Signup_favorite_spots} />
-          {/* <Stack.Screen name="Signup_level" component={Signup_levelScreen} /> */}
-          <Stack.Screen name="Level" component={Signup_level} />
+          <Stack.Screen name="Signup_level" component={Signup_levelScreen} />
           <Stack.Screen name="nationality" component={SignupNationality} />
-          <Stack.Screen name="One_spot" component={One_spotScreen} />
           <Stack.Screen name="Signin" component={SigninScreen} />
+          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="One_spot" component={One_spotScreen} />
           <Stack.Screen name="TabNavigator" component={TabNavigator} />
         </Stack.Navigator>
       </NavigationContainer>
