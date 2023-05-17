@@ -9,30 +9,42 @@ import SessionScreen from "./screens/SessionScreen";
 import SpotsScreen from "./screens/SpotsScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import Signup_favorite_spots from "./screens/Signup_favorite_spots";
-
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import SignupScreen from "./screens/SignupScreen";
 import Signup_basic_infoScreen from "./screens/Signup_basic_infoScreen";
 import Signup_levelScreen from "./screens/Signup_levelScreen";
-
 import SigninScreen from "./screens/SigninScreen";
 import SignupNationality from "./screens/Signup_nationality";
-
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import FavoriteSpotsScreens from "./screens/Signup_favorite_spots";
 import { Provider } from "react-redux";
-import { configureStore } from "@reduxjs/toolkit";
 import users from "./reducers/users";
 import count from "./reducers/count";
 import Signup_level from "./screens/Signup_levelScreen";
 import One_spotScreen from "./screens/One_spotScreen";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { persistStore, persistReducer } from "redux-persist";
+import { PersistGate } from "redux-persist/integration/react";
+import storage from "redux-persist/lib/storage";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+
+const reducers = combineReducers({ users, count });
+const persistConfig = {
+  key: "applicationName",
+  version: 1,
+  storage: AsyncStorage,
+};
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const store = configureStore({
-  reducer: { users, count },
+  reducer: persistReducer(persistConfig, reducers),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({ serializableCheck: false }),
 });
+
+const persistor = persistStore(store);
 
 const TabNavigator = () => {
   return (
