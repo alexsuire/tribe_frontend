@@ -24,6 +24,7 @@ import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import users from './reducers/users';
 import count from './reducers/count';
+import Signup_level from "./screens/Signup_levelScreen";
 
 
 const Stack = createNativeStackNavigator();
@@ -75,12 +76,13 @@ export default function App() {
 
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="Login" component={LoginScreen} />
-          <Stack.Screen name="nationality" component={SignupNationality} />
+        
           <Stack.Screen name="Signup" component={SignupScreen} />
           <Stack.Screen name="Signup_basic_info" component={Signup_basic_infoScreen} />
           <Stack.Screen name="Signup_favorite_spots" component={Signup_favorite_spots} />
-          <Stack.Screen name="Signup_level" component={Signup_levelScreen} />
+          {/* <Stack.Screen name="Signup_level" component={Signup_levelScreen} /> */}
+          <Stack.Screen name="Level" component={Signup_level} />
+          <Stack.Screen name="nationality" component={SignupNationality} />
           <Stack.Screen name="Signin" component={SigninScreen} />
           <Stack.Screen name="TabNavigator" component={TabNavigator} />
         </Stack.Navigator>
