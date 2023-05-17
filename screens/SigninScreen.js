@@ -4,17 +4,22 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  TouchableOpacity,
+  TouchableOpacity, View
 } from "react-native";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../reducers/users";
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
 
 export default function SigninScreen({ navigation }) {
   const dispatch = useDispatch();
   const [signinEmail, setSigninEmail] = useState("");
   const [signinPassword, setSigninPassword] = useState("");
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [wrongUserInformations, setWrongUserInformations] = useState(false);
+
+
 
   const handleSubmitHome = () => {
     fetch("http://10.33.210.6:3000/users/signin", {
@@ -39,6 +44,21 @@ export default function SigninScreen({ navigation }) {
       });
   };
 
+   // Fonction pour la gestion de l'affichage du mot de passe via une icon eye
+
+   const renderPasswordVisibilityButton = () => (
+    <TouchableOpacity
+      style={styles.togglePasswordButton}
+      onPress={() => setIsPasswordVisible(!isPasswordVisible)}
+    >
+      <Ionicons
+        name={isPasswordVisible ? 'eye' : 'eye-off'}
+        size={20}
+        color="#007AFF"
+      />
+    </TouchableOpacity>
+  );
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -50,14 +70,18 @@ export default function SigninScreen({ navigation }) {
         placeholder="Email"
         onChangeText={(value) => setSigninEmail(value)}
         value={signinEmail}
-        style={styles.input}
+        style={styles.inputemail}
       />
-      <TextInput
-        placeholder="Password"
-        onChangeText={(value) => setSigninPassword(value)}
-        value={signinPassword}
-        style={styles.input}
-      />
+      <View style={styles.passwordContainer}>
+        <TextInput
+          placeholder="Password"
+          onChangeText={(value) => setSigninPassword(value)}
+          value={signinPassword}
+          style={styles.inputpassword}
+          secureTextEntry={!isPasswordVisible} 
+        />
+        {renderPasswordVisibilityButton()}
+      </View>
      { wrongUserInformations && <Text style={styles.wrongInfos}>Email or password is invalid</Text> }
 
       <TouchableOpacity
@@ -89,7 +113,17 @@ const styles = StyleSheet.create({
     color: "Black",
     marginBottom: 20,
   },
-  input: {
+  inputemail: {
+    textAlign: "center",
+    borderColor: "black",
+    borderWidth: 1,
+    width: "90%",
+    height: 45,
+    marginTop: 15,
+    borderRadius: 7,
+    borderColor: "#E0CDA9",
+  },
+  inputpassword: {
     textAlign: "center",
     borderColor: "black",
     borderWidth: 1,
@@ -118,5 +152,21 @@ const styles = StyleSheet.create({
   wrongInfos: {
     marginTop: 10,
     color: "red"
-  }
+  },
+  passwordContainer:{
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  togglePasswordButton: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderColor: '#E0CDA9',
+    borderWidth: 1,
+    borderRadius: 5,
+    height: 30,
+    width: 30,
+    marginTop: 15,
+    marginLeft: 8,
+  },
 });
