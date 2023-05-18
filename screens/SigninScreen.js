@@ -4,14 +4,16 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  TouchableOpacity, View
+  TouchableOpacity,
+  View,
 } from "react-native";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../reducers/users";
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import Ionicons from "react-native-vector-icons/Ionicons";
 
-
+const { getFetchAPI } = require("../modules/util");
+const FETCH_API = getFetchAPI();
 export default function SigninScreen({ navigation }) {
   const dispatch = useDispatch();
   const [signinEmail, setSigninEmail] = useState("");
@@ -19,10 +21,8 @@ export default function SigninScreen({ navigation }) {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [wrongUserInformations, setWrongUserInformations] = useState(false);
 
-
-
   const handleSubmitHome = () => {
-    fetch("http://10.33.210.6:3000/users/signin", {
+    fetch(FETCH_API + "/users/signin", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -36,7 +36,7 @@ export default function SigninScreen({ navigation }) {
           navigation.navigate("TabNavigator");
           setWrongUserInformations(false);
         } else {
-          setWrongUserInformations(true); 
+          setWrongUserInformations(true);
         }
       })
       .catch((error) => {
@@ -44,15 +44,15 @@ export default function SigninScreen({ navigation }) {
       });
   };
 
-   // Fonction pour la gestion de l'affichage du mot de passe via une icon eye
+  // Fonction pour la gestion de l'affichage du mot de passe via une icon eye
 
-   const renderPasswordVisibilityButton = () => (
+  const renderPasswordVisibilityButton = () => (
     <TouchableOpacity
       style={styles.togglePasswordButton}
       onPress={() => setIsPasswordVisible(!isPasswordVisible)}
     >
       <Ionicons
-        name={isPasswordVisible ? 'eye' : 'eye-off'}
+        name={isPasswordVisible ? "eye" : "eye-off"}
         size={20}
         color="#007AFF"
       />
@@ -78,11 +78,13 @@ export default function SigninScreen({ navigation }) {
           onChangeText={(value) => setSigninPassword(value)}
           value={signinPassword}
           style={styles.inputpassword}
-          secureTextEntry={!isPasswordVisible} 
+          secureTextEntry={!isPasswordVisible}
         />
         {renderPasswordVisibilityButton()}
       </View>
-     { wrongUserInformations && <Text style={styles.wrongInfos}>Email or password is invalid</Text> }
+      {wrongUserInformations && (
+        <Text style={styles.wrongInfos}>Email or password is invalid</Text>
+      )}
 
       <TouchableOpacity
         onPress={() => handleSubmitHome()}
@@ -149,19 +151,19 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     fontSize: 23,
   },
-  wrongInfos: {
+  wrongInfos: {
     marginTop: 10,
-    color: "red"
+    color: "red",
   },
-  passwordContainer:{
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+  passwordContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   togglePasswordButton: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderColor: '#E0CDA9',
+    justifyContent: "center",
+    alignItems: "center",
+    borderColor: "#E0CDA9",
     borderWidth: 1,
     borderRadius: 5,
     height: 30,

@@ -16,7 +16,8 @@ import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 import Spot from "../components/Spot";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-
+const { getFetchAPI } = require("../modules/util");
+const FETCH_API = getFetchAPI();
 export default function SearchSpotScreen({ navigation }) {
   const [spots, setSpots] = useState([]);
   const [selectedSpot, setSelectedSpot] = useState("");
@@ -25,7 +26,7 @@ export default function SearchSpotScreen({ navigation }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://10.33.210.6:3000/spots");
+        const response = await fetch(FETCH_API + "/spots");
         const json = await response.json();
         const data = json.data;
         setSpots(data);
@@ -80,8 +81,13 @@ export default function SearchSpotScreen({ navigation }) {
             {selectedSpot.length < 1 && (
               <Text style={styles.initialText}>Find your favorite spots !</Text>
             )}
-            <TouchableOpacity onPress={() => navigation.navigate('MapScreen')}>
-              <MaterialCommunityIcons style={styles.map} name={"map-outline"} size={40} color={"white"} />
+            <TouchableOpacity onPress={() => navigation.navigate("MapScreen")}>
+              <MaterialCommunityIcons
+                style={styles.map}
+                name={"map-outline"}
+                size={40}
+                color={"white"}
+              />
             </TouchableOpacity>
           </View>
         </ScrollView>
