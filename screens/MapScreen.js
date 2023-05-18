@@ -12,6 +12,7 @@ export default function MapScreen({ navigation }) {
   const [location, setLocation] = useState(null);
   const [spots, setSpots] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
+  
 
   const handleClearButtonPress = () => {
     const results = spots.filter(spot => spot.name.toLowerCase().includes(inputMap.toLowerCase()));
@@ -60,24 +61,33 @@ export default function MapScreen({ navigation }) {
       key={index}
       coordinate={{ latitude: spot.latitude, longitude: spot.longitude }}
       title={spot.name} 
-      onCalloutPress={ () => navigation.navigate('One_spot', {spot})}
+      onCalloutPress={ () => navigation.navigate('SpotScreen', {spot})}
       >
       <Image source={icon.surfboard} style={{ width: 40, height: 40 }}/>
     </Marker>
   ));
 
+  const handleSearch = (text) => {
+    const filtered = spots.filter((spot) =>
+      spot.name.toLowerCase().includes(text.toLowerCase())
+    );
+    setFilteredSpots(filtered);
+    setSelectedSpot(text);
+    console.log(filtered);
+  };
+
  return (
   <SafeAreaView  style={styles.container}>
     <View style={styles.inputSection}>
       <View style={styles.header}>
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('SpotScreen')}>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('TabNavigator')}>
             <FontAwesome name='arrow-circle-left' size={50} color='#0287D9' />
         </TouchableOpacity>
         <TextInput
-            placeholder='Que cherchez-vous ?'
+            placeholder='...🔎'
             style={styles.input1}
             value={inputMap}
-            onChangeText={(text) => setInputMap(text)}
+            onChangeText={handleSearch}
         />
         <TouchableOpacity style={styles.clear} onPress={handleClearButtonPress}>
             <FontAwesome name='search' size={25} color='white' />
@@ -107,11 +117,12 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height,
     position: 'relative',
+
   },
 
 inputSection: {
 	  width: '100%',
-	  height: '20%',
+	  height: '13%',
     display: 'flex',
     flexDirection: 'row',
 	  justifyContent: 'center',
@@ -124,6 +135,8 @@ inputSection: {
     justifyContent: 'space-around',
     alignItems: 'center',
     width: '100%',
+    backgroundColor: '#F0F0F0',
+
   },
  
   
@@ -149,14 +162,6 @@ inputSection: {
     height: 50,
     width: 50,
   
-  },
-  recherche:{
-    marginTop: 28,
-    height: 150,
-    width: 310,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   menuhaut:{
     display: 'flex',

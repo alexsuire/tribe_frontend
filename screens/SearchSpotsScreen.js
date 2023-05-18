@@ -82,12 +82,9 @@ export default function SearchSpotScreen({ navigation }) {
                 Find your favorite spots !
               </Text>
             )}
-            <MaterialCommunityIcons
-              style={styles.map}
-              name={"map-outline"}
-              size={40}
-              color={"white"}
-            />
+            <TouchableOpacity onPress={() => navigation.navigate('MapScreen')}>
+              <MaterialCommunityIcons style={styles.map} name={"map-outline"} size={40} color={"white"} />
+            </TouchableOpacity>
           </View>
         </ScrollView>
       </View>
