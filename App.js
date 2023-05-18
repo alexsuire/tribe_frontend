@@ -6,6 +6,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import LoginScreen from "./screens/LoginScreen";
 import HomeScreen from "./screens/HomeScreen";
 import SessionScreen from "./screens/SessionScreen";
+import CreateSessionScreen from "./screens/CreateSessionScreen";
 import SearchSpotsScreen from "./screens/SearchSpotsScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import MapScreen from "./screens/MapScreen";
@@ -100,6 +101,7 @@ export default function App() {
               component={SignupScreen3_final}
             />
             <Stack.Screen name="SpotScreen" component={SpotScreen} />
+            <Stack.Screen name="CreateSessionScreen" component={CreateSessionScreen} />
             <Stack.Screen name="MapScreen" component={MapScreen} />
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
           </Stack.Navigator>

@@ -2,18 +2,21 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    coordinates: null
+    coordinates: null,
+    searchCoordinates: null,
+    firstSpot: null,
 };
 
 export const mapSlice = createSlice({
   name: 'map',
   initialState,
   reducers: {
-    firstCoordinates: (state, action) => {
-        state.coordinates = action.payload;
-    }
+      setFirstSpot: (state, action) => {
+        state.firstSpot = action.payload;
+      },
+     
   },
 });
 
-export const { firstCoordinates } = mapSlice.actions;
+export const { setCoordinates, setSearchCoordinates, setFirstSpot, resetCoordinates} = mapSlice.actions;
 export default mapSlice.reducer;

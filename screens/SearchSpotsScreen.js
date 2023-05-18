@@ -13,20 +13,22 @@ import {
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { useDispatch } from 'react-redux';
 import { useSelector } from "react-redux";
 import Spot from "../components/Spot";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 const { getFetchAPI } = require("../modules/util");
 const FETCH_API = getFetchAPI();
-import { firstCoordinates } from '../reducers/map';
+
+import { useDispatch } from 'react-redux';
+import { setFirstSpot } from '../reducers/map';
 
 export default function SearchSpotScreen({ navigation }) {
+
   const dispatch = useDispatch();
+
   const [spots, setSpots] = useState([]);
   const [selectedSpot, setSelectedSpot] = useState("");
   const [filteredSpots, setFilteredSpots] = useState([]);
-  const coordinates = useSelector(state => state.map.coordinates);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -48,6 +50,14 @@ export default function SearchSpotScreen({ navigation }) {
     setFilteredSpots(filtered);
     setSelectedSpot(text);
     console.log(filtered);
+    if ( filtered.length > 0) {
+      const firstSpot = filtered[0];
+      dispatch(setFirstSpot(firstSpot));
+      console.log('Premier spot enregistré dans le reducer:', firstSpot);
+    } else {
+      dispatch(setFirstSpot(null));
+      console.log('Aucun spot trouvé');
+    }
   };
 
   const spot =
@@ -61,11 +71,6 @@ export default function SearchSpotScreen({ navigation }) {
           />
         ))
       : null;
-
-      const handleMapNavigation = () => {
-        dispatch(firstCoordinates(filteredSpots[0].coordinates)); // Appel de la fonction firstCoordinates du reducer avec les coordonnées du premier résultat de recherche
-        navigation.navigate("MapScreen");
-      };
 
   return (
     <View style={styles.container}>
@@ -91,7 +96,7 @@ export default function SearchSpotScreen({ navigation }) {
             {selectedSpot.length < 1 && (
               <Text style={styles.initialText}>Find your favorite spots !</Text>
             )}
-            <TouchableOpacity onPress={handleMapNavigation}>
+            <TouchableOpacity onPress={() => navigation.navigate("MapScreen")}>
               <MaterialCommunityIcons
                 style={styles.map}
                 name={"map-outline"}

@@ -4,7 +4,7 @@ import {
   Platform,
   StyleSheet,
   Text,
-  TouchableOpacity, SelectList
+  TouchableOpacity,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { loginCountry } from "../reducers/users";
