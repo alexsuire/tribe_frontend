@@ -12,7 +12,6 @@ export default function MapScreen({ navigation }) {
   const [location, setLocation] = useState(null);
   const [spots, setSpots] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
-  
 
   const handleClearButtonPress = () => {
     const results = spots.filter(spot => spot.name.toLowerCase().includes(inputMap.toLowerCase()));
@@ -67,15 +66,6 @@ export default function MapScreen({ navigation }) {
     </Marker>
   ));
 
-  const handleSearch = (text) => {
-    const filtered = spots.filter((spot) =>
-      spot.name.toLowerCase().includes(text.toLowerCase())
-    );
-    setFilteredSpots(filtered);
-    setSelectedSpot(text);
-    console.log(filtered);
-  };
-
  return (
   <SafeAreaView  style={styles.container}>
     <View style={styles.inputSection}>
@@ -84,10 +74,10 @@ export default function MapScreen({ navigation }) {
             <FontAwesome name='arrow-circle-left' size={50} color='#0287D9' />
         </TouchableOpacity>
         <TextInput
-            placeholder='...🔎'
+            placeholder='...'
             style={styles.input1}
             value={inputMap}
-            onChangeText={handleSearch}
+            onChangeText={(text) => setInputMap(text)}
         />
         <TouchableOpacity style={styles.clear} onPress={handleClearButtonPress}>
             <FontAwesome name='search' size={25} color='white' />
