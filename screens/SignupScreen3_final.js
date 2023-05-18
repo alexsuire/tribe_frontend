@@ -4,14 +4,15 @@ import {
   Platform,
   StyleSheet,
   Text,
-  TouchableOpacity,
+  TouchableOpacity, SelectList
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { loginCountry } from "../reducers/users";
 import { AutocompleteDropdown } from "react-native-autocomplete-dropdown";
-import { SelectList } from "react-native-dropdown-select-list";
-const { getFetchAPI } = require("../modules/util");
-const FETCH_API = getFetchAPI();
+import MY_FETCH_API from "../myfetchapi";
+
+
+
 export default function SignupScreen3_final({ navigation }) {
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [nationalities, setNationalities] = useState([]);
@@ -23,7 +24,7 @@ export default function SignupScreen3_final({ navigation }) {
   useEffect(() => {
     const fetchCountries = async () => {
       try {
-        const response = await fetch(FETCH_API + "/nationalities/allCountries");
+        const response = await fetch(MY_FETCH_API + "/nationalities/allCountries");
         const json = await response.json();
         const data = json.data;
         setNationalities(data);
@@ -49,14 +50,13 @@ export default function SignupScreen3_final({ navigation }) {
 
   const CreateNewUser = async () => {
     try {
-      const response = await fetch(
-        `http://10.33.210.6:3000/nationalities/oneCountry/${selectedCountry.title}`
+      const response = await fetch(MY_FETCH_API + `/nationalities/oneCountry/${selectedCountry.title}`
       );
       const data = await response.json();
       dispatch(loginCountry(data.data._id));
 
       // Exécuter le deuxième fetch seulement si le premier fetch a renvoyé des données
-      const secondResponse = await fetch("http://10.33.210.6:3000/users/signup", {
+      const secondResponse = await fetch( MY_FETCH_API + "/users/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

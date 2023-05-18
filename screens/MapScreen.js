@@ -66,7 +66,7 @@ export default function MapScreen({ navigation }) {
 
   const icon = { surfboard: require("../assets/surfboard.png") };
 
-  const markers = (searchResults.length > 0 ? searchResults : spots).map(
+  const markers = (searchResults.length > 0 ? searchResults : [location.coords]).map(
     (spot, index) => (
       <Marker
         key={index}
@@ -78,7 +78,7 @@ export default function MapScreen({ navigation }) {
       </Marker>
     )
   );
-  
+
   const firstSpot = useSelector(state => state.map.coordinates);
 
   return (

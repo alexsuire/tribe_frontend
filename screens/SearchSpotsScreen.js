@@ -19,11 +19,14 @@ import Spot from "../components/Spot";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 const { getFetchAPI } = require("../modules/util");
 const FETCH_API = getFetchAPI();
+import { firstCoordinates } from '../reducers/map';
+
 export default function SearchSpotScreen({ navigation }) {
   const dispatch = useDispatch();
   const [spots, setSpots] = useState([]);
   const [selectedSpot, setSelectedSpot] = useState("");
   const [filteredSpots, setFilteredSpots] = useState([]);
+  const coordinates = useSelector(state => state.map.coordinates);
 
   useEffect(() => {
     const fetchData = async () => {
