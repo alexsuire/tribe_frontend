@@ -7,9 +7,11 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { loginCountry } from "../reducers/users";
+import { loginCountry, addToken } from "../reducers/users";
 import { AutocompleteDropdown } from "react-native-autocomplete-dropdown";
 import MY_FETCH_API from "../myfetchapi";
+import { SelectList } from 'react-native-dropdown-select-list'
+
 
 
 export default function SignupScreen3_final({ navigation }) {
@@ -70,12 +72,11 @@ export default function SignupScreen3_final({ navigation }) {
         }),
       });
       const responseData = await secondResponse.json();
-      // Gérer les données de la réponse si nécessaire
+      dispatch(addToken(responseData.data.token));
     } catch (error) {
       // Gérer les erreurs
       console.log(error);
     }
-
     navigation.navigate("TabNavigator");
   };
 

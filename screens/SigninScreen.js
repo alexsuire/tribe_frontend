@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../reducers/users";
+import { addToken } from "../reducers/users";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import MY_FETCH_API from "../myfetchapi";
 
@@ -33,6 +33,7 @@ export default function SigninScreen({ navigation }) {
       .then((response) => response.json())
       .then((data) => {
         if (data.result === true) {
+          dispatch(addToken(data.token));
           navigation.navigate("TabNavigator");
           setWrongUserInformations(false);
         } else {
