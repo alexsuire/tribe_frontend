@@ -8,6 +8,8 @@ import {
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Favorite_spots_signup from "../components/Favorite_spots_signup";
+const {getFetchAPI} = require("../modules/util")
+const FETCH_API = getFetchAPI()
 
 export default function SignupScreen2_spots({ navigation }) {
   const dispatch = useDispatch();
@@ -18,7 +20,7 @@ export default function SignupScreen2_spots({ navigation }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:3000/spots");
+        const response = await fetch(FETCH_API + "/spots");
         const json = await response.json();
         const data = json.data;
         setSpotsFetched(data);
