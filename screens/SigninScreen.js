@@ -11,9 +11,8 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../reducers/users";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import MY_FETCH_API from "../myfetchapi";
 
-const { getFetchAPI } = require("../modules/util");
-const FETCH_API = getFetchAPI();
 export default function SigninScreen({ navigation }) {
   const dispatch = useDispatch();
   const [signinEmail, setSigninEmail] = useState("");
@@ -21,8 +20,9 @@ export default function SigninScreen({ navigation }) {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [wrongUserInformations, setWrongUserInformations] = useState(false);
 
+
   const handleSubmitHome = () => {
-    fetch(FETCH_API + "/users/signin", {
+    fetch(MY_FETCH_API + "/users/signin", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
