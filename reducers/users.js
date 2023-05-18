@@ -41,6 +41,9 @@ export const userSlice = createSlice({
     loginLevel: (state, action) => {
       state.value.level = action.payload
     },
+    addToken: (state, action) => {
+      state.value.token = action.payload
+    },
     logout: (state) => {
       state.value.email = null;
       state.value.password = null;
@@ -55,6 +58,7 @@ export const {
   RemoveFavoriteSpot,
   logout,
   loginCountry,
-  loginLevel
+  loginLevel,
+  addToken
 } = userSlice.actions;
 export default userSlice.reducer;
