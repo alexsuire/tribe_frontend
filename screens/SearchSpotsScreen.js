@@ -13,11 +13,14 @@ import {
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch } from 'react-redux';
 import { useSelector } from "react-redux";
 import Spot from "../components/Spot";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-
+const { getFetchAPI } = require("../modules/util");
+const FETCH_API = getFetchAPI();
 export default function SearchSpotScreen({ navigation }) {
+  const dispatch = useDispatch();
   const [spots, setSpots] = useState([]);
   const [selectedSpot, setSelectedSpot] = useState("");
   const [filteredSpots, setFilteredSpots] = useState([]);
@@ -25,7 +28,7 @@ export default function SearchSpotScreen({ navigation }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://10.33.210.6:3000/spots");
+        const response = await fetch(FETCH_API + "/spots");
         const json = await response.json();
         const data = json.data;
         setSpots(data);
@@ -56,6 +59,11 @@ export default function SearchSpotScreen({ navigation }) {
         ))
       : null;
 
+      const handleMapNavigation = () => {
+        dispatch(firstCoordinates(filteredSpots[0].coordinates)); // Appel de la fonction firstCoordinates du reducer avec les coordonnées du premier résultat de recherche
+        navigation.navigate("MapScreen");
+      };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -80,8 +88,13 @@ export default function SearchSpotScreen({ navigation }) {
             {selectedSpot.length < 1 && (
               <Text style={styles.initialText}>Find your favorite spots !</Text>
             )}
-            <TouchableOpacity onPress={() => navigation.navigate('MapScreen')}>
-              <MaterialCommunityIcons style={styles.map} name={"map-outline"} size={40} color={"white"} />
+            <TouchableOpacity onPress={handleMapNavigation}>
+              <MaterialCommunityIcons
+                style={styles.map}
+                name={"map-outline"}
+                size={40}
+                color={"white"}
+              />
             </TouchableOpacity>
           </View>
         </ScrollView>

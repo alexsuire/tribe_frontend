@@ -20,7 +20,7 @@ export default function SignupScreen2_spots({ navigation }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(FETCH_API + "/spots");
+        const response = await fetch("http://10.33.210.6:3000/spots");
         const json = await response.json();
         const data = json.data;
         setSpotsFetched(data);
