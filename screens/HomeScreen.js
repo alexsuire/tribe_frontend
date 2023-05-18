@@ -15,11 +15,13 @@ import { useDispatch, useSelector } from 'react-redux';
 
 
 
+
 export default function HomeScreen({ navigation }) {
 
 
 
   const user = useSelector((state) => state.users.value);
+  console.log(user)
 
 
   return (
