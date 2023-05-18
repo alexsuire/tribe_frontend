@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   container: {
     marginTop: "8%",
 
-    width: "70%",
+    width: "90%",
     shadowColor: "#171717",
     shadowOffset: { width: -2, height: 4 },
     shadowOpacity: 0.2,
