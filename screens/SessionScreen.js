@@ -45,20 +45,19 @@ export default function SessionScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <SafeAreaView>
+        <SafeAreaView style={styles.textHeader}>
+          <Text style={styles.title}>Your sessions</Text>
           <TouchableOpacity style={styles.button}>
             <MaterialCommunityIcons
-              style={styles.map}
+              style={styles.plus}
               name={"plus-box-outline"}
-              size={50}
+              size={40}
               color={"#16A1F7"}
             />
-            <Text style={styles.textHeader}> Add session </Text>
           </TouchableOpacity>
         </SafeAreaView>
       </View>
       <View style={styles.body}>
-        <Text style={styles.title}>Your preview sessions</Text>
         <View style={styles.sessionsContainer}>{session}</View>
       </View>
     </View>
@@ -75,22 +74,29 @@ const styles = StyleSheet.create({
     width: "100%",
     backgroundColor: "#F0F0F0",
     display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+    // alignItems: "flex-end",
+    justifyContent: "space-around",
   },
+
   button: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
+    width: 40,
+    marginTop: 30,
+    marginLeft: 40,
   },
+  plus: {},
   textHeader: {
     color: "#16A1F7",
+    display: "flex",
+    alignItems: "flex-end",
+    flexDirection: "row",
+    justifyContent: "space-around",
+    marginLeft: 100,
   },
   title: {
-    color: "white",
     fontSize: 20,
     fontWeight: 300,
-    marginTop: 10,
+    marginBottom: 6,
+    color: "#16A1F7",
   },
   body: {
     display: "flex",
