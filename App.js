@@ -6,6 +6,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import LoginScreen from "./screens/LoginScreen";
 import HomeScreen from "./screens/HomeScreen";
 import SessionScreen from "./screens/SessionScreen";
+import CreateSessionScreen from "./screens/CreateSessionScreen";
 import SearchSpotsScreen from "./screens/SearchSpotsScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import MapScreen from "./screens/MapScreen";
@@ -19,6 +20,7 @@ import ReportScreen from "./screens/ReportScreen";
 import { Provider } from "react-redux";
 import users from "./reducers/users";
 import count from "./reducers/count";
+import map from "./reducers/map";
 import SpotScreen from "./screens/SpotScreen";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { persistStore, persistReducer } from "redux-persist";
@@ -26,7 +28,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import storage from "redux-persist/lib/storage";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
-const reducers = combineReducers({ users, count });
+const reducers = combineReducers({ users, count, map});
 const persistConfig = {
   key: "Tribe",
   version: 1,
@@ -101,6 +103,8 @@ export default function App() {
               component={SignupScreen3_final}
             />
             <Stack.Screen name="SpotScreen" component={SpotScreen} />
+            <Stack.Screen name="SessionScreen" component={SessionScreen} />
+            <Stack.Screen name="CreateSessionScreen" component={CreateSessionScreen} />
             <Stack.Screen name="MapScreen" component={MapScreen} />
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
           </Stack.Navigator>

@@ -1,41 +1,52 @@
-import {
-  TouchableOpacity,
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TextInput,
-  Button,
-  SafeAreaView,
-  Pressable,
-  Picker,
-} from "react-native";
-import MapView, { Marker } from "react-native-maps";
-import { Dimensions } from "react-native";
-import * as Location from "expo-location";
-import { useEffect, useState } from "react";
-import { useNavigation } from "@react-navigation/native";
-import FontAwesome from "react-native-vector-icons/FontAwesome";
-const { getFetchAPI } = require("../modules/util");
-const FETCH_API = getFetchAPI();
+import { TouchableOpacity, StyleSheet, Text, View, Image, TextInput, Button, SafeAreaView, Pressable, Picker } from 'react-native';
+import MapView, { Marker } from 'react-native-maps';
+import {Dimensions} from 'react-native';
+import * as Location from 'expo-location';
+import { useEffect, useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+
+
+import { useSelector } from 'react-redux';
+import { useRef } from 'react';
+
 export default function MapScreen({ navigation }) {
-  const [inputMap, setInputMap] = useState("");
+  const [inputMap, setInputMap] = useState('');
   const [location, setLocation] = useState(null);
   const [spots, setSpots] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
 
+  const mapViewRef = useRef(null);
+  const [mapReady, setMapReady] = useState(false);
+  const [currentLocation, setCurrentLocation] = useState(null);
+
+
+  const firstSpot = useSelector((state) => state.map.firstSpot);
+
+  const handleMapReady = () => {
+    setMapReady(true);
+  };
+
   const handleClearButtonPress = () => {
-    const results = spots.filter((spot) =>
-      spot.name.toLowerCase().includes(inputMap.toLowerCase())
-    );
+    const results = spots.filter(spot => spot.name.toLowerCase().includes(inputMap.toLowerCase()));
     setSearchResults(results);
-    setInputMap("");
+    setInputMap('');
+    if (currentLocation) {
+      const region = {
+        latitude: currentLocation.coords.latitude,
+        longitude: currentLocation.coords.longitude,
+        latitudeDelta: 0.2,
+        longitudeDelta: 0.2,
+      };
+      mapViewRef.current.animateToRegion(region, 1000);
+    }
   };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(FETCH_API + "/spots");
+        const response = await fetch("http://10.33.210.6:3000/spots");
         const json = await response.json();
         const data = json.data;
         setSpots(data);
@@ -47,146 +58,168 @@ export default function MapScreen({ navigation }) {
     fetchData();
   }, []);
 
+
   useEffect(() => {
     (async () => {
       const { status } = await Location.requestForegroundPermissionsAsync();
-      console.log("status:", status);
-      if (status === "granted") {
-        Location.watchPositionAsync({ distanceInterval: 10 }, (newLocation) => {
-          setLocation(newLocation);
-        });
+      console.log('status:', status);
+      if (status === 'granted') {
+        Location.watchPositionAsync({ distanceInterval: 10 },
+          (newLocation) => {
+            setLocation(newLocation);
+            setCurrentLocation(newLocation);
+          });
       }
     })();
   }, []);
 
-  if (!location) {
+   useEffect(() => {
+    if (firstSpot && mapReady) {
+      // Centrer la carte sur le spot recherché
+      const region = {
+        latitude: firstSpot.latitude,
+        longitude: firstSpot.longitude,
+        latitudeDelta: 0.2,
+        longitudeDelta: 0.2,
+      };
+      mapViewRef.current.animateToRegion(region, 1000);
+    }
+  }, [firstSpot, mapReady ]);
+
+   
+
+   if (!location) {
     return <View />;
   }
 
-  const icon = { surfboard: require("../assets/surfboard.png") };
+  const icon={ surfboard: require("../assets/surfboard.png")}
 
-  const markers = (searchResults.length > 0 ? searchResults : spots).map(
-    (spot, index) => (
-      <Marker
-        key={index}
-        coordinate={{ latitude: spot.latitude, longitude: spot.longitude }}
-        title={spot.name}
-        onCalloutPress={() => navigation.navigate("SpotScreen", { spot })}
+
+  const markers = spots.map((spot, index) => (    
+  <Marker
+      key={index}
+      coordinate={{ latitude: spot.latitude, longitude: spot.longitude }}
+      title={spot.name} 
+      onCalloutPress={ () => navigation.navigate('SpotScreen', {spot})}
       >
-        <Image source={icon.surfboard} style={{ width: 40, height: 40 }} />
-      </Marker>
-    )
-  );
+      <Image source={icon.surfboard} style={{ width: 40, height: 40 }}/>
+    </Marker>
+  ));
 
-  return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.inputSection}>
-        <View style={styles.header}>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => navigation.navigate("TabNavigator")}
-          >
-            <FontAwesome name="arrow-circle-left" size={50} color="#0287D9" />
-          </TouchableOpacity>
-          <TextInput
-            placeholder="..."
-            style={styles.input1}
-            value={inputMap}
-            onChangeText={(text) => setInputMap(text)}
-          />
-          <TouchableOpacity
-            style={styles.clear}
-            onPress={handleClearButtonPress}
-          >
-            <FontAwesome name="search" size={25} color="white" />
-          </TouchableOpacity>
-        </View>
-      </View>
-      <MapView
+ return (
+  <View style={styles.container}>
+    {/* <View style={styles.menu}>
+      <TouchableOpacity  onPress={() => navigation.navigate('TabNavigator')}>
+        <Image style={styles.back} source={require("../assets/back.png")} />
+      </TouchableOpacity>
+      <TouchableOpacity  onPress={handleClearButtonPress}>
+        <Image style={styles.localisation} source={require("../assets/localisation.png")} />
+      </TouchableOpacity>
+    </View> */}
+    <MapView
+        ref={mapViewRef}
         style={styles.map}
         initialRegion={{
           latitude: location.coords.latitude,
           longitude: location.coords.longitude,
-          latitudeDelta: 0.01,
-          longitudeDelta: 0.01,
+          latitudeDelta: 0.5,
+          longitudeDelta: 0.5,
         }}
-      >
+        onLayout={handleMapReady}
+    >
         {markers}
-      </MapView>
-    </SafeAreaView>
+    </MapView>
+    
+    <View style={styles.menu}>
+      <TouchableOpacity  onPress={() => navigation.navigate('TabNavigator')}>
+        <Image style={styles.back} source={require("../assets/back.png")} />
+      </TouchableOpacity>
+      <TouchableOpacity  onPress={handleClearButtonPress}>
+        <Image style={styles.localisation} source={require("../assets/localisation.png")} />
+      </TouchableOpacity>
+    </View>
+</View>
   );
-}
+  }
 
 const styles = StyleSheet.create({
-  container: {
+  container:{
     flex: 1,
+    position: 'relative',
+
   },
   map: {
-    width: Dimensions.get("window").width,
-    height: Dimensions.get("window").height,
-    position: "relative",
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
   },
 
-  inputSection: {
-    width: "100%",
-    height: "13%",
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-    backgroundColor: "white",
-  },
-  header: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: "center",
-    width: "100%",
-    backgroundColor: "#F0F0F0",
-  },
-
-  input1: {
-    borderWidth: 1,
-    width: 250,
-    borderColor: "#0287D9",
-    paddingHorizontal: 30,
-    paddingVertical: 15,
-    borderRadius: 10,
-    fontSize: 17,
-  },
-
-  clear: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#0287D9",
-    borderWidth: 12,
-    borderRadius: 50,
-    borderColor: "#0287D9",
-    height: 50,
-    width: 50,
-  },
-  menuhaut: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
+  menu:{
+    position: 'absolute',
+    top: 50,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 20,
     zIndex: 1,
-    position: "absolute",
+    width: '100%',
   },
 
-  menustyle: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
+  back:{
+    width: 30,
+    height: 30,
+    tintColor: '#0487D9',
   },
-
-  button: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "flex-start",
-  },
-
-  textButton: {
+  localisation:{
     width: 40,
     height: 40,
+    tintColor: '#0487D9',
+
   },
-});
+
+
+ 
+  clear:{
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#0287D9',
+    borderWidth: 12,
+    borderRadius: 50,
+    borderColor: '#0287D9',
+    height: 50,
+    width: 50,
+  
+  },
+  menuhaut:{
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex:1,
+    position: 'absolute',
+  },
+
+  menustyle:{
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+
+
+
+  button:{
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    
+  },
+ 
+
+  textButton:{
+    width: 40, 
+    height: 40, 
+  },  
+
+ 
+})

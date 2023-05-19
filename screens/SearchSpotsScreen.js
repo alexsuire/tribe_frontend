@@ -18,7 +18,14 @@ import Spot from "../components/Spot";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 const { getFetchAPI } = require("../modules/util");
 const FETCH_API = getFetchAPI();
+
+import { useDispatch } from 'react-redux';
+import { setFirstSpot } from '../reducers/map';
+
 export default function SearchSpotScreen({ navigation }) {
+
+  const dispatch = useDispatch();
+
   const [spots, setSpots] = useState([]);
   const [selectedSpot, setSelectedSpot] = useState("");
   const [filteredSpots, setFilteredSpots] = useState([]);
@@ -43,6 +50,14 @@ export default function SearchSpotScreen({ navigation }) {
     setFilteredSpots(filtered);
     setSelectedSpot(text);
     console.log(filtered);
+    if ( filtered.length > 0) {
+      const firstSpot = filtered[0];
+      dispatch(setFirstSpot(firstSpot));
+      console.log('Premier spot enregistré dans le reducer:', firstSpot);
+    } else {
+      dispatch(setFirstSpot(null));
+      console.log('Aucun spot trouvé');
+    }
   };
 
   const spot =
