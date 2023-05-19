@@ -101,6 +101,7 @@ export default function App() {
               component={SignupScreen3_final}
             />
             <Stack.Screen name="SpotScreen" component={SpotScreen} />
+            <Stack.Screen name="SessionScreen" component={SessionScreen} />
             <Stack.Screen name="CreateSessionScreen" component={CreateSessionScreen} />
             <Stack.Screen name="MapScreen" component={MapScreen} />
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
