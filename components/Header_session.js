@@ -1,20 +1,8 @@
-import {
-  Image,
-  KeyboardAvoidingView,
-  Platform,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-  ImageBackground,
-  SafeAreaView,
-} from "react-native";
-import React, { useState, useEffect } from "react";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { StyleSheet, Text, View, SafeAreaView } from "react-native";
 
 export default function Header_session(props) {
-  const startDateTime = new Date(props.date_start);
+  console.log("props", props.googlelink);
+  // const startDateTime = new Date(props.date_start);
 
   return (
     <View style={styles.container}>
@@ -55,6 +43,8 @@ const styles = StyleSheet.create({
     display: "flex",
     justifyContent: "space-between",
     flexDirection: "row",
+
+    height: "50%",
   },
   sessionName: {
     color: "#646262",
@@ -65,10 +55,12 @@ const styles = StyleSheet.create({
   },
   spotAndmaps: {
     marginLeft: "3%",
+    display: "flex",
+    justifyContent: "space-between",
   },
   spot: {
     color: "#646262",
-    paddingBottom: "40%",
+
     fontSize: 10,
   },
   maps: {
@@ -77,10 +69,12 @@ const styles = StyleSheet.create({
   },
   dateAndhour: {
     marginRight: "3%",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "flex-end",
   },
   date: {
     color: "#646262",
-    paddingBottom: "40%",
     fontSize: 10,
   },
 

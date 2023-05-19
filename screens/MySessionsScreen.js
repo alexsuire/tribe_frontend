@@ -37,7 +37,7 @@ export default function MySessionsScreen({ navigation }) {
   }, []);
 
   let content;
-  if (sessions.length == 0) {
+  if (sessions.length === 0) {
     content = (
       <View style={styles.noSessionContainer}>
         <Text style={styles.noSessionText}>No sessions found 😢</Text>
@@ -54,7 +54,10 @@ export default function MySessionsScreen({ navigation }) {
       <View style={styles.header}>
         <SafeAreaView style={styles.textHeader}>
           <Text style={styles.title}>Your sessions</Text>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigation.navigate("CreateSessionScreen")}
+          >
             <MaterialCommunityIcons
               style={styles.plus}
               name={"plus"}
