@@ -65,6 +65,25 @@ export default function SessionScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
+      <View style={styles.header}>
+        <SafeAreaView style={styles.textHeader}>
+          <Text style={styles.title}>Your sessions</Text>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigation.navigate("CreateSessionScreen")}
+          >
+            <MaterialCommunityIcons
+              style={styles.plus}
+              name={"plus-box-outline"}
+              size={40}
+              color={"#16A1F7"}
+            />
+          </TouchableOpacity>
+        </SafeAreaView>
+      </View>
+      <View style={styles.body}>
+        <View style={styles.sessionsContainer}>{session}</View>
+      </View>
       <Header_session
         name={sessions.data?.name}
         spot={sessions.data?.spot?.name}
