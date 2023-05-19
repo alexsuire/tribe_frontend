@@ -15,6 +15,7 @@ import SignupScreen from "./screens/SignupScreen";
 import SignupScreen1_basic_info from "./screens/SignupScreen1_basic_info";
 import SignupScreen2_spots from "./screens/SignupScreen2_spots";
 import SignupScreen3_final from "./screens/SignupScreen3_final";
+import ReportScreen from "./screens/ReportScreen";
 import { Provider } from "react-redux";
 import users from "./reducers/users";
 import count from "./reducers/count";
@@ -83,6 +84,7 @@ export default function App() {
       <PersistGate persistor={persistor}>
         <NavigationContainer>
           <Stack.Navigator screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="ReportScreen" component={ReportScreen} />
             <Stack.Screen name="LoginScreen" component={LoginScreen} />
             <Stack.Screen name="SigninScreen" component={SigninScreen} />
             <Stack.Screen name="SignupScreen" component={SignupScreen} />
