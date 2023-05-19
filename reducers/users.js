@@ -10,7 +10,8 @@ const initialState = {
     password: null,
     level: null,
     spots: [],
-    country: null
+    country: null,
+    session: null,
   },
 };
 
@@ -36,17 +37,20 @@ export const userSlice = createSlice({
       );
     },
     loginCountry: (state, action) => {
-      state.value.country = action.payload
+      state.value.country = action.payload;
     },
     loginLevel: (state, action) => {
-      state.value.level = action.payload
+      state.value.level = action.payload;
     },
     addToken: (state, action) => {
-      state.value.token = action.payload
+      state.value.token = action.payload;
     },
     logout: (state) => {
       state.value.email = null;
       state.value.password = null;
+    },
+    addSession: (state, action) => {
+      state.value.session = action.payload;
     },
   },
 });
@@ -59,6 +63,7 @@ export const {
   logout,
   loginCountry,
   loginLevel,
-  addToken
+  addToken,
+  addSession,
 } = userSlice.actions;
 export default userSlice.reducer;
