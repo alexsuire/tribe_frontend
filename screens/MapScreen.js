@@ -6,6 +6,8 @@ import { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import MY_FETCH_API from "../myfetchapi";
+
 
 
 import { useSelector } from 'react-redux';
@@ -46,7 +48,7 @@ export default function MapScreen({ navigation }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://10.33.210.6:3000/spots");
+        const response = await fetch(MY_FETCH_API+ "/spots");
         const json = await response.json();
         const data = json.data;
         setSpots(data);

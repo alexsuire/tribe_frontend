@@ -28,7 +28,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import storage from "redux-persist/lib/storage";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
-const reducers = combineReducers({ users, count, map});
+const reducers = combineReducers({ users, count, map });
 const persistConfig = {
   key: "Tribe",
   version: 1,
@@ -86,7 +86,6 @@ export default function App() {
       <PersistGate persistor={persistor}>
         <NavigationContainer>
           <Stack.Navigator screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="ReportScreen" component={ReportScreen} />
             <Stack.Screen name="LoginScreen" component={LoginScreen} />
             <Stack.Screen name="SigninScreen" component={SigninScreen} />
             <Stack.Screen name="SignupScreen" component={SignupScreen} />
@@ -104,7 +103,10 @@ export default function App() {
             />
             <Stack.Screen name="SpotScreen" component={SpotScreen} />
             <Stack.Screen name="SessionScreen" component={SessionScreen} />
-            <Stack.Screen name="CreateSessionScreen" component={CreateSessionScreen} />
+            <Stack.Screen
+              name="CreateSessionScreen"
+              component={CreateSessionScreen}
+            />
             <Stack.Screen name="MapScreen" component={MapScreen} />
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
           </Stack.Navigator>
