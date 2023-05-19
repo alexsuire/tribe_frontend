@@ -1,20 +1,30 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/bin/yarn add react-native-table-component
+  C:\Program Files\nodejs\node.exe C:\Users\eloua\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add @react-native-community/satetimepicker --save
 
 PATH: 
-  /usr/local/bin:/Library/Frameworks/Python.framework/Versions/3.11/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:/Library/Frameworks/Python.framework/Versions/3.11/bin:/opt/homebrew/bin:/opt/homebrew/sbin
+  C:\Users\eloua\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\eloua\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Program Files\nodejs;C:\Program Files\Git\cmd;C:\Users\eloua\AppData\Local\Microsoft\WindowsApps;C:\Users\eloua\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\eloua\AppData\Roaming\npm;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl
 
 Yarn version: 
   1.22.19
 
 Node version: 
-  18.16.0
+  18.15.0
 
 Platform: 
-  darwin arm64
+  win32 x64
 
 Trace: 
-  Error: EACCES: permission denied, unlink '/Users/alexandresuire/Tribe/tribe_frontend/node_modules/@callstack/react-theme-provider/LICENSE'
+  Error: https://registry.yarnpkg.com/@react-native-community%2fsatetimepicker: Not found
+      at params.callback [as _callback] (C:\Users\eloua\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:66145:18)
+      at self.callback (C:\Users\eloua\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:140890:22)
+      at Request.emit (node:events:513:28)
+      at Request.<anonymous> (C:\Users\eloua\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141862:10)
+      at Request.emit (node:events:513:28)
+      at IncomingMessage.<anonymous> (C:\Users\eloua\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141784:12)
+      at Object.onceWrapper (node:events:627:28)
+      at IncomingMessage.emit (node:events:525:35)
+      at endReadableNT (node:internal/streams/readable:1359:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
 
 npm manifest: 
   {
@@ -54,6 +64,7 @@ npm manifest:
       "react-native-screens": "~3.20.0",
       "react-native-svg": "^13.9.0",
       "react-native-svg-uri": "^1.2.3",
+      "react-native-table-component": "^1.2.2",
       "react-native-tableview-simple": "^4.4.0",
       "react-native-vector-icons": "^6.6.0",
       "react-native-view-shot": "^3.6.0",
@@ -5880,6 +5891,11 @@ Lockfile:
     dependencies:
       css-select "^5.1.0"
       css-tree "^1.1.3"
+  
+  react-native-table-component@^1.2.2:
+    version "1.2.2"
+    resolved "https://registry.yarnpkg.com/react-native-table-component/-/react-native-table-component-1.2.2.tgz#1c9bdcd8f1fd7edf10d1e93ebc3b7877ecd74def"
+    integrity sha512-7bbsi5431iWcjj3toASh8lFHGi6AG/+MTd4M7GuksXKxx/CFs/Qwv1Ys7D2wgyuYKe3hxWNfSVrteFj0tOYXYw==
   
   react-native-tableview-simple@^4.4.0:
     version "4.4.0"
