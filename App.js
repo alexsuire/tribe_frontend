@@ -5,13 +5,14 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import LoginScreen from "./screens/LoginScreen";
 import HomeScreen from "./screens/HomeScreen";
-import SessionScreen from "./screens/SessionScreen";
+import MySessionsScreen from "./screens/MySessionsScreen";
 import CreateSessionScreen from "./screens/CreateSessionScreen";
 import CreateSessionDateScreen from "./screens/CreateSessionDateScreen";
 import CreateSessionDescriptionScreen from "./screens/CreateSessionDescriptionScreen";
 import SearchSpotsScreen from "./screens/SearchSpotsScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import MapScreen from "./screens/MapScreen";
+import SessionScreen from "./screens/SessionScreen";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import SigninScreen from "./screens/SigninScreen";
 import SignupScreen from "./screens/SignupScreen";
@@ -75,7 +76,7 @@ const TabNavigator = () => {
       })}
     >
       <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Session" component={SessionScreen} />
+      <Tab.Screen name="Session" component={MySessionsScreen} />
       <Tab.Screen name="Spots" component={SearchSpotsScreen} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
@@ -90,6 +91,7 @@ export default function App() {
           <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen name="LoginScreen" component={LoginScreen} />
             <Stack.Screen name="SigninScreen" component={SigninScreen} />
+            <Stack.Screen name="SessionScreen" component={SessionScreen} />
             <Stack.Screen name="SignupScreen" component={SignupScreen} />
             <Stack.Screen
               name="Signup1_basic_info"
@@ -104,10 +106,14 @@ export default function App() {
               component={SignupScreen3_final}
             />
             <Stack.Screen name="SpotScreen" component={SpotScreen} />
-            <Stack.Screen name="SessionScreen" component={SessionScreen} />
-            <Stack.Screen name="CreateSessionScreen" component={CreateSessionScreen} />
-            <Stack.Screen name="CreateSessionDateScreen" component={CreateSessionDateScreen} />
-            <Stack.Screen name="CreateSessionDescriptionScreen" component={CreateSessionDescriptionScreen} />
+            <Stack.Screen
+              name="MySessionsScreen"
+              component={MySessionsScreen}
+            />
+            <Stack.Screen
+              name="CreateSessionScreen"
+              component={CreateSessionScreen}
+            />
             <Stack.Screen name="MapScreen" component={MapScreen} />
             <Stack.Screen name="ReportScreen" component={ReportScreen} />
             <Stack.Screen name="TabNavigator" component={TabNavigator} />

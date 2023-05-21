@@ -8,27 +8,30 @@ import {
   TouchableOpacity,
   View,
   SafeAreaView,
+  ScrollView,
+  ImageBackground,
 } from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import Header_session from "../components/Header_session";
+import Participants_session from "../components/Participants_session";
+import Messages_session from "../components/Messages_session";
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 const { getFetchAPI } = require("../modules/util");
 const FETCH_API = getFetchAPI();
-import { useDispatch, useSelector } from "react-redux";
-import Preview_session from "../components/Preview_session";
 
 export default function SessionScreen({ navigation }) {
-  const [sessions, setSessions] = useState([]);
-
   const user = useSelector((state) => state.users.value);
-
-  console.log("montokenquejerecupere", user.token);
-
+  const [sessions, setSessions] = useState([]);
+  console.log("user", user.session);
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(FETCH_API + `/users/${user.token}`);
+        const response = await fetch(
+          FETCH_API + `/sessions/oneSession/${user.session}`
+        );
         const fetchSessionsUser = await response.json();
-
+        console.log("fetch", fetchSessionsUser);
         setSessions(fetchSessionsUser);
       } catch (error) {
         console.error(error);
@@ -36,77 +39,90 @@ export default function SessionScreen({ navigation }) {
     };
     fetchData();
   }, []);
-  console.log("youpi", sessions);
 
-  const session = sessions.map((data, i) => (
-    <Preview_session key={i} {...data} />
-  ));
+  console.log("session", sessions);
+
+  const startDateTime = new Date(sessions.data?.date_start);
+  const endDateTime = new Date(sessions.data?.date_end);
+  const startHours = startDateTime.getHours();
+  const startMinutes = startDateTime.getMinutes();
+  const endHours = endDateTime.getHours();
+  const endMinutes = endDateTime.getMinutes();
+
+  // Extraction du mois
+  const month = (startDateTime.getMonth() + 1).toString(); // +1 pour obtenir le mois correct (de 0 à 11)
+
+  // Ajout d'un 0 devant le mois si nécessaire
+  const formattedMonth = month.padStart(2, "0");
+
+  // Formattage de la date en locale avec le mois formaté
+  const formattedDate =
+    startDateTime.getDate() +
+    "/" +
+    formattedMonth +
+    "/" +
+    startDateTime.getFullYear();
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <SafeAreaView style={styles.textHeader}>
-          <Text style={styles.title}>Your sessions</Text>
-          <TouchableOpacity style={styles.button} onPress = {() => navigation.navigate('CreateSessionScreen')}>
-            <MaterialCommunityIcons
-              style={styles.plus}
-              name={"plus-box-outline"}
-              size={40}
-              color={"#16A1F7"}
-            />
-          </TouchableOpacity>
-        </SafeAreaView>
-      </View>
       <View style={styles.body}>
-        <View style={styles.sessionsContainer}>{session}</View>
+        <View style={styles.sessionsContainer}></View>
       </View>
+      <Header_session
+        name={sessions.data?.name}
+        spot={sessions.data?.spot?.name}
+        googlelink={"Google maps"}
+        date={formattedDate}
+        startHours={startHours}
+        startMinutes={startMinutes}
+        endHours={endHours}
+        endMinutes={endMinutes}
+      />
+      <ImageBackground
+        style={styles.wave2}
+        source={require("../assets/waveSable.png")}
+      >
+        <ScrollView
+          contentContainerStyle={styles.scrollView}
+          showsVerticalScrollIndicator={false}
+        >
+          <View style={styles.all}>
+            <Participants_session />
+            <Messages_session />
+            <TouchableOpacity style={styles.button} activeOpacity={0.8}>
+              <Text style={styles.textButton}>See more</Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
+      </ImageBackground>
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#E0CDA9",
-  },
-  header: {
-    height: "18%",
-    width: "100%",
-    backgroundColor: "#F0F0F0",
-    display: "flex",
-    // alignItems: "flex-end",
-    justifyContent: "space-around",
-  },
-
-  button: {
-    width: 40,
-    marginTop: 30,
-    marginLeft: 40,
-  },
-  plus: {},
-  textHeader: {
-    color: "#16A1F7",
-    display: "flex",
-    alignItems: "flex-end",
-    flexDirection: "row",
-    justifyContent: "space-around",
-    marginLeft: 100,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 300,
-    marginBottom: 6,
-    color: "#16A1F7",
-  },
-  body: {
+    backgroundColor: "#FFFFFF",
     display: "flex",
     alignItems: "center",
   },
-  sessionsContainer: {
-    backgroundColor: "#F0F0F0",
-    height: "82%",
-    width: "90%",
-    marginTop: 10,
-    borderRadius: 10,
+  wave2: {
+    height: 800,
+    width: "100%",
   },
+  scrollView: {
+    paddingBottom: 320,
+  },
+  button: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "35%",
+    height: "7%",
+    marginTop: 20,
+    backgroundColor: "#5FB6DA",
+    borderRadius: 10,
+    marginBottom: 10,
+  },
+  textButton: { color: "#ffffff", fontWeight: "600", fontSize: 14 },
+  all: { display: "flex", flexDirection: "column", alignItems: "center" },
 });
