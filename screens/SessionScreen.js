@@ -47,7 +47,7 @@ export default function SessionScreen({ navigation }) {
       <View style={styles.header}>
         <SafeAreaView style={styles.textHeader}>
           <Text style={styles.title}>Your sessions</Text>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress = {() => navigation.navigate('CreateSessionScreen')}>
             <MaterialCommunityIcons
               style={styles.plus}
               name={"plus-box-outline"}

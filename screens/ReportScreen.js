@@ -5,6 +5,8 @@ import * as React from "react";
 import { Table, TableWrapper, Row } from "react-native-table-component";
 import { useState, useEffect } from "react";
 import Header_spot from "../components/Header_spot";
+import MY_FETCH_API from "../myfetchapi";
+
 
 export default function ReportScreen({ navigation }) {
   let day = "";

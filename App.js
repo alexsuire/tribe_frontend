@@ -7,6 +7,8 @@ import LoginScreen from "./screens/LoginScreen";
 import HomeScreen from "./screens/HomeScreen";
 import SessionScreen from "./screens/SessionScreen";
 import CreateSessionScreen from "./screens/CreateSessionScreen";
+import CreateSessionDateScreen from "./screens/CreateSessionDateScreen";
+import CreateSessionDescriptionScreen from "./screens/CreateSessionDescriptionScreen";
 import SearchSpotsScreen from "./screens/SearchSpotsScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import MapScreen from "./screens/MapScreen";
@@ -103,11 +105,11 @@ export default function App() {
             />
             <Stack.Screen name="SpotScreen" component={SpotScreen} />
             <Stack.Screen name="SessionScreen" component={SessionScreen} />
-            <Stack.Screen
-              name="CreateSessionScreen"
-              component={CreateSessionScreen}
-            />
+            <Stack.Screen name="CreateSessionScreen" component={CreateSessionScreen} />
+            <Stack.Screen name="CreateSessionDateScreen" component={CreateSessionDateScreen} />
+            <Stack.Screen name="CreateSessionDescriptionScreen" component={CreateSessionDescriptionScreen} />
             <Stack.Screen name="MapScreen" component={MapScreen} />
+            <Stack.Screen name="ReportScreen" component={ReportScreen} />
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
           </Stack.Navigator>
         </NavigationContainer>
