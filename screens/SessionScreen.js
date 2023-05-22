@@ -89,7 +89,8 @@ export default function SessionScreen({ navigation }) {
           <View style={styles.all}>
             <Participants_session />
             <Messages_session />
-            <TouchableOpacity style={styles.button} activeOpacity={0.8}>
+            <TouchableOpacity style={styles.button} activeOpacity={0.8} onPress={() => navigation.navigate("ReportScreen")}
+>
               <Text style={styles.textButton}>See more</Text>
             </TouchableOpacity>
           </View>

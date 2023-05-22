@@ -22,6 +22,8 @@ export default function MySessionsScreen({ navigation }) {
 
   const user = useSelector((state) => state.users.value);
 
+  console.log(sessions)
+
   useEffect(() => {
     const fetchData = async () => {
       try {

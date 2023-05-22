@@ -23,21 +23,20 @@ export default function Favorite_spots_signup(props) {
   const [checked, setChecked] = useState(false);
   const dispatch = useDispatch();
 
+  const user= useSelector((state) => state.users.value);
 
-  const { checkedCount, selectedSpots } = useSelector((state) => state.count);
+  console.log(user)
 
 
   const onPress = () => {
     if (checked) {
-      setChecked(false);
-      dispatch(decrementCount());
-      dispatch(deselectSpot(props.id));
+      setChecked(!checked);
+      props.setCheckedCount( props.checkedCount-1)
       dispatch(RemoveFavoriteSpot(props._id))
 
-    } else if (checkedCount < 3) {
-      setChecked(true);
-      dispatch(incrementCount());
-      dispatch(selectSpot(props.id));
+    } else if (props.checkedCount < 3) {
+      setChecked(!checked);
+      props.setCheckedCount( props.checkedCount +1)
       dispatch(AddFavoriteSpot(props._id))
     }
   };
@@ -48,7 +47,7 @@ export default function Favorite_spots_signup(props) {
       <TouchableOpacity
         style={styles.opacity}
         onPress={onPress}
-        disabled={checkedCount >= 3 && !checked}
+        disabled={props.checkedCount >= 3 && !checked}
       >
         <ImageBackground
           source={require("../assets/favoriteSpotsImage.jpg")}

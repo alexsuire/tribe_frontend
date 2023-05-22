@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
+  View
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { loginCountry, addToken } from "../reducers/users";
@@ -95,13 +96,15 @@ export default function SignupScreen3_final({ navigation }) {
       style={styles.container}
     >
       <Text style={styles.title}>Tribe</Text>
+      <View style={{ width: "80%" }}>
+
       <SelectList
-        setSelected={(val) => setSelectedLevel(val)}
-        data={levelData}
-        placeholder="Level"
-        save="value"
-        style={styles.level}
-      />
+  setSelected={(val) => setSelectedLevel(val)}
+  data={levelData}
+  placeholder="Level"
+  save="value"
+  style={{ ...styles.level, width: "80%" }} // Add width property
+/>
       <AutocompleteDropdown
         clearOnFocus={false}
         closeOnBlur={true}
@@ -109,15 +112,18 @@ export default function SignupScreen3_final({ navigation }) {
         initialValue={{ id: "2" }}
         onSelectItem={setSelectedCountry}
         dataSet={transformedCountries}
-        containerStyle={{
-          width: "80%",
+        textInputProps={{
+          placeholder: 'Country',
+        }}
+          containerStyle={{
+          marginTop: 10,
           backgroundColor: "white",
           borderColor: "#E0CDA9",
           borderWidth: 1,
           borderRadius: 7,
         }}
       />
-
+</View>
       <TouchableOpacity
         onPress={CreateNewUser}
         style={styles.button}
