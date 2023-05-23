@@ -52,6 +52,7 @@ export const userSlice = createSlice({
     },
     addSession: (state, action) => {
       state.value.session = action.payload;
+      console.log('state value', state.value)
     },
     addActive_spot: (state, action) => {
       state.value.active_spot = action.payload;

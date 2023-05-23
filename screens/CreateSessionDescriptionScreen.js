@@ -25,7 +25,6 @@ import {
 
     const dispatch = useDispatch();
     const session = useSelector((state) => state.session.value);
-    console.log("session", session); // Ajout d'un console.log
     const user = useSelector((state) => state.users.value);
 
   
@@ -34,16 +33,13 @@ import {
       try {
         const response = await fetch(MY_FETCH_API + `/users/basicInfo/${user.token}`);
         const userfetch = await response.json();
-        // const data = json.data;
         setUserInfo(userfetch);
-        // console.log('data', data)
       } catch (error) {
         console.error(error);
       }
     };
     fetchUserInfo();
   }, []);
-  console.log('userinfo', userInfo);
 
   
   const handleCreateSession = () => {
@@ -67,7 +63,17 @@ import {
           },
           body: JSON.stringify({ session: data.id }),
         })
+
+        fetch(MY_FETCH_API + `/spots/${session.spot}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ session: data.id }),
+        })
       })
+
+
       navigation.navigate("SessionScreen");
   };
 

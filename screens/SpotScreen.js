@@ -23,7 +23,6 @@ export default function SpotScreen({ navigation }) {
   const [spot, setSpot] = useState(null); // Initialize spot as null
   const user = useSelector((state) => state.users.value);
 
-  console.log('userOnspot', user)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,7 +31,6 @@ export default function SpotScreen({ navigation }) {
           MY_FETCH_API + `/spots/oneSpot/${user.active_spot}`
         );
         const fetchSpot = await response.json();
-        console.log("fetch", fetchSpot);
         setSpot(fetchSpot);
       } catch (error) {
         console.error(error);
@@ -50,7 +48,6 @@ export default function SpotScreen({ navigation }) {
     );
   }
 
-  console.log(spot)
 
   return (
     <View style={styles.container}>

@@ -24,10 +24,8 @@ export default function CreateSessionScreen({ navigation }) {
   const [selectedSpot, setSelectedSpot] = useState(null);
   const [spots, setSpots] = useState([]);
   const [spotInfo, setSpotInfo] = useState([]);
-
   const dispatch = useDispatch();
   const session = useSelector((state) => state.session.value);
-  console.log("session", session); // Ajout d'un console.log
 
   useEffect(() => {
     const fetchSpot = async () => {
@@ -63,7 +61,6 @@ export default function CreateSessionScreen({ navigation }) {
       })
         .then((response) => response.json()) // Parse the response as JSON
         .then((data) => {
-          console.log("data", data);
           setSpotInfo(data);
           dispatch(addSessionName(sessionName));
           dispatch(addSpot(data.data._id)); // Access the _id property from the data directly

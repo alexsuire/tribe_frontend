@@ -49,7 +49,6 @@ export default function SearchSpotScreen({ navigation }) {
     );
     setFilteredSpots(filtered);
     setSelectedSpot(text);
-    console.log(filtered);
     if ( filtered.length > 0) {
       const firstSpot = filtered[0];
       dispatch(setFirstSpot(firstSpot));
