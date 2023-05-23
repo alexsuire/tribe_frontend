@@ -24,8 +24,7 @@ const FETCH_API = getFetchAPI();
 export default function SessionScreen({ navigation }) {
   const user = useSelector((state) => state.users.value);
   const [sessions, setSessions] = useState([]);
-  const [messages, setMessages] = useState([]);
-  console.log("user", user);
+
   useEffect(() => {
     const fetchSession = async () => {
       try {
@@ -41,8 +40,6 @@ export default function SessionScreen({ navigation }) {
     };
     fetchSession();
   }, []);
-
-  console.log("session", sessions);
 
   const startDateTime = new Date(sessions.data?.date_start);
   const endDateTime = new Date(sessions.data?.date_end);
@@ -64,7 +61,25 @@ export default function SessionScreen({ navigation }) {
     formattedMonth +
     "/" +
     startDateTime.getFullYear();
-  console.log("data", sessions.data);
+
+  function checkTokenExists(users, token) {
+    return users?.some((user) => user.token == token);
+  }
+
+  const tokenParticipantExists = checkTokenExists(
+    sessions.data?.users,
+    user.token
+  );
+
+  const tokenAdminExists = () => {
+    if (sessions.data?.admin.token == user.token) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const tokenAdmin = tokenAdminExists();
 
   return (
     <View style={styles.container}>
@@ -101,13 +116,12 @@ export default function SessionScreen({ navigation }) {
                 admin={sessions.data?.admin}
               />
               <Messages_session sessionId={sessions.data?._id} />
-              <TouchableOpacity
-                style={styles.button}
-                activeOpacity={0.8}
-                onPress={() => navigation.navigate("ReportScreen")}
-              >
-                <Text style={styles.textButton}>Join</Text>
-              </TouchableOpacity>
+              {!tokenParticipantExists ||
+                (tokenAdmin && (
+                  <TouchableOpacity style={styles.button} activeOpacity={0.8}>
+                    <Text style={styles.textButton}>Join</Text>
+                  </TouchableOpacity>
+                ))}
             </View>
           </KeyboardAwareScrollView>
         </ScrollView>
