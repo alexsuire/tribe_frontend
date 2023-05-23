@@ -48,6 +48,8 @@ export default function SpotScreen({ navigation }) {
     );
   }
 
+  console.log(spot)
+
   return (
     <View style={styles.container}>
       <Header_spot
@@ -55,6 +57,9 @@ export default function SpotScreen({ navigation }) {
         type={spot.data?.type}
         reliability={spot.data?.reliability}
         rating={spot.data?.rating}
+        latitude= {spot.data?.latitude}
+        longitude= {spot.data?.longitude}
+
       />
       <ImageBackground
         style={styles.wave2}
