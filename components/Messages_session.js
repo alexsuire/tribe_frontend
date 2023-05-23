@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   ScrollView,
   StyleSheet,
+  KeyboardAvoidingView,
 } from "react-native";
 import MY_FETCH_API from "../myfetchapi";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,6 +15,8 @@ export default function Messages_session(props) {
   const [message, setMessage] = useState("");
   const [userInformations, setUserInformations] = useState("");
   const [messages, setMessages] = useState([]);
+  const [messageSend, setMessageSend] = useState(false);
+
   const user = useSelector((state) => state.users.value);
 
   useEffect(() => {
@@ -47,6 +50,7 @@ export default function Messages_session(props) {
       }),
     });
     setMessage("");
+    setMessageSend(!messageSend);
   };
 
   useEffect(() => {
@@ -64,25 +68,30 @@ export default function Messages_session(props) {
       }
     };
     fetchMessage();
-  }, []);
+  }, [messageSend]);
 
-  const messageViews = messages.map((data, i) => (
-    <View key={i} style={styles.message}>
-      <Text style={styles.messageText}>{data.text}</Text>
-    </View>
-  ));
+  const messageViews = messages.map((data, i) => {
+    const messageDate = new Date(data.date);
+    const month = (messageDate.getMonth() + 1).toString().padStart(2, "0");
+    const formattedDate = `${messageDate.getDate()}/${month}/${messageDate.getFullYear()}`;
+
+    return (
+      <View key={i} style={styles.message}>
+        <Text style={styles.messageText}>{data.text}</Text>
+        <View style={styles.nameAnddate}>
+          <Text style={styles.messageUser}>{data.user?.firstname}</Text>
+          <Text style={styles.messageDate}>{formattedDate}</Text>
+        </View>
+      </View>
+    );
+  });
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.title}>Messages</Text>
       </View>
-      <ScrollView
-        style={styles.messagesContainer}
-        contentContainerStyle={styles.messagesContent}
-      >
-        {messageViews}
-      </ScrollView>
+      <ScrollView style={styles.messagesContainer}>{messageViews}</ScrollView>
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
@@ -102,6 +111,7 @@ const styles = StyleSheet.create({
   container: {
     marginTop: "8%",
     width: "90%",
+    maxHeight: 350,
     shadowColor: "#171717",
     shadowOffset: { width: -2, height: 4 },
     shadowOpacity: 0.2,
@@ -133,14 +143,25 @@ const styles = StyleSheet.create({
   },
   message: {
     backgroundColor: "#F0F0F0",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
     borderRadius: 10,
     padding: 10,
     marginVertical: 5,
+    marginHorizontal: 5,
   },
   messageText: {
     fontSize: 10,
     color: "black",
+    width: 250,
   },
+  nameAnddate: {
+    width: 100,
+    marginLeft: 5,
+  },
+  messageUser: { fontSize: 9 },
+  messageDate: { fontSize: 7 },
   inputContainer: {
     backgroundColor: "white",
     display: "flex",

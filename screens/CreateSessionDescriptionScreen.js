@@ -54,7 +54,7 @@ import {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ name: session.sessionName, spot:session.spot, admin: userInfo._id, date_start: session.start, date_end: session.end, description: description }),
+      body: JSON.stringify({ name: session.sessionName, spot:session.spot,  admin: userInfo._id, date_start: session.start, date_end: session.end, description: description }),
     })
     .then(response => response.json()) // Parse the response as JSON
     .then(data => {
@@ -83,7 +83,9 @@ import {
               <TouchableOpacity onPress={() => navigation.navigate('CreateSessionDateScreen')}>
                 <Image style={styles.back} source={require("../assets/back.png")} />
               </TouchableOpacity>
+              <View style={styles.placetitle}>
               <Text style={styles.title}>Create Your sessions</Text>
+              </View>
             </View>
             <View style={styles.body}>
               <View style={styles.sessionsContainer}>
@@ -125,8 +127,7 @@ import {
         width: 25,
         height: 25,
         tintColor: '#0487D9',
-        marginLeft: 20,
-        marginRight: 30,
+        
       },
       scrollView: {
         maxHeight: 190, 
@@ -146,8 +147,16 @@ import {
         backgroundColor: "#F0F0F0",
         display: "flex",
         flexDirection: 'row',
-        justifyContent: "flex-start",
+        justifyContent: "center",
         alignItems: 'center',
+      },
+      placetitle: {
+        width: "80%",
+        backgroundColor: "#F0F0F0",
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
       },
       title: {
         fontSize: 25,
@@ -173,5 +182,10 @@ import {
         width: "90%",
         marginTop: 10,
         borderRadius: 10,
+      },
+      buttonText:{
+        color: '#0487D9',
+        fontSize: 19,
+        fontWeight: "600",
       },
   });

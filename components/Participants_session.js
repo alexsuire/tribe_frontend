@@ -32,7 +32,10 @@ export default function Participants_session(props) {
       <View style={styles.header}>
         <Text style={styles.title}>Participants</Text>
       </View>
-      <View style={styles.participantsContainer}>{participants}</View>
+
+      <ScrollView style={styles.participantsContainer}>
+        {participants}
+      </ScrollView>
     </View>
   );
 }
@@ -69,9 +72,8 @@ const styles = StyleSheet.create({
 
   participantsContainer: {
     backgroundColor: "white",
-    display: "flex",
-    justifyContent: "space-between",
 
+    maxHeight: 270,
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
   },

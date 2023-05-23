@@ -15,6 +15,8 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { useDispatch, useSelector } from "react-redux";
 import { addStartSession, addEndSession } from "../reducers/session";
 import moment from "moment";
+import MY_FETCH_API from "../myfetchapi"
+
 
 export default function CreateSessionDateScreen({ navigation }) {
   const [startDate, setStartDate] = useState(null);
@@ -64,7 +66,7 @@ export default function CreateSessionDateScreen({ navigation }) {
       console.log("session", session);
       navigation.navigate("CreateSessionDescriptionScreen");
     } else {
-      alert("Veuillez sélectionner les dates de début et de fin.");
+      alert("Please complete your session Bodhi 🤙");
     }
   };
 
@@ -77,7 +79,9 @@ export default function CreateSessionDateScreen({ navigation }) {
         <TouchableOpacity onPress={() => navigation.navigate("CreateSessionScreen")}>
           <Image style={styles.back} source={require("../assets/back.png")} />
         </TouchableOpacity>
+        <View style={styles.placetitle}>
         <Text style={styles.title}>Create Your sessions</Text>
+        </View>
       </View>
 
       <View style={styles.body}>
@@ -122,8 +126,7 @@ back: {
 width: 25,
 height: 25,
 tintColor: "#0487D9",
-marginLeft: 20,
-marginRight: 30,
+
 },
 header: {
 height: "18%",
@@ -131,8 +134,16 @@ width: "100%",
 backgroundColor: "#F0F0F0",
 display: "flex",
 flexDirection: "row",
-justifyContent: "flex-start",
+justifyContent: "center",
 alignItems: "center",
+},
+placetitle: {
+  width: "80%",
+  backgroundColor: "#F0F0F0",
+  display: "flex",
+  flexDirection: "row",
+  justifyContent: "center",
+  alignItems: "center",
 },
 title: {
 fontSize: 25,
@@ -143,12 +154,14 @@ body: {
 flex: 1,
 justifyContent: "center",
 alignItems: "center",
+
 },
 sessionsContainer: {
 backgroundColor: "#F0F0F0",
 width: "90%",
 padding: 20,
 borderRadius: 10,
+
 },
 date: {
 marginBottom: 20,

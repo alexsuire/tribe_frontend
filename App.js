@@ -113,15 +113,16 @@ export default function App() {
               name="MySessionsScreen"
               component={MySessionsScreen}
             />
+
             <Stack.Screen
               name="CreateSessionScreen"
               component={CreateSessionScreen}
             />
-             <Stack.Screen
+            <Stack.Screen
               name="CreateSessionDateScreen"
               component={CreateSessionDateScreen}
             />
-             <Stack.Screen
+            <Stack.Screen
               name="CreateSessionDescriptionScreen"
               component={CreateSessionDescriptionScreen}
             />
