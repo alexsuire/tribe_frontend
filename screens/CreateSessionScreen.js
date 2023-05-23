@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Image,
   View,
@@ -13,10 +13,47 @@ import {
   ScrollView,
   Button,
 } from "react-native";
+import { AutocompleteDropdown } from "react-native-autocomplete-dropdown";
+import { addSessionName, addSpot } from "../reducers/session";
+import { useDispatch, useSelector } from "react-redux";
+
+
+
 
 export default function CreateSessionScreen({ navigation }) {
   const [sessionName, setSessionName] = useState("");
-  const [spot, setSpot] = useState("");
+  const [spot, setSpot] = useState([]);
+  const [selectedSpot, setSelectedSpot] = useState(null);
+  const [spots, setSpots] = useState([]);
+
+  const dispatch = useDispatch();
+  const session = useSelector((state) => state.session.value);
+  console.log("session", session); // Ajout d'un console.log
+
+
+
+  useEffect(() => {
+    const fetchSpot = async () => {
+      try {
+        const response = await fetch(MY_FETCH_API + "/spots");
+        const json = await response.json();
+        const data = json.data;
+        setSpots(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchSpot();
+  }, []);
+
+  const spotNames = spots.map((item) => item.name);
+
+  const transformedSpot = spotNames.map((name, index) => {
+    return {
+      id: index + 1,
+      title: name,
+    };
+  });
 
   return (
     <KeyboardAvoidingView
@@ -45,25 +82,45 @@ export default function CreateSessionScreen({ navigation }) {
           </View>
           <View style={styles.namesession}>
             <Text style={styles.sessionde}>Spot :</Text>
-            <TextInput
-              placeholder="..."
-              id="Name session"
-              style={styles.spot}
-              value={spot}
-              onChangeText={setSpot}
-            />
-          </View>
+            
+          <AutocompleteDropdown
+            clearOnFocus={false}
+            closeOnBlur={true}
+            closeOnSubmit={false}
+            initialValue={{ id: "2" }}
+            onSelectItem={(item) => {
+              setSelectedSpot(item);
+              }}
+            dataSet={transformedSpot}
+            textInputProps={{
+              placeholder: 'Spot',
+            }}
+              containerStyle={{
+              marginTop: 10,
+              backgroundColor: "white",
+              borderColor: "#E0CDA9",
+              borderWidth: 1,
+              borderRadius: 7,
+            }}
+          />
           <Button
             title="Next"
             onPress={() => {
               if (sessionName !== "" && spot !== "") {
+                dispatch(addSessionName(sessionName));
+                dispatch(addSpot(selectedSpot));
+                console.log("yeeepe", session); // Ajout d'un console.log
+
                 navigation.navigate("CreateSessionDateScreen");
+
               } else {
                 alert("Please complete your session Bodhi 🤙");
               }
             }}
             style={styles.next}
           />
+          
+          </View>
         </View>
       </View>
     </KeyboardAvoidingView>
