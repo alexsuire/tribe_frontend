@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   View,
   Text,
@@ -16,8 +16,17 @@ export default function Messages_session(props) {
   const [userInformations, setUserInformations] = useState("");
   const [messages, setMessages] = useState([]);
   const [messageSend, setMessageSend] = useState(false);
-
+  const scrollViewRef = useRef(null);
   const user = useSelector((state) => state.users.value);
+  const [contentHeight, setContentHeight] = useState(0);
+
+  // faire en sorte d'arriver sur les derniers messages
+  const handleContentSizeChange = (contentWidth, height) => {
+    if (scrollViewRef.current && height > contentHeight) {
+      scrollViewRef.current.scrollToEnd({ animated: false });
+      setContentHeight(height);
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -70,28 +79,40 @@ export default function Messages_session(props) {
     fetchMessage();
   }, [messageSend]);
 
-  const messageViews = messages.map((data, i) => {
-    const messageDate = new Date(data.date);
-    const month = (messageDate.getMonth() + 1).toString().padStart(2, "0");
-    const formattedDate = `${messageDate.getDate()}/${month}/${messageDate.getFullYear()}`;
+  let messageViews;
+  if (messages) {
+    messageViews = messages.map((data, i) => {
+      const messageDate = new Date(data.date);
+      const month = (messageDate.getMonth() + 1).toString().padStart(2, "0");
+      const formattedDate = `${messageDate.getDate()}/${month}/${messageDate.getFullYear()}`;
 
-    return (
-      <View key={i} style={styles.message}>
-        <Text style={styles.messageText}>{data.text}</Text>
-        <View style={styles.nameAnddate}>
-          <Text style={styles.messageUser}>{data.user?.firstname}</Text>
-          <Text style={styles.messageDate}>{formattedDate}</Text>
+      return (
+        <View key={i} style={styles.message}>
+          <Text style={styles.messageText}>{data.text}</Text>
+          <View style={styles.nameAnddate}>
+            <Text style={styles.messageUser}>{data.user?.firstname}</Text>
+            <Text style={styles.messageDate}>{formattedDate}</Text>
+          </View>
         </View>
-      </View>
+      );
+    });
+  } else {
+    messageViews = (
+      <Text style={styles.noMessagesText}>No messages available.</Text>
     );
-  });
-
+  }
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.title}>Messages</Text>
       </View>
-      <ScrollView style={styles.messagesContainer}>{messageViews}</ScrollView>
+      <ScrollView
+        ref={scrollViewRef}
+        style={styles.messagesContainer}
+        onContentSizeChange={handleContentSizeChange}
+      >
+        {messageViews}
+      </ScrollView>
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
@@ -155,6 +176,11 @@ const styles = StyleSheet.create({
     fontSize: 10,
     color: "black",
     width: 250,
+  },
+  noMessagesText: {
+    color: "#646262",
+    marginVertical: 20,
+    marginHorizontal: 20,
   },
   nameAnddate: {
     width: 100,

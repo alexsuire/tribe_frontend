@@ -18,19 +18,19 @@ import Messages_session from "../components/Messages_session";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-const { getFetchAPI } = require("../modules/util");
-const FETCH_API = getFetchAPI();
+import MY_FETCH_API  from "../myfetchapi"
 
 export default function SessionScreen({ navigation }) {
   const user = useSelector((state) => state.users.value);
   const [sessions, setSessions] = useState([]);
   const [messages, setMessages] = useState([]);
-  console.log("user", user.session);
+  console.log("user", user);
+
   useEffect(() => {
     const fetchSession = async () => {
       try {
         const sessionResponse = await fetch(
-          FETCH_API + `/sessions/oneSession/${user.session}`
+          MY_FETCH_API + `/sessions/oneSession/${user.session}`
         );
         const fetchSessionsUser = await sessionResponse.json();
         console.log("fetch", fetchSessionsUser);
@@ -40,7 +40,7 @@ export default function SessionScreen({ navigation }) {
       }
     };
     fetchSession();
-  }, []);
+  }, [user.session]);
 
   console.log("session", sessions);
 
@@ -64,7 +64,7 @@ export default function SessionScreen({ navigation }) {
     formattedMonth +
     "/" +
     startDateTime.getFullYear();
-  console.log("data", sessions.data?.users);
+  console.log("data", sessions.data);
 
   return (
     <View style={styles.container}>
@@ -96,7 +96,10 @@ export default function SessionScreen({ navigation }) {
             extraScrollHeight={50}
           >
             <View style={styles.all}>
-              <Participants_session users={sessions.data?.users} />
+              <Participants_session
+                users={sessions.data?.users}
+                admin={sessions.data?.admin}
+              />
               <Messages_session sessionId={sessions.data?._id} />
               <TouchableOpacity
                 style={styles.button}
