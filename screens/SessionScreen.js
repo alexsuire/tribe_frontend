@@ -24,7 +24,6 @@ export default function SessionScreen({ navigation }) {
   const user = useSelector((state) => state.users.value);
   const [sessions, setSessions] = useState([]);
   const [messages, setMessages] = useState([]);
-  console.log("user", user);
 
   useEffect(() => {
     const fetchSession = async () => {
@@ -33,7 +32,6 @@ export default function SessionScreen({ navigation }) {
           MY_FETCH_API + `/sessions/oneSession/${user.session}`
         );
         const fetchSessionsUser = await sessionResponse.json();
-        console.log("fetch", fetchSessionsUser);
         setSessions(fetchSessionsUser);
       } catch (error) {
         console.error(error);
@@ -42,7 +40,6 @@ export default function SessionScreen({ navigation }) {
     fetchSession();
   }, [user.session]);
 
-  console.log("session", sessions);
 
   const startDateTime = new Date(sessions.data?.date_start);
   const endDateTime = new Date(sessions.data?.date_end);
@@ -64,7 +61,6 @@ export default function SessionScreen({ navigation }) {
     formattedMonth +
     "/" +
     startDateTime.getFullYear();
-  console.log("data", sessions.data);
 
   return (
     <View style={styles.container}>
