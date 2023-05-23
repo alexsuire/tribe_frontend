@@ -1,9 +1,6 @@
 import { StyleSheet, Text, View, SafeAreaView } from "react-native";
 
 export default function Header_session(props) {
-  console.log("props", props.googlelink);
-  // const startDateTime = new Date(props.date_start);
-
   return (
     <View style={styles.container}>
       <SafeAreaView>
@@ -37,13 +34,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#F0F0F0",
 
     width: "100%",
-    height: "25%",
+    height: "20%",
   },
   allText: {
     display: "flex",
     justifyContent: "space-between",
     flexDirection: "row",
-
+    marginTop: "5%",
     height: "50%",
   },
   sessionName: {
@@ -51,7 +48,6 @@ const styles = StyleSheet.create({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    paddingBottom: "5%",
   },
   spotAndmaps: {
     marginLeft: "3%",

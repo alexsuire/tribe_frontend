@@ -1,104 +1,98 @@
+import React, { useState, useEffect } from "react";
 import {
-  Image,
-  KeyboardAvoidingView,
-  Platform,
-  StyleSheet,
+  View,
   Text,
   TextInput,
   TouchableOpacity,
-  View,
+  ScrollView,
+  StyleSheet,
 } from "react-native";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import MY_FETCH_API from "../myfetchapi";
+import { useDispatch, useSelector } from "react-redux";
 
-export default function Messages_session() {
+export default function Messages_session(props) {
+  const [message, setMessage] = useState("");
+  const [userInformations, setUserInformations] = useState("");
+  const [messages, setMessages] = useState([]);
+  const user = useSelector((state) => state.users.value);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          MY_FETCH_API + `/users/basicInfo/${user.token}`
+        );
+        const userinfo = await response.json();
+
+        setUserInformations(userinfo);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const handleSend = async () => {
+    if (message.trim() === "") {
+      return;
+    }
+
+    const postMessage = await fetch(MY_FETCH_API + "/messages/add", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        userId: userInformations._id,
+        text: message,
+        sessionId: props.sessionId,
+      }),
+    });
+    setMessage("");
+  };
+
+  useEffect(() => {
+    const fetchMessage = async () => {
+      try {
+        const messageResponse = await fetch(
+          MY_FETCH_API + `/messages/getAllMessages/${user.session}`
+        );
+
+        const messageInfo = await messageResponse.json();
+        console.log("messageInfo", messageInfo);
+        setMessages(messageInfo.messages);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchMessage();
+  }, []);
+
+  const messageViews = messages.map((data, i) => (
+    <View key={i} style={styles.message}>
+      <Text style={styles.messageText}>{data.text}</Text>
+    </View>
+  ));
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.day}>Monday</Text>
-        <Text style={styles.hour}>Morning</Text>
-        <Text style={styles.hour}>Afternoon</Text>
-        <Text style={styles.hour}>Evening</Text>
+        <Text style={styles.title}>Messages</Text>
       </View>
-      <View style={styles.forecastContainer}>
-        <View style={styles.icons}>
-          <MaterialCommunityIcons
-            style={styles.star}
-            name={"star-outline"}
-            size={30}
-            color={"#0487D9"}
-          />
-          <MaterialCommunityIcons
-            style={styles.wave}
-            name={"sine-wave"}
-            size={30}
-            color={"#0487D9"}
-          />
-          <MaterialCommunityIcons
-            style={styles.wind}
-            name={"weather-windy"}
-            size={30}
-            color={"#0487D9"}
-          />
-          <MaterialCommunityIcons
-            style={styles.cloud}
-            name={"weather-partly-cloudy"}
-            size={30}
-            color={"#0487D9"}
-          />
-        </View>
-        <View style={styles.contentRight}>
-          <View style={styles.firstColumn}>
-            <MaterialCommunityIcons
-              style={styles.star2}
-              name={"star"}
-              size={30}
-            >
-              <Text style={styles.numberStars}>2</Text>
-            </MaterialCommunityIcons>
-            <Text style={styles.wave2}>1m</Text>
-            <Text style={styles.wind2}>10km/h</Text>
-            <MaterialCommunityIcons
-              style={styles.cloud2}
-              name={"weather-partly-cloudy"}
-              size={30}
-              color={"#0487D9"}
-            />
-          </View>
-          <View style={styles.secondColumn}>
-            <MaterialCommunityIcons
-              style={styles.star2}
-              name={"star"}
-              size={30}
-            >
-              <Text style={styles.numberStars}>0</Text>
-            </MaterialCommunityIcons>
-            <Text style={styles.wave2}>0.5m</Text>
-            <Text style={styles.wind2}>30km/h</Text>
-            <MaterialCommunityIcons
-              style={styles.cloud2}
-              name={"weather-partly-cloudy"}
-              size={30}
-              color={"#0487D9"}
-            />
-          </View>
-          <View style={styles.thirdColumn}>
-            <MaterialCommunityIcons
-              style={styles.star2}
-              name={"star"}
-              size={30}
-            >
-              <Text style={styles.numberStars}>4</Text>
-            </MaterialCommunityIcons>
-            <Text style={styles.wave2}>2m</Text>
-            <Text style={styles.wind2}>5km/h</Text>
-            <MaterialCommunityIcons
-              style={styles.cloud2}
-              name={"weather-partly-cloudy"}
-              size={30}
-              color={"#0487D9"}
-            />
-          </View>
-        </View>
+      <ScrollView
+        style={styles.messagesContainer}
+        contentContainerStyle={styles.messagesContent}
+      >
+        {messageViews}
+      </ScrollView>
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.input}
+          placeholder="Type a message..."
+          value={message}
+          onChangeText={setMessage}
+        />
+        <TouchableOpacity style={styles.sendButton} onPress={handleSend}>
+          <Text style={styles.sendButtonText}>Send</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -106,107 +100,77 @@ export default function Messages_session() {
 
 const styles = StyleSheet.create({
   container: {
+    marginTop: "8%",
     width: "90%",
-    marginTop: 40,
     shadowColor: "#171717",
     shadowOffset: { width: -2, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 3,
   },
-
   header: {
     display: "flex",
-    flexDirection: "row",
     backgroundColor: "#16A1F7",
     height: 60,
-
+    alignItems: "center",
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     padding: "3%",
     justifyContent: "space-around",
   },
-
-  day: {
+  title: {
     color: "white",
-    fontSize: 10,
-    marginTop: 12,
+    fontSize: 12,
+    fontWeight: "500",
   },
-  forecastContainer: {
+  messagesContainer: {
+    backgroundColor: "white",
+    display: "flex",
+  },
+  messagesContent: {
+    flexGrow: 1,
+    justifyContent: "space-between",
+    paddingVertical: 10,
+  },
+  message: {
+    backgroundColor: "#F0F0F0",
+    borderRadius: 10,
+    padding: 10,
+    marginVertical: 5,
+  },
+  messageText: {
+    fontSize: 10,
+    color: "black",
+  },
+  inputContainer: {
     backgroundColor: "white",
     display: "flex",
     flexDirection: "row",
-
+    alignItems: "center",
+    paddingVertical: 10,
+    paddingHorizontal: 10,
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
   },
-
-  body: {
-    display: "flex",
-    justifyContent: "space-between",
-    flexDirection: "row",
-    alignItems: "center",
-    borderTopWidth: 1,
-    borderColor: "#F0F0F0",
-    marginBottom: 15,
-    marginHorizontal: 20, // Ajouter des marges horizontales
+  input: {
+    flex: 1,
+    height: 40,
+    borderWidth: 1,
+    borderColor: "#CCCCCC",
+    borderRadius: 20,
+    paddingHorizontal: 10,
+    marginRight: 10,
+    marginBottom: 20,
   },
-  date: {
-    fontSize: 11,
-    marginTop: 12,
-    color: "#646262",
+  sendButton: {
+    backgroundColor: "#16A1F7",
+    borderRadius: 20,
+    paddingHorizontal: 15,
+    paddingVertical: 8,
+    marginBottom: 20,
   },
-  hour: {
-    fontSize: 10,
-    marginTop: 12,
+  sendButtonText: {
     color: "white",
+    fontSize: 14,
+    fontWeight: "500",
   },
-
-  firstSession: {
-    borderTopWidth: 0, // Remove the top border for the first session
-  },
-  icons: {
-    display: "flex",
-    flexDirection: "column",
-    borderRightWidth: 1,
-    borderColor: "#F0F0F0",
-    paddingRight: 20,
-    paddingTop: 20,
-    paddingLeft: 30,
-    paddingBottom: 20,
-  },
-  star: { borderBottomWidth: 1 },
-  wave: { marginTop: 12, borderBottomWidth: 1, borderColor: "black" },
-  wind: { marginTop: 12 },
-  cloud: { marginTop: 12 },
-  star2: { color: "#F2CB05", marginLeft: 20, borderTopWidth: 1 },
-  wave2: { marginTop: 20, fontSize: 10, color: "#646262", marginLeft: 32 },
-  wind2: { marginTop: 25, fontSize: 10, color: "#646262", marginLeft: 28 },
-  cloud2: { marginTop: 20, marginLeft: 28 },
-  contentRight: {
-    display: "flex",
-    flexDirection: "row",
-  },
-  firstColumn: {
-    display: "flex",
-    flexDirection: "column",
-    paddingTop: 20,
-
-    paddingBottom: 20,
-  },
-  secondColumn: {
-    display: "flex",
-    flexDirection: "column",
-    paddingTop: 20,
-    paddingLeft: 15,
-    paddingBottom: 20,
-  },
-  thirdColumn: {
-    display: "flex",
-    flexDirection: "column",
-    paddingTop: 20,
-    paddingLeft: 15,
-    paddingBottom: 20,
-  },
-
-  numberStars: {},
 });

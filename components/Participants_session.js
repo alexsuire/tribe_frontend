@@ -7,27 +7,32 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  ScrollView,
 } from "react-native";
 
-export default function Participants_session() {
-  //   const session = sessionsData.map((data, i) => {
-  //     return (
-  //       <View key={i} style={[styles.body, i === 0 && styles.firstSession]}>
-  //         <Text style={styles.date}>{data.date}</Text>
-  //         <Text style={styles.border}>|</Text>
-  //         <Text style={styles.hour}>{data.hour}</Text>
-  //         <Text style={styles.number}>{data.number}</Text>
-  //       </View>
-  //     );
-  //   });
+export default function Participants_session(props) {
+  console.log("props", props);
+  const participants = props.users?.map((data, i) => {
+    return (
+      <View key={i} style={[styles.body, i === 0 && styles.firstParticipant]}>
+        <View style={styles.firstnameContainer}>
+          <Text style={styles.firstname}>{data.firstname}</Text>
+        </View>
+        <View style={styles.ageContainer}>
+          <Text style={styles.age}>{data.age} y.o</Text>
+        </View>
+        <View style={styles.levelContainer}>
+          <Text style={styles.level}>{data.level}</Text>
+        </View>
+      </View>
+    );
+  });
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.myNextSession}>
-          My Next Session in : Ile d'Oleron - chassiron
-        </Text>
+        <Text style={styles.title}>Participants</Text>
       </View>
-      <View style={styles.sessionContainer}></View>
+      <View style={styles.participantsContainer}>{participants}</View>
     </View>
   );
 }
@@ -46,8 +51,9 @@ const styles = StyleSheet.create({
   header: {
     display: "flex",
 
-    backgroundColor: "#F2CB05",
+    backgroundColor: "#5FB6DA",
     height: 60,
+    alignItems: "center",
 
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
@@ -55,19 +61,28 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
   },
 
-  myNextSession: {
+  title: {
     color: "white",
     fontSize: 12,
     fontWeight: 500,
   },
-  sessionContainer: {
+
+  participantsContainer: {
     backgroundColor: "white",
     display: "flex",
-    justifyContent: "space-around",
+    justifyContent: "space-between",
 
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
   },
+  ageContainer: {
+    width: 90,
+  },
+  levelContainer: { width: 90, marginLeft: 20 },
+  firstnameContainer: { width: 90 },
+  firstname: { fontSize: 11, marginTop: 12, color: "#646262" },
+  age: { fontSize: 10, marginTop: 12, color: "#646262", textAlign: "center" },
+  level: { fontSize: 10, marginTop: 12, color: "#646262" },
 
   body: {
     display: "flex",
@@ -79,27 +94,8 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     marginHorizontal: 20, // Ajouter des marges horizontales
   },
-  date: {
-    fontSize: 11,
-    marginTop: 12,
-    color: "#646262",
-  },
-  hour: {
-    fontSize: 10,
-    marginTop: 12,
-    color: "#646262",
-  },
-  border: {
-    fontSize: 20,
-    marginTop: 12,
-    color: "#646262",
-  },
-  firstSession: {
+
+  firstParticipant: {
     borderTopWidth: 0, // Remove the top border for the first session
-  },
-  number: {
-    fontSize: 10,
-    marginTop: 12,
-    color: "#646262",
   },
 });
