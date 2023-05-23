@@ -15,6 +15,7 @@ import {
   import { useDispatch, useSelector } from "react-redux";
   import { addSessionDescription } from "../reducers/session";
   import MY_FETCH_API from "../myfetchapi"
+  import { addSession } from "../reducers/users";
   
   
   export default function CreateSessionDescriptionScreen({ navigation }) {
@@ -55,19 +56,13 @@ import {
       },
       body: JSON.stringify({ name: session.sessionName, spot:session.spot,  admin: userInfo._id, date_start: session.start, date_end: session.end, description: description }),
     })
-    .then(response => {
-      if (response.ok) {
-        console.log("Données enregistrées avec succès !");
-        navigation.navigate("TabNavigator");
-      } else {
-        console.error("Erreur lors de l'enregistrement des données :", response.status);
-        // Gérer l'erreur ou afficher un message à l'utilisateur
-      }
+    .then(response => response.json()) // Parse the response as JSON
+    .then(data => {
+        console.log("response", data)
+        console.log('user', user)
+        dispatch(addSession(data.id))
+        navigation.navigate("SessionScreen");
     })
-    .catch(error => {
-      console.error("Erreur lors de l'enregistrement des données :", error);
-      // Gérer l'erreur ou afficher un message à l'utilisateur
-    });
   };
 
 

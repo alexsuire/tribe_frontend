@@ -108,6 +108,10 @@ export default function App() {
             />
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
             <Stack.Screen name="SpotScreen" component={SpotScreen} />
+<<<<<<< HEAD
+=======
+            <Stack.Screen name="SessionScreen" component={SessionScreen} />
+>>>>>>> 8702fee5a2a44b6738836263b52b52ed0c880e53
             <Stack.Screen
               name="MySessionsScreen"
               component={MySessionsScreen}
@@ -125,7 +129,10 @@ export default function App() {
               component={CreateSessionDescriptionScreen}
             />
             <Stack.Screen name="MapScreen" component={MapScreen} />
+<<<<<<< HEAD
             <Stack.Screen name="SessionScreen" component={SessionScreen} />
+=======
+>>>>>>> 8702fee5a2a44b6738836263b52b52ed0c880e53
             <Stack.Screen name="ReportScreen" component={ReportScreen} />
           </Stack.Navigator>
         </NavigationContainer>

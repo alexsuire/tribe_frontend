@@ -23,6 +23,8 @@ export default function SpotScreen({ navigation }) {
   const [spot, setSpot] = useState(null); // Initialize spot as null
   const user = useSelector((state) => state.users.value);
 
+  console.log('userOnspot', user)
+
   useEffect(() => {
     const fetchData = async () => {
       try {

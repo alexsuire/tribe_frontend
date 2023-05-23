@@ -16,8 +16,12 @@ import {
 import { AutocompleteDropdown } from "react-native-autocomplete-dropdown";
 import { addSessionName, addSpot } from "../reducers/session";
 import { useDispatch, useSelector } from "react-redux";
+<<<<<<< HEAD
 import MY_FETCH_API from "../myfetchapi"
 
+=======
+import MY_FETCH_API from"../myfetchapi"
+>>>>>>> 8702fee5a2a44b6738836263b52b52ed0c880e53
 
 
 
@@ -59,31 +63,31 @@ export default function CreateSessionScreen({ navigation }) {
     };
   });
 
-  function handlePress () {
-
-
+  function handlePress() {
     if (sessionName !== "" && spot !== "") {
-
       fetch(MY_FETCH_API + `/spots/bySpotName`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify ({spotName: selectedSpot.title})
-          })
-          .then(response => response.json()) // Parse the response as JSON
-          .then(data => {
-            console.log('data', data)
-          setSpotInfo(data)
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ spotName: selectedSpot.title })
+      })
+        .then(response => response.json()) // Parse the response as JSON
+        .then(data => {
+          console.log('data', data);
+          setSpotInfo(data);
           dispatch(addSessionName(sessionName));
-          dispatch(addSpot(spotInfo.data._id));
+          dispatch(addSpot(data.data._id)); // Access the _id property from the data directly
           navigation.navigate("CreateSessionDateScreen");
-          })
-
+        })
+        .catch(error => {
+          console.error(error);
+        });
     } else {
       alert("Please complete your session Bodhi 🤙");
     }
   }
+  
   
 
   return (
