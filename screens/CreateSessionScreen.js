@@ -16,15 +16,7 @@ import {
 import { AutocompleteDropdown } from "react-native-autocomplete-dropdown";
 import { addSessionName, addSpot } from "../reducers/session";
 import { useDispatch, useSelector } from "react-redux";
-<<<<<<< HEAD
-import MY_FETCH_API from "../myfetchapi"
-
-=======
-import MY_FETCH_API from"../myfetchapi"
->>>>>>> 8702fee5a2a44b6738836263b52b52ed0c880e53
-
-
-
+import MY_FETCH_API from "../myfetchapi";
 
 export default function CreateSessionScreen({ navigation }) {
   const [sessionName, setSessionName] = useState("");
@@ -33,12 +25,9 @@ export default function CreateSessionScreen({ navigation }) {
   const [spots, setSpots] = useState([]);
   const [spotInfo, setSpotInfo] = useState([]);
 
-
   const dispatch = useDispatch();
   const session = useSelector((state) => state.session.value);
   console.log("session", session); // Ajout d'un console.log
-
-
 
   useEffect(() => {
     const fetchSpot = async () => {
@@ -66,29 +55,27 @@ export default function CreateSessionScreen({ navigation }) {
   function handlePress() {
     if (sessionName !== "" && spot !== "") {
       fetch(MY_FETCH_API + `/spots/bySpotName`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ spotName: selectedSpot.title })
+        body: JSON.stringify({ spotName: selectedSpot.title }),
       })
-        .then(response => response.json()) // Parse the response as JSON
-        .then(data => {
-          console.log('data', data);
+        .then((response) => response.json()) // Parse the response as JSON
+        .then((data) => {
+          console.log("data", data);
           setSpotInfo(data);
           dispatch(addSessionName(sessionName));
           dispatch(addSpot(data.data._id)); // Access the _id property from the data directly
           navigation.navigate("CreateSessionDateScreen");
         })
-        .catch(error => {
+        .catch((error) => {
           console.error(error);
         });
     } else {
       alert("Please complete your session Bodhi 🤙");
     }
   }
-  
-  
 
   return (
     <KeyboardAvoidingView
@@ -119,35 +106,30 @@ export default function CreateSessionScreen({ navigation }) {
           </View>
           <View style={styles.namesession}>
             <Text style={styles.sessionde}>Spot :</Text>
-            
-          <AutocompleteDropdown
-            clearOnFocus={false}
-            closeOnBlur={true}
-            closeOnSubmit={false}
-            initialValue={{ id: "2" }}
-            onSelectItem={(item) => {
-              setSelectedSpot(item);
+
+            <AutocompleteDropdown
+              clearOnFocus={false}
+              closeOnBlur={true}
+              closeOnSubmit={false}
+              initialValue={{ id: "2" }}
+              onSelectItem={(item) => {
+                setSelectedSpot(item);
               }}
-            dataSet={transformedSpot}
-            textInputProps={{
-              placeholder: 'Spot',
-            }}
+              dataSet={transformedSpot}
+              textInputProps={{
+                placeholder: "Spot",
+              }}
               containerStyle={{
-              marginTop: 10,
-              backgroundColor: "white",
-              borderColor: "#E0CDA9",
-              borderWidth: 1,
-              borderRadius: 7,
-            }}
-          />
-          <View style={styles.button}>
-          <Button
-            title="Next"
-            onPress={handlePress}
-              style={styles.next}
-          />
-          </View>
-          
+                marginTop: 10,
+                backgroundColor: "white",
+                borderColor: "#E0CDA9",
+                borderWidth: 1,
+                borderRadius: 7,
+              }}
+            />
+            <View style={styles.button}>
+              <Button title="Next" onPress={handlePress} style={styles.next} />
+            </View>
           </View>
         </View>
       </View>
@@ -173,7 +155,6 @@ const styles = StyleSheet.create({
     width: 25,
     height: 25,
     tintColor: "#0487D9",
-   
   },
   placetitle: {
     width: "80%",
@@ -225,10 +206,8 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     textAlign: "center",
   },
-  next:{
-   
-  },
-  button:{
-   marginTop: '10%',
+  next: {},
+  button: {
+    marginTop: "10%",
   },
 });
