@@ -16,12 +16,8 @@ import {
 import { AutocompleteDropdown } from "react-native-autocomplete-dropdown";
 import { addSessionName, addSpot } from "../reducers/session";
 import { useDispatch, useSelector } from "react-redux";
-<<<<<<< HEAD
 import MY_FETCH_API from "../myfetchapi"
 
-=======
-import MY_FETCH_API from"../myfetchapi"
->>>>>>> 8702fee5a2a44b6738836263b52b52ed0c880e53
 
 
 
