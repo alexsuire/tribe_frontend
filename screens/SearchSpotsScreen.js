@@ -65,9 +65,7 @@ export default function SearchSpotScreen({ navigation }) {
       ? filteredSpots.map((data, i) => (
           <Spot
             key={i}
-            name={data.name}
-            region={data.region}
-            type={data.type}
+            {...data}
           />
         ))
       : null;

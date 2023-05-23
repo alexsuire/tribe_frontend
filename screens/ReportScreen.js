@@ -1,4 +1,10 @@
-import { ScrollView, View, Text, StyleSheet, SafeAreaView,ImageBackground,
+import {
+  ScrollView,
+  View,
+  Text,
+  StyleSheet,
+  SafeAreaView,
+  ImageBackground,
 } from "react-native";
 import rawData from "../data/report_exemple";
 import * as React from "react";
@@ -6,182 +12,66 @@ import { Table, TableWrapper, Row } from "react-native-table-component";
 import { useState, useEffect } from "react";
 import Header_spot from "../components/Header_spot";
 import MY_FETCH_API from "../myfetchapi";
-
+import { calculateAverages } from "../modules/calculateAverages";
+import { date, nextDay } from "../modules/date";
+import { useSelector } from "react-redux";
 
 export default function ReportScreen({ navigation }) {
-  let day = "";
+  const user = useSelector((state) => state.users.value);
+  const [spot, setSpot] = useState(null);
+  const [longitude, setLongitude] = useState(null);
+  const [latitude, setLatitude] = useState(null);
+  const [dataFetched, setDataFetched] = useState(null);
 
-  function date() {
-    switch (new Date().getDay()) {
-      case 0:
-        day = "Sunday";
-        break;
-      case 1:
-        day = "Monday";
-        break;
-      case 2:
-        day = "Tuesday";
-        break;
-      case 3:
-        day = "Wednesday";
-        break;
-      case 4:
-        day = "Thursday";
-        break;
-      case 5:
-        day = "Friday";
-        break;
-      case 6:
-        day = "Saturday";
-    }
-    return day;
-  }
-  date();
 
-  const nextDay = (i) => {
-    const days = [
-      "Sunday",
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-    ];
-    const todayIndex = new Date().getDay();
-    const nextDayIndex = (todayIndex + i) % 7; // Get the index of the next day, wrapping around to Sunday if necessary
-    return days[nextDayIndex];
-  };
+  
 
-  function calculateAverages(data) {
-    const hours = data.hours;
-    const intervalSize = 3;
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const spotsResponse = await fetch(
+  //         MY_FETCH_API + `/spots/oneSpot/${user.active_spot}`
+  //       );
+  //       const spotsJson = await spotsResponse.json();
+  //       const spotsData = spotsJson.data;
+  //       setSpot(spotsData);
 
-    // Find the index of the first "T05" time
-    let startIndex = 0;
-    for (let i = 0; i < hours.length; i++) {
-      if (hours[i].time.endsWith("T05:00:00+00:00")) {
-        startIndex = i;
-        break;
-      }
-    }
+  //       if (spot) {
+  //         setLongitude(spot.longitude);
+  //         setLatitude(spot.latitude);
 
-    const averagedData = {
-      time: [],
-      swellDirection: [],
-      swellPeriod: [],
-      swellHeight: [],
-      waterTemperature: [],
-      waveDirection: [],
-      waveHeight: [],
-      wavePeriod: [],
-      windSpeed: [],
-      windDirection: [],
-      windWaveHeight: [],
-      energy: [], // Added energy property
-    };
+  //         const response = await fetch(
+  //           `https://api.stormglass.io/v2/weather/point?lat=${latitude}&lng=${longitude}&params=waterTemperature,wavePeriod,waveDirection,waveHeight,windWaveDirection,windWaveHeight,windWavePeriod,swellPeriod,secondarySwellPeriod,swellDirection,secondarySwellDirection,swellHeight,secondarySwellHeight,windSpeed,windSpeed20m,windSpeed30m,windSpeed40m,windSpeed50m,windSpeed80m,windSpeed100m,windSpeed1000hpa,windSpeed800hpa,windSpeed500hpa,windSpeed200hpa,windDirection,windDirection20m,windDirection30m,windDirection40m,windDirection50m,windDirection80m,windDirection100m,windDirection1000hpa,windDirection800hpa,windDirection500hpa,windDirection200hpa,airTemperature,airTemperature80m,airTemperature100m,airTemperature1000hpa,airTemperature800hpa,airTemperature500hpa,airTemperature200hpa,precipitation,gust,cloudCover,humidity,pressure,visibility,currentSpeed,currentDirection,iceCover,snowDepth`,
+  //           {
+  //             headers: {
+  //               Authorization:
+  //                 "d6bda9d4-ea77-11ed-a654-0242ac130002-d6bdaa42-ea77-11ed-a654-0242ac130002",
+  //             },
+  //           }
+  //         );
+  //         const weatherJson = await response.json();
+  //         const weatherData = weatherJson.data;
+  //         setDataFetched(weatherData);
+  //       }
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
 
-    for (let i = startIndex; i < hours.length; i += intervalSize) {
-      const intervalData = hours.slice(i, i + intervalSize);
+  //   fetchData();
+  // }, []);
 
-      const averagedHour = {
-        time: intervalData[0].time, // Get the time of the first hour in the interval
-        swellDirection: 0,
-        swellPeriod: 0,
-        waterTemperature: 0,
-        waveDirection: 0,
-        waveHeight: 0,
-        swellHeight: 0,
-        wavePeriod: 0,
-        windSpeed: 0,
-        windDirection: 0,
-        windWaveHeight: 0,
-        energy: 0, // Added energy property
-      };
 
-      for (const hour of intervalData) {
-        averagedHour.swellDirection += hour.swellDirection.sg;
-        averagedHour.swellPeriod += hour.swellPeriod.sg;
-        averagedHour.waterTemperature += hour.waterTemperature.sg;
-        averagedHour.waveDirection += hour.waveDirection.sg;
-        averagedHour.waveHeight += hour.waveHeight.sg;
-        averagedHour.swellHeight += hour.swellHeight.sg;
-        averagedHour.wavePeriod += hour.wavePeriod.sg;
-        averagedHour.windSpeed += hour.windSpeed.sg;
-        averagedHour.windDirection += hour.windDirection.sg;
-        averagedHour.windWaveHeight += hour.windWaveHeight.noaa;
+  
 
-        // Calculate energy for the current hour
-        const energy =
-          (0.5 *
-            1025 *
-            9.81 *
-            Math.pow(hour.waveHeight.sg, 2) *
-            hour.wavePeriod.sg) /
-          1000;
-        averagedHour.energy += energy;
-      }
+  // ---- Gère l'affichage des dates -----
 
-      const averageHourData = {
-        time: averagedHour.time,
-        swellDirection: (
-          averagedHour.swellDirection / intervalData.length
-        ).toFixed(2),
-        swellPeriod: (averagedHour.swellPeriod / intervalData.length).toFixed(
-          2
-        ),
-        waterTemperature: (
-          averagedHour.waterTemperature / intervalData.length
-        ).toFixed(0),
-        waveDirection: (
-          averagedHour.waveDirection / intervalData.length
-        ).toFixed(0),
-        waveHeight: (averagedHour.waveHeight / intervalData.length).toFixed(1),
-        swellHeight: (averagedHour.swellHeight / intervalData.length).toFixed(
-          1
-        ),
-        wavePeriod: (averagedHour.wavePeriod / intervalData.length).toFixed(0),
-        windSpeed: (averagedHour.windSpeed / intervalData.length).toFixed(0),
-        windWaveHeight: (
-          averagedHour.windWaveHeight / intervalData.length
-        ).toFixed(1),
-        windDirection: getWindDirection(
-          averagedHour.windDirection / intervalData.length
-        ),
-        energy: averagedHour.energy.toFixed(0),
-      };
+  const day = date();
+  nextDay();
 
-      for (const key in averageHourData) {
-        averagedData[key].push(averageHourData[key]);
-      }
-    }
-
-    return averagedData;
-  }
-
-  function getWindDirection(degrees) {
-    if (degrees >= 337.5 || degrees < 22.5) {
-      return "North";
-    } else if (degrees >= 22.5 && degrees < 67.5) {
-      return "Northeast";
-    } else if (degrees >= 67.5 && degrees < 112.5) {
-      return "East";
-    } else if (degrees >= 112.5 && degrees < 157.5) {
-      return "Southeast";
-    } else if (degrees >= 157.5 && degrees < 202.5) {
-      return "South";
-    } else if (degrees >= 202.5 && degrees < 247.5) {
-      return "Southwest";
-    } else if (degrees >= 247.5 && degrees < 292.5) {
-      return "West";
-    } else if (degrees >= 292.5 && degrees < 337.5) {
-      return "Northwest";
-    }
-  }
+  // --- appel la fonction qui gère le calcul des datas pour le tableaux de report
 
   const averagedData = calculateAverages(rawData);
-
-  console.log(averagedData);
 
   const tableHead = [
     `${day}`,
@@ -381,15 +271,13 @@ export default function ReportScreen({ navigation }) {
     fontWeight: "bold",
     textAlign: "center",
     fontWeight: "400",
-    color: 'white'
+    color: "white",
   };
-
 
   return (
     <View style={styles.background}>
       <Header_spot />
-      <ScrollView horizontal={true} style={styles.scrollView}
->
+      <ScrollView horizontal={true} style={styles.scrollView}>
         <View>
           <Table borderStyle={{ borderColor: "#C1C0B9" }}>
             <Row
@@ -411,10 +299,10 @@ export default function ReportScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-    background: {
-        backgroundColor: "#16A1F7",
-        flex: 1
-    },
+  background: {
+    backgroundColor: "#16A1F7",
+    flex: 1,
+  },
   container: {
     flex: 1,
     padding: 16,
@@ -422,7 +310,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#ffffff",
   },
   scrollView: {
-    marginTop: 60
+    marginTop: 60,
   },
   head: {
     height: 50,
