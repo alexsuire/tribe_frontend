@@ -16,6 +16,8 @@ import {
 import { AutocompleteDropdown } from "react-native-autocomplete-dropdown";
 import { addSessionName, addSpot } from "../reducers/session";
 import { useDispatch, useSelector } from "react-redux";
+import MY_FETCH_API from "../myfetchapi"
+
 
 
 
@@ -95,7 +97,9 @@ export default function CreateSessionScreen({ navigation }) {
         >
           <Image style={styles.back} source={require("../assets/back.png")} />
         </TouchableOpacity>
-        <Text style={styles.title}>Create Your sessions</Text>
+        <View style={styles.placetitle}>
+          <Text style={styles.title}>Create Your sessions</Text>
+        </View>
       </View>
       <View style={styles.body}>
         <View style={styles.content}>
@@ -132,11 +136,13 @@ export default function CreateSessionScreen({ navigation }) {
               borderRadius: 7,
             }}
           />
+          <View style={styles.button}>
           <Button
             title="Next"
             onPress={handlePress}
               style={styles.next}
           />
+          </View>
           
           </View>
         </View>
@@ -156,15 +162,22 @@ const styles = StyleSheet.create({
     backgroundColor: "#F0F0F0",
     display: "flex",
     flexDirection: "row",
-    justifyContent: "flex-start",
+    justifyContent: "center",
     alignItems: "center",
   },
   back: {
     width: 25,
     height: 25,
     tintColor: "#0487D9",
-    marginLeft: 20,
-    marginRight: 30,
+   
+  },
+  placetitle: {
+    width: "80%",
+    backgroundColor: "#F0F0F0",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
   },
 
   title: {
@@ -191,7 +204,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     width: "100%",
-    marginBottom: 50,
+    marginBottom: 30,
   },
   sessionde: {
     margin: 15,
@@ -207,5 +220,11 @@ const styles = StyleSheet.create({
     height: 30,
     marginLeft: 5,
     textAlign: "center",
+  },
+  next:{
+   
+  },
+  button:{
+   marginTop: '10%',
   },
 });

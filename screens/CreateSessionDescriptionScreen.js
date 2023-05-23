@@ -58,7 +58,7 @@ import {
     .then(response => {
       if (response.ok) {
         console.log("Données enregistrées avec succès !");
-        navigation.navigate("");
+        navigation.navigate("TabNavigator");
       } else {
         console.error("Erreur lors de l'enregistrement des données :", response.status);
         // Gérer l'erreur ou afficher un message à l'utilisateur
@@ -82,7 +82,9 @@ import {
               <TouchableOpacity onPress={() => navigation.navigate('CreateSessionDateScreen')}>
                 <Image style={styles.back} source={require("../assets/back.png")} />
               </TouchableOpacity>
+              <View style={styles.placetitle}>
               <Text style={styles.title}>Create Your sessions</Text>
+              </View>
             </View>
             <View style={styles.body}>
               <View style={styles.sessionsContainer}>
@@ -124,8 +126,7 @@ import {
         width: 25,
         height: 25,
         tintColor: '#0487D9',
-        marginLeft: 20,
-        marginRight: 30,
+        
       },
       scrollView: {
         maxHeight: 190, 
@@ -145,8 +146,16 @@ import {
         backgroundColor: "#F0F0F0",
         display: "flex",
         flexDirection: 'row',
-        justifyContent: "flex-start",
+        justifyContent: "center",
         alignItems: 'center',
+      },
+      placetitle: {
+        width: "80%",
+        backgroundColor: "#F0F0F0",
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
       },
       title: {
         fontSize: 25,
@@ -172,5 +181,10 @@ import {
         width: "90%",
         marginTop: 10,
         borderRadius: 10,
+      },
+      buttonText:{
+        color: '#0487D9',
+        fontSize: 19,
+        fontWeight: "600",
       },
   });
