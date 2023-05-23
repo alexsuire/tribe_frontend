@@ -23,6 +23,8 @@ import ReportScreen from "./screens/ReportScreen";
 import { Provider } from "react-redux";
 import users from "./reducers/users";
 import count from "./reducers/count";
+import session from "./reducers/session";
+
 import map from "./reducers/map";
 import SpotScreen from "./screens/SpotScreen";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -31,7 +33,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import storage from "redux-persist/lib/storage";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
-const reducers = combineReducers({ users, count, map });
+const reducers = combineReducers({ users, count, map, session });
 const persistConfig = {
   key: "Tribe",
   version: 1,
@@ -104,19 +106,28 @@ export default function App() {
               name="Signup3_final"
               component={SignupScreen3_final}
             />
+            <Stack.Screen name="TabNavigator" component={TabNavigator} />
+            <Stack.Screen name="SpotScreen" component={SpotScreen} />
             <Stack.Screen name="SessionScreen" component={SessionScreen} />
             <Stack.Screen
               name="MySessionsScreen"
               component={MySessionsScreen}
             />
-            <Stack.Screen name="SpotScreen" component={SpotScreen} />
+
             <Stack.Screen
               name="CreateSessionScreen"
               component={CreateSessionScreen}
             />
+            <Stack.Screen
+              name="CreateSessionDateScreen"
+              component={CreateSessionDateScreen}
+            />
+            <Stack.Screen
+              name="CreateSessionDescriptionScreen"
+              component={CreateSessionDescriptionScreen}
+            />
             <Stack.Screen name="MapScreen" component={MapScreen} />
             <Stack.Screen name="ReportScreen" component={ReportScreen} />
-            <Stack.Screen name="TabNavigator" component={TabNavigator} />
           </Stack.Navigator>
         </NavigationContainer>
       </PersistGate>

@@ -23,6 +23,8 @@ export default function SpotScreen({ navigation }) {
   const [spot, setSpot] = useState(null); // Initialize spot as null
   const user = useSelector((state) => state.users.value);
 
+  console.log('userOnspot', user)
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -48,6 +50,8 @@ export default function SpotScreen({ navigation }) {
     );
   }
 
+  console.log(spot)
+
   return (
     <View style={styles.container}>
       <Header_spot
@@ -55,6 +59,9 @@ export default function SpotScreen({ navigation }) {
         type={spot.data?.type}
         reliability={spot.data?.reliability}
         rating={spot.data?.rating}
+        latitude= {spot.data?.latitude}
+        longitude= {spot.data?.longitude}
+
       />
       <ImageBackground
         style={styles.wave2}

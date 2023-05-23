@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
     Image,
     View,
@@ -12,13 +12,60 @@ import {
     SafeAreaView, ScrollView, Button
   } from "react-native";
   import { TouchableWithoutFeedback, Keyboard } from 'react-native';
-  
-  
+  import { useDispatch, useSelector } from "react-redux";
+  import { addSessionDescription } from "../reducers/session";
+  import MY_FETCH_API from "../myfetchapi"
+  import { addSession } from "../reducers/users";
   
   
   export default function CreateSessionDescriptionScreen({ navigation }) {
+
+    const [description, setDescription] = useState("");
+    const [userInfo, setUserInfo] = useState([]);
+
+    const dispatch = useDispatch();
+    const session = useSelector((state) => state.session.value);
+    console.log("session", session); // Ajout d'un console.log
+    const user = useSelector((state) => state.users.value);
+
   
+  useEffect(() => {
+    const fetchUserInfo= async () => {
+      try {
+        const response = await fetch(MY_FETCH_API + `/users/basicInfo/${user.token}`);
+        const userfetch = await response.json();
+        // const data = json.data;
+        setUserInfo(userfetch);
+        // console.log('data', data)
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchUserInfo();
+  }, []);
+  console.log('userinfo', userInfo);
+
   
+  const handleCreateSession = () => {
+    dispatch(addSessionDescription(description)); // Dispatchez l'action pour mettre à jour la description de la session
+  
+    fetch(MY_FETCH_API + "/sessions", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ name: session.sessionName, spot:session.spot,  admin: userInfo._id, date_start: session.start, date_end: session.end, description: description }),
+    })
+    .then(response => response.json()) // Parse the response as JSON
+    .then(data => {
+        console.log("response", data)
+        console.log('user', user)
+        dispatch(addSession(data.id))
+        navigation.navigate("SessionScreen");
+    })
+  };
+
+
     return (
         <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -30,7 +77,9 @@ import {
               <TouchableOpacity onPress={() => navigation.navigate('CreateSessionDateScreen')}>
                 <Image style={styles.back} source={require("../assets/back.png")} />
               </TouchableOpacity>
+              <View style={styles.placetitle}>
               <Text style={styles.title}>Create Your sessions</Text>
+              </View>
             </View>
             <View style={styles.body}>
               <View style={styles.sessionsContainer}>
@@ -45,13 +94,16 @@ import {
                     style={styles.description}
                     multiline={true}
                     numberOfLines={4}
+                    value={description}
+                    onChangeText={(text) => setDescription(text)}
                   />
                 </ScrollView>
-                <Button
-                  title="Create"
-                  onPress={() => navigation.navigate("CreateSessionDescriptionScreen")}
-                  style={styles.next}
-                />
+                <TouchableOpacity
+                style={styles.button}
+                onPress={handleCreateSession}
+              >
+                <Text style={styles.buttonText}>Create</Text>
+              </TouchableOpacity>
               </View>
             </View>
           </View>
@@ -69,8 +121,7 @@ import {
         width: 25,
         height: 25,
         tintColor: '#0487D9',
-        marginLeft: 20,
-        marginRight: 30,
+        
       },
       scrollView: {
         maxHeight: 190, 
@@ -90,8 +141,16 @@ import {
         backgroundColor: "#F0F0F0",
         display: "flex",
         flexDirection: 'row',
-        justifyContent: "flex-start",
+        justifyContent: "center",
         alignItems: 'center',
+      },
+      placetitle: {
+        width: "80%",
+        backgroundColor: "#F0F0F0",
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
       },
       title: {
         fontSize: 25,
@@ -117,5 +176,10 @@ import {
         width: "90%",
         marginTop: 10,
         borderRadius: 10,
+      },
+      buttonText:{
+        color: '#0487D9',
+        fontSize: 19,
+        fontWeight: "600",
       },
   });

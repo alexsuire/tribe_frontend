@@ -9,6 +9,7 @@ import {
   View,
   ImageBackground,
   SafeAreaView,
+  Linking
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -34,7 +35,8 @@ export default function Header_spot(props) {
         <View style={styles.allText}>
           <View style={styles.typeAndmaps}>
             <Text style={styles.type}>Type: {props.type}</Text>
-            <Text style={styles.maps}>Google maps: link</Text>
+            <Text style={styles.maps} onPress={() => {
+              Linking.openURL(`https://maps.google.com/maps?q=${props.latitude},${props.longitude}`) }}>Google maps</Text>
           </View>
           <View style={styles.ratingAndrealiability}>
             <Text style={styles.rating}>

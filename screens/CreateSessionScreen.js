@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Image,
   View,
@@ -13,10 +13,82 @@ import {
   ScrollView,
   Button,
 } from "react-native";
+import { AutocompleteDropdown } from "react-native-autocomplete-dropdown";
+import { addSessionName, addSpot } from "../reducers/session";
+import { useDispatch, useSelector } from "react-redux";
+<<<<<<< HEAD
+import MY_FETCH_API from "../myfetchapi"
+
+=======
+import MY_FETCH_API from"../myfetchapi"
+>>>>>>> 8702fee5a2a44b6738836263b52b52ed0c880e53
+
+
+
 
 export default function CreateSessionScreen({ navigation }) {
   const [sessionName, setSessionName] = useState("");
-  const [spot, setSpot] = useState("");
+  const [spot, setSpot] = useState([]);
+  const [selectedSpot, setSelectedSpot] = useState(null);
+  const [spots, setSpots] = useState([]);
+  const [spotInfo, setSpotInfo] = useState([]);
+
+
+  const dispatch = useDispatch();
+  const session = useSelector((state) => state.session.value);
+  console.log("session", session); // Ajout d'un console.log
+
+
+
+  useEffect(() => {
+    const fetchSpot = async () => {
+      try {
+        const response = await fetch(MY_FETCH_API + "/spots");
+        const json = await response.json();
+        const data = json.data;
+        setSpots(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchSpot();
+  }, []);
+
+  const spotNames = spots.map((item) => item.name);
+
+  const transformedSpot = spotNames.map((name, index) => {
+    return {
+      id: index + 1,
+      title: name,
+    };
+  });
+
+  function handlePress() {
+    if (sessionName !== "" && spot !== "") {
+      fetch(MY_FETCH_API + `/spots/bySpotName`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ spotName: selectedSpot.title })
+      })
+        .then(response => response.json()) // Parse the response as JSON
+        .then(data => {
+          console.log('data', data);
+          setSpotInfo(data);
+          dispatch(addSessionName(sessionName));
+          dispatch(addSpot(data.data._id)); // Access the _id property from the data directly
+          navigation.navigate("CreateSessionDateScreen");
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    } else {
+      alert("Please complete your session Bodhi 🤙");
+    }
+  }
+  
+  
 
   return (
     <KeyboardAvoidingView
@@ -29,7 +101,9 @@ export default function CreateSessionScreen({ navigation }) {
         >
           <Image style={styles.back} source={require("../assets/back.png")} />
         </TouchableOpacity>
-        <Text style={styles.title}>Create Your sessions</Text>
+        <View style={styles.placetitle}>
+          <Text style={styles.title}>Create Your sessions</Text>
+        </View>
       </View>
       <View style={styles.body}>
         <View style={styles.content}>
@@ -45,25 +119,36 @@ export default function CreateSessionScreen({ navigation }) {
           </View>
           <View style={styles.namesession}>
             <Text style={styles.sessionde}>Spot :</Text>
-            <TextInput
-              placeholder="..."
-              id="Name session"
-              style={styles.spot}
-              value={spot}
-              onChangeText={setSpot}
-            />
-          </View>
+            
+          <AutocompleteDropdown
+            clearOnFocus={false}
+            closeOnBlur={true}
+            closeOnSubmit={false}
+            initialValue={{ id: "2" }}
+            onSelectItem={(item) => {
+              setSelectedSpot(item);
+              }}
+            dataSet={transformedSpot}
+            textInputProps={{
+              placeholder: 'Spot',
+            }}
+              containerStyle={{
+              marginTop: 10,
+              backgroundColor: "white",
+              borderColor: "#E0CDA9",
+              borderWidth: 1,
+              borderRadius: 7,
+            }}
+          />
+          <View style={styles.button}>
           <Button
             title="Next"
-            onPress={() => {
-              if (sessionName !== "" && spot !== "") {
-                navigation.navigate("CreateSessionDateScreen");
-              } else {
-                alert("Please complete your session Bodhi 🤙");
-              }
-            }}
-            style={styles.next}
+            onPress={handlePress}
+              style={styles.next}
           />
+          </View>
+          
+          </View>
         </View>
       </View>
     </KeyboardAvoidingView>
@@ -81,15 +166,22 @@ const styles = StyleSheet.create({
     backgroundColor: "#F0F0F0",
     display: "flex",
     flexDirection: "row",
-    justifyContent: "flex-start",
+    justifyContent: "center",
     alignItems: "center",
   },
   back: {
     width: 25,
     height: 25,
     tintColor: "#0487D9",
-    marginLeft: 20,
-    marginRight: 30,
+   
+  },
+  placetitle: {
+    width: "80%",
+    backgroundColor: "#F0F0F0",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
   },
 
   title: {
@@ -116,7 +208,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     width: "100%",
-    marginBottom: 50,
+    marginBottom: 30,
   },
   sessionde: {
     margin: 15,
@@ -132,5 +224,11 @@ const styles = StyleSheet.create({
     height: 30,
     marginLeft: 5,
     textAlign: "center",
+  },
+  next:{
+   
+  },
+  button:{
+   marginTop: '10%',
   },
 });
