@@ -108,24 +108,25 @@ export default function App() {
             />
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
             <Stack.Screen name="SpotScreen" component={SpotScreen} />
+            <Stack.Screen name="SessionScreen" component={SessionScreen} />
             <Stack.Screen
               name="MySessionsScreen"
               component={MySessionsScreen}
             />
+
             <Stack.Screen
               name="CreateSessionScreen"
               component={CreateSessionScreen}
             />
-             <Stack.Screen
+            <Stack.Screen
               name="CreateSessionDateScreen"
               component={CreateSessionDateScreen}
             />
-             <Stack.Screen
+            <Stack.Screen
               name="CreateSessionDescriptionScreen"
               component={CreateSessionDescriptionScreen}
             />
             <Stack.Screen name="MapScreen" component={MapScreen} />
-            <Stack.Screen name="SessionScreen" component={SessionScreen} />
             <Stack.Screen name="ReportScreen" component={ReportScreen} />
           </Stack.Navigator>
         </NavigationContainer>

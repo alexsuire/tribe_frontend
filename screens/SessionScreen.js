@@ -17,6 +17,7 @@ import Participants_session from "../components/Participants_session";
 import Messages_session from "../components/Messages_session";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 const { getFetchAPI } = require("../modules/util");
 const FETCH_API = getFetchAPI();
 
@@ -88,17 +89,24 @@ export default function SessionScreen({ navigation }) {
           contentContainerStyle={styles.scrollView}
           showsVerticalScrollIndicator={false}
         >
-          <View style={styles.all}>
-            <Participants_session users={sessions.data?.users} />
-            <Messages_session sessionId={sessions.data?._id} />
-            <TouchableOpacity
-              style={styles.button}
-              activeOpacity={0.8}
-              onPress={() => navigation.navigate("ReportScreen")}
-            >
-              <Text style={styles.textButton}>Join</Text>
-            </TouchableOpacity>
-          </View>
+          <KeyboardAwareScrollView
+            contentContainerStyle={styles.scrollContainer}
+            keyboardShouldPersistTaps="handled"
+            enableOnAndroid={true}
+            extraScrollHeight={50}
+          >
+            <View style={styles.all}>
+              <Participants_session users={sessions.data?.users} />
+              <Messages_session sessionId={sessions.data?._id} />
+              <TouchableOpacity
+                style={styles.button}
+                activeOpacity={0.8}
+                onPress={() => navigation.navigate("ReportScreen")}
+              >
+                <Text style={styles.textButton}>Join</Text>
+              </TouchableOpacity>
+            </View>
+          </KeyboardAwareScrollView>
         </ScrollView>
       </ImageBackground>
     </View>
@@ -123,16 +131,15 @@ const styles = StyleSheet.create({
     height: 800,
     width: "100%",
   },
-  scrollView: {
-    paddingBottom: 320,
-  },
+  scrollContainer: { paddingBottom: 350 },
+  scrollView: {},
   button: {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    width: "35%",
-    height: "7%",
-    marginTop: 20,
+    width: 150,
+    height: 50,
+    marginTop: 30,
     backgroundColor: "#5FB6DA",
     borderRadius: 10,
     marginBottom: 10,
