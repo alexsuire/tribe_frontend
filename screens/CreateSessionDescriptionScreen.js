@@ -58,11 +58,17 @@ import {
     })
     .then(response => response.json()) // Parse the response as JSON
     .then(data => {
-        console.log("response", data)
-        console.log('user', user)
         dispatch(addSession(data.id))
-        navigation.navigate("SessionScreen");
-    })
+        
+        fetch(MY_FETCH_API + `/users/session/${userInfo._id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ session: data.id }),
+        })
+      })
+      navigation.navigate("SessionScreen");
   };
 
 
