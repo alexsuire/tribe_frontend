@@ -12,7 +12,7 @@ const initialState = {
     spots: [],
     country: null,
     session: null,
-    active_spot : null
+    active_spot: null,
   },
 };
 
@@ -69,6 +69,6 @@ export const {
   loginLevel,
   addToken,
   addSession,
-  addActive_spot
+  addActive_spot,
 } = userSlice.actions;
 export default userSlice.reducer;
