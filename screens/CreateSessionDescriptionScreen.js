@@ -20,27 +20,30 @@ import {
   export default function CreateSessionDescriptionScreen({ navigation }) {
 
     const [description, setDescription] = useState("");
-    const [userInfo, setUserInfo] = useState("");
+    const [userInfo, setUserInfo] = useState([]);
 
     const dispatch = useDispatch();
     const session = useSelector((state) => state.session.value);
-  console.log("session", session); // Ajout d'un console.log
-  const user = useSelector((state) => state.users.value);
+    console.log("session", session); // Ajout d'un console.log
+    const user = useSelector((state) => state.users.value);
 
+  
   useEffect(() => {
     const fetchUserInfo= async () => {
       try {
         const response = await fetch(MY_FETCH_API + `/users/basicInfo/${user.token}`);
-        const json = await response.json();
-        const data = json.data;
-        setUserInfo(data);
+        const userfetch = await response.json();
+        // const data = json.data;
+        setUserInfo(userfetch);
+        // console.log('data', data)
       } catch (error) {
         console.error(error);
       }
     };
     fetchUserInfo();
   }, []);
-  console.log('userinfo', userInfo)
+  console.log('userinfo', userInfo);
+
   
   const handleCreateSession = () => {
     dispatch(addSessionDescription(description)); // Dispatchez l'action pour mettre à jour la description de la session
@@ -50,7 +53,7 @@ import {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ name: session.sessionName, date_start: session.start, date_end: session.end, description: description }),
+      body: JSON.stringify({ name: session.sessionName, spot:session.spot, admin: userInfo._id, date_start: session.start, date_end: session.end, description: description }),
     })
     .then(response => {
       if (response.ok) {
