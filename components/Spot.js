@@ -7,14 +7,26 @@ import {
 } from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { useNavigation } from "@react-navigation/native";
+import {addActive_spot} from "../reducers/users"
+import { useDispatch, useSelector } from "react-redux";
+
 
 
 export default function Spot(props) {
+  const dispatch = useDispatch();
+
+
 
   const navigation = useNavigation();
+
+  function handlePress() {
+
+    dispatch(addActive_spot(props._id))
+    navigation.navigate("SpotScreen")
+  }
   
   return (
-    <TouchableOpacity onPress={() => navigation.navigate("SpotScreen")}>
+    <TouchableOpacity onPress={() => handlePress()}>
       <View style={styles.container}>
         <Text style={styles.name}>{props.name}</Text>
         <Text style={styles.region}>{props.region}</Text>

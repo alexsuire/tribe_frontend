@@ -9,12 +9,21 @@ import {
   View,
 } from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { calculatePreview } from "../modules/calculatePreview";
+import { date, nextDay } from "../modules/date";
+import rawData from "../data/report_exemple";
+
 
 export default function Forecast_spot() {
+const day = date();
+
+const averagedData = calculatePreview(rawData);
+
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.day}>Monday</Text>
+        <Text style={styles.day}>{day}</Text>
         <Text style={styles.hour}>Morning</Text>
         <Text style={styles.hour}>Afternoon</Text>
         <Text style={styles.hour}>Evening</Text>
@@ -55,8 +64,8 @@ export default function Forecast_spot() {
             >
               <Text style={styles.numberStars}>2</Text>
             </MaterialCommunityIcons>
-            <Text style={styles.wave2}>1m</Text>
-            <Text style={styles.wind2}>10km/h</Text>
+            <Text style={styles.wave2}>{averagedData.waveHeight[0]}m</Text>
+            <Text style={styles.wind2}>{averagedData.windSpeed[0]}km/h</Text>
             <MaterialCommunityIcons
               style={styles.cloud2}
               name={"weather-partly-cloudy"}
@@ -72,8 +81,8 @@ export default function Forecast_spot() {
             >
               <Text style={styles.numberStars}>0</Text>
             </MaterialCommunityIcons>
-            <Text style={styles.wave2}>0.5m</Text>
-            <Text style={styles.wind2}>30km/h</Text>
+            <Text style={styles.wave2}>{averagedData.waveHeight[1]}m</Text>
+            <Text style={styles.wind2}>{averagedData.windSpeed[1]}km/h</Text>
             <MaterialCommunityIcons
               style={styles.cloud2}
               name={"weather-partly-cloudy"}
@@ -89,8 +98,8 @@ export default function Forecast_spot() {
             >
               <Text style={styles.numberStars}>4</Text>
             </MaterialCommunityIcons>
-            <Text style={styles.wave2}>2m</Text>
-            <Text style={styles.wind2}>5km/h</Text>
+            <Text style={styles.wave2}>{averagedData.waveHeight[2]}m</Text>
+            <Text style={styles.wind2}>{averagedData.windSpeed[2]}km/h</Text>
             <MaterialCommunityIcons
               style={styles.cloud2}
               name={"weather-partly-cloudy"}

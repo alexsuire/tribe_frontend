@@ -13,24 +13,35 @@ import {
 import React, { useState, useEffect } from "react";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
-export default function Header_spot() {
+export default function Header_spot(props) {
+  const renderStars = () => {
+    const rating = props.rating;
+    const starIcons = [];
+
+    for (let i = 0; i < rating; i++) {
+      starIcons.push(<MaterialCommunityIcons name="star" style={styles.starIcon} key={i} />);
+    }
+
+    return starIcons;
+  };
+
   return (
     <View style={styles.container}>
       <SafeAreaView>
         <View style={styles.spotName}>
-          <Text style={styles.spotName}>Ile d'Oleron - Chassiron</Text>
+          <Text style={styles.spotNameText}>{props.name}</Text>
         </View>
         <View style={styles.allText}>
           <View style={styles.typeAndmaps}>
-            <Text style={styles.type}>Type :Reef Break</Text>
-            <Text style={styles.maps}>Google maps : link</Text>
+            <Text style={styles.type}>Type: {props.type}</Text>
+            <Text style={styles.maps}>Google maps: link</Text>
           </View>
           <View style={styles.ratingAndrealiability}>
             <Text style={styles.rating}>
-              Rating: <Text style={styles.stars}>★★★</Text>
+              Rating: <Text style={styles.stars}>{renderStars()}</Text>
             </Text>
             <Text style={styles.realiability}>
-              Realiability:Very consistant
+              Reliability: {props.reliability}
             </Text>
           </View>
         </View>
@@ -39,12 +50,13 @@ export default function Header_spot() {
   );
 }
 
+
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#F0F0F0",
 
     width: "100%",
-    height: "25%",
+    height: "20%",
   },
   allText: {
     display: "flex",
@@ -57,6 +69,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     paddingBottom: "5%",
+  },
+  spotNameText: {
+    fontSize: "18"
   },
   typeAndmaps: {
     marginLeft: "3%",

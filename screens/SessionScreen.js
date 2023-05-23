@@ -23,21 +23,22 @@ const FETCH_API = getFetchAPI();
 export default function SessionScreen({ navigation }) {
   const user = useSelector((state) => state.users.value);
   const [sessions, setSessions] = useState([]);
+  const [messages, setMessages] = useState([]);
   console.log("user", user.session);
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchSession = async () => {
       try {
-        const response = await fetch(
+        const sessionResponse = await fetch(
           FETCH_API + `/sessions/oneSession/${user.session}`
         );
-        const fetchSessionsUser = await response.json();
+        const fetchSessionsUser = await sessionResponse.json();
         console.log("fetch", fetchSessionsUser);
         setSessions(fetchSessionsUser);
       } catch (error) {
         console.error(error);
       }
     };
-    fetchData();
+    fetchSession();
   }, []);
 
   console.log("session", sessions);
@@ -62,12 +63,10 @@ export default function SessionScreen({ navigation }) {
     formattedMonth +
     "/" +
     startDateTime.getFullYear();
+  console.log("data", sessions.data?.users);
 
   return (
     <View style={styles.container}>
-      <View style={styles.body}>
-        <View style={styles.sessionsContainer}></View>
-      </View>
       <Header_session
         name={sessions.data?.name}
         spot={sessions.data?.spot?.name}
@@ -78,6 +77,9 @@ export default function SessionScreen({ navigation }) {
         endHours={endHours}
         endMinutes={endMinutes}
       />
+      <View style={styles.description}>
+        <Text style={styles.textDescription}>{sessions.data?.description}</Text>
+      </View>
       <ImageBackground
         style={styles.wave2}
         source={require("../assets/waveSable.png")}
@@ -87,11 +89,14 @@ export default function SessionScreen({ navigation }) {
           showsVerticalScrollIndicator={false}
         >
           <View style={styles.all}>
-            <Participants_session />
-            <Messages_session />
-            <TouchableOpacity style={styles.button} activeOpacity={0.8} onPress={() => navigation.navigate("ReportScreen")}
->
-              <Text style={styles.textButton}>See more</Text>
+            <Participants_session users={sessions.data?.users} />
+            <Messages_session sessionId={sessions.data?._id} />
+            <TouchableOpacity
+              style={styles.button}
+              activeOpacity={0.8}
+              onPress={() => navigation.navigate("ReportScreen")}
+            >
+              <Text style={styles.textButton}>Join</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
@@ -106,6 +111,14 @@ const styles = StyleSheet.create({
     display: "flex",
     alignItems: "center",
   },
+  description: {
+    backgroundColor: "#F2CB02",
+    paddingTop: "5%",
+    paddingBottom: "5%",
+    width: "100%",
+    alignItems: "center",
+  },
+  textDescription: { color: "white", fontSize: 10 },
   wave2: {
     height: 800,
     width: "100%",
