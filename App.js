@@ -110,10 +110,10 @@ export default function App() {
               name="MySessionsScreen"
               component={MySessionsScreen}
             />
-            {/* <Stack.Screen
+            <Stack.Screen
               name="CreateSessionScreen"
-              // component={CreateSessionScreen}
-            /> */}
+              component={CreateSessionScreen}
+            />
             <Stack.Screen name="MapScreen" component={MapScreen} />
             <Stack.Screen name="ReportScreen" component={ReportScreen} />
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
