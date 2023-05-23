@@ -53,12 +53,12 @@ import {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ name: session.sessionName, spot:session.spot, admin: userInfo._id, date_start: session.start, date_end: session.end, description: description }),
+      body: JSON.stringify({ name: session.sessionName, spot:session.spot,  admin: userInfo._id, date_start: session.start, date_end: session.end, description: description }),
     })
     .then(response => {
       if (response.ok) {
         console.log("Données enregistrées avec succès !");
-        navigation.navigate("TabNavigator");
+        navigation.navigate("");
       } else {
         console.error("Erreur lors de l'enregistrement des données :", response.status);
         // Gérer l'erreur ou afficher un message à l'utilisateur
