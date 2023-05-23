@@ -25,6 +25,8 @@ export default function CreateSessionScreen({ navigation }) {
   const [spot, setSpot] = useState([]);
   const [selectedSpot, setSelectedSpot] = useState(null);
   const [spots, setSpots] = useState([]);
+  const [spotInfo, setSpotInfo] = useState([]);
+
 
   const dispatch = useDispatch();
   const session = useSelector((state) => state.session.value);
@@ -54,6 +56,33 @@ export default function CreateSessionScreen({ navigation }) {
       title: name,
     };
   });
+
+  function handlePress () {
+
+
+    if (sessionName !== "" && spot !== "") {
+
+      fetch(MY_FETCH_API + `/spots/bySpotName`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify ({spotName: selectedSpot.title})
+          })
+          .then(response => response.json()) // Parse the response as JSON
+          .then(data => {
+            console.log('data', data)
+          setSpotInfo(data)
+          dispatch(addSessionName(sessionName));
+          dispatch(addSpot(spotInfo.data._id));
+          navigation.navigate("CreateSessionDateScreen");
+          })
+
+    } else {
+      alert("Please complete your session Bodhi 🤙");
+    }
+  }
+  
 
   return (
     <KeyboardAvoidingView
@@ -105,19 +134,8 @@ export default function CreateSessionScreen({ navigation }) {
           />
           <Button
             title="Next"
-            onPress={() => {
-              if (sessionName !== "" && spot !== "") {
-                dispatch(addSessionName(sessionName));
-                dispatch(addSpot(selectedSpot));
-                console.log("yeeepe", session); // Ajout d'un console.log
-
-                navigation.navigate("CreateSessionDateScreen");
-
-              } else {
-                alert("Please complete your session Bodhi 🤙");
-              }
-            }}
-            style={styles.next}
+            onPress={handlePress}
+              style={styles.next}
           />
           
           </View>
