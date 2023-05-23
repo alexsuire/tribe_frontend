@@ -49,27 +49,10 @@ export default function NextSession_home() {
 
  const nextSession =  getClosestSession(sessions)
 
- function ajusthourfrance(nextSession) {
-  const fuseauBordeaux = 2; // Fuseau horaire de Bordeaux en heures par rapport à UTC
 
-  // Récupérer les horaires de début et de fin de l'objet JSON
-  const dateDebut = new Date(nextSession.date_start);
-  const dateFin = new Date(nextSession.date_end);
 
-  // Ajouter le décalage du fuseau horaire de Bordeaux aux horaires
-  dateDebut.setHours(dateDebut.getHours() + fuseauBordeaux);
-  dateFin.setHours(dateFin.getHours() + fuseauBordeaux);
 
-  // Mettre à jour les horaires dans l'objet JSON
-nextSession.date_start = dateDebut.toISOString();
-  nextSession.date_end = dateFin.toISOString();
-
-  return objetJSON;
-}
-
-const adjusHour = ajusthourfrance(nextSession);
-
-console.log('adjustjour', adjusHour)
+console.log('adjustjour', nextSession)
 
 
 
