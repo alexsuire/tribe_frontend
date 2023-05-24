@@ -11,6 +11,7 @@ import {
   SafeAreaView,
 } from "react-native";
 import My_next_session from "../components/NextSession_home";
+import SessionsAroundMe from "../components/SessionsAroundMe";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function HomeScreen({ navigation }) {
@@ -23,7 +24,8 @@ export default function HomeScreen({ navigation }) {
         source={require("../assets/wave.png")}
       >
         <SafeAreaView style={styles.components}>
-          {/* <My_next_session /> */}
+          <My_next_session />
+        <SessionsAroundMe/>
         </SafeAreaView>
       </ImageBackground>
     </View>

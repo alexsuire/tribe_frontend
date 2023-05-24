@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 export default function NextSession_home() {
   const [sessions, setSessions] = useState([]);
   const [firstNextSession, setFirstNextSession] = useState([]);
+  const [remainingTime, setRemainingTime] = useState("");
 
   const user = useSelector((state) => state.users.value);
 
@@ -29,32 +30,38 @@ export default function NextSession_home() {
         console.error(error);
       }
     };
-    fetchData();
 
+    fetchData();
   }, []);
 
-  console.log(sessions)
+  useEffect(() => {
+    const nextSession = getClosestSession(sessions);
+    setFirstNextSession(nextSession);
+
+    if (nextSession) {
+      const startDate = new Date(nextSession.date_start);
+      const currentDate = new Date();
+      const timeDifference = startDate.getTime() - currentDate.getTime();
+      const daysRemaining = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+      setRemainingTime(`${daysRemaining} days left`);
+    }
+  }, [sessions]);
 
   function getClosestSession(data) {
     const currentDate = new Date();
-    data.sort((sessionA, sessionB) => {
+    const upcomingSessions = data.filter(session => {
+      const sessionDate = new Date(session.date_start);
+      return sessionDate > currentDate;
+    });
+    upcomingSessions.sort((sessionA, sessionB) => {
       const dateA = new Date(sessionA.date_start);
       const dateB = new Date(sessionB.date_start);
       const diffA = Math.abs(dateA - currentDate);
       const diffB = Math.abs(dateB - currentDate);
       return diffA - diffB;
     });
-    return data[0];
+    return upcomingSessions[0];
   }
-
-
-  useEffect(() => {
-    const nextSession = getClosestSession(sessions)
-    setFirstNextSession(nextSession)
-  }, [sessions]);
-
-  
-
 
 
   return (
@@ -62,15 +69,17 @@ export default function NextSession_home() {
       <View style={styles.header}>
         <View style={styles.twoFirstText}>
           <Text style={styles.session}>Session</Text>
-          <Text style={styles.daysLeft}>2 days left</Text>
+          <Text style={styles.daysLeft}>{remainingTime}</Text>
         </View>
         <Text style={styles.myNextSession}> My Next Session</Text>
       </View>
-      <View style={styles.body}>
-        {/* <Text style={styles.sessionPlace}>{firstNextSession.name}</Text> */}
-        <Text style={styles.border}>|</Text>
-        <Text style={styles.sessionName}>Session de Titi</Text>
-      </View>
+      {firstNextSession !== undefined && (
+        <View style={styles.body}>
+          <Text style={styles.sessionPlace}>{firstNextSession.spot?.name}</Text>
+          <Text style={styles.border}>|</Text>
+          <Text style={styles.sessionName}>{firstNextSession.name}</Text>
+        </View>
+      )}
     </View>
   );
 }
@@ -79,15 +88,14 @@ const styles = StyleSheet.create({
   container: {
     margin: "10%",
     width: "85%",
-    height: "100%",
+    maxHeight: 200,
   },
 
   header: {
     display: "flex",
     flexDirection: "column",
     backgroundColor: "#F2CB05",
-    height: "13%",
-
+    height: 90,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     padding: "3%",
@@ -113,13 +121,13 @@ const styles = StyleSheet.create({
   },
   body: {
     backgroundColor: "white",
-    height: "10%",
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
     display: "flex",
     justifyContent: "space-around",
     flexDirection: "row",
     alignItems: "center",
+    height: 60
   },
   sessionPlace: {},
   sessionName: {
