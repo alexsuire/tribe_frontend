@@ -64,7 +64,6 @@ export default function MapScreen({ navigation }) {
         const json = await response.json();
         const data = json.data;
         setSpots(data);
-        console.log(data);
       } catch (error) {
         console.error(error);
       }
@@ -75,7 +74,6 @@ export default function MapScreen({ navigation }) {
   useEffect(() => {
     (async () => {
       const { status } = await Location.requestForegroundPermissionsAsync();
-      console.log("status:", status);
       if (status === "granted") {
         Location.watchPositionAsync({ distanceInterval: 10 }, (newLocation) => {
           setLocation(newLocation);

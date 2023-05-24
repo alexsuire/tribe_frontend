@@ -18,13 +18,12 @@ import Messages_session from "../components/Messages_session";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import MY_FETCH_API  from "../myfetchapi"
+import MY_FETCH_API from "../myfetchapi";
 
 export default function SessionScreen({ navigation }) {
   const user = useSelector((state) => state.users.value);
   const [sessions, setSessions] = useState([]);
   const [messages, setMessages] = useState([]);
-  console.log("user", user);
 
   useEffect(() => {
     const fetchSession = async () => {
@@ -33,7 +32,6 @@ export default function SessionScreen({ navigation }) {
           MY_FETCH_API + `/sessions/oneSession/${user.session}`
         );
         const fetchSessionsUser = await sessionResponse.json();
-        console.log("fetch", fetchSessionsUser);
         setSessions(fetchSessionsUser);
       } catch (error) {
         console.error(error);
@@ -64,7 +62,52 @@ export default function SessionScreen({ navigation }) {
     formattedMonth +
     "/" +
     startDateTime.getFullYear();
-  console.log("data", sessions.data);
+
+  function checkTokenExists(users, token) {
+    return users?.some((user) => user.token == token);
+  }
+
+  const tokenParticipantExists = checkTokenExists(
+    sessions.data?.users,
+    user.token
+  );
+
+  const tokenAdminExists = () => {
+    if (sessions.data?.admin.token == user.token) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const tokenAdmin = tokenAdminExists();
+
+  const handleJoinSession = async () => {
+    try {
+      const sessionId = sessions.data?._id; // Récupérer l'ID de la session
+      const userId = user._id; // Récupérer l'ID de l'utilisateur
+
+      const response = await fetch(
+        MY_FETCH_API + `/addUser/${sessionId}/${userId}`,
+        {
+          method: "POST",
+        }
+      );
+
+      const data = await response.json();
+
+      if (data.error) {
+        // Gérer l'erreur, par exemple afficher un message d'erreur à l'utilisateur
+        console.error(data.error);
+      } else {
+        // L'utilisateur a été ajouté avec succès à la session
+        // Vous pouvez mettre à jour l'état ou effectuer toute autre action nécessaire
+        console.log("User joined session successfully");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -101,13 +144,16 @@ export default function SessionScreen({ navigation }) {
                 admin={sessions.data?.admin}
               />
               <Messages_session sessionId={sessions.data?._id} />
-              <TouchableOpacity
-                style={styles.button}
-                activeOpacity={0.8}
-                onPress={() => navigation.navigate("ReportScreen")}
-              >
-                <Text style={styles.textButton}>Join</Text>
-              </TouchableOpacity>
+              {!tokenParticipantExists ||
+                (tokenAdmin && (
+                  <TouchableOpacity
+                    style={styles.button}
+                    activeOpacity={0.8}
+                    onPress={handleJoinSession}
+                  >
+                    <Text style={styles.textButton}>Join</Text>
+                  </TouchableOpacity>
+                ))}
             </View>
           </KeyboardAwareScrollView>
         </ScrollView>

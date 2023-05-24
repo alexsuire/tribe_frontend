@@ -33,7 +33,6 @@
       fetchData();
     }, []);
 
-    console.log('checkcount', checkedCount)
 
     // Fonction qui map sur les spots fetché au dessus pour return le composant Favorite_spots_signup et les ajoute dans la variable favspot
     const favspot =

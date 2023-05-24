@@ -21,7 +21,11 @@ import MY_FETCH_API from "../myfetchapi";
 export default function SpotScreen({ navigation }) {
   const [spot, setSpot] = useState(null); // Initialize spot as null
   const user = useSelector((state) => state.users.value);
+<<<<<<< HEAD
   console.log('userOnspot', user)
+=======
+
+>>>>>>> 96a11a8379aa9f3fe325730cbf3aaf96c8e8f21e
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,7 +34,6 @@ export default function SpotScreen({ navigation }) {
           MY_FETCH_API + `/spots/oneSpot/${user.active_spot}`
         );
         const fetchSpot = await response.json();
-        console.log("fetch", fetchSpot);
         setSpot(fetchSpot);
       } catch (error) {
         console.error(error);
@@ -48,7 +51,6 @@ export default function SpotScreen({ navigation }) {
     );
   }
 
-  console.log(spot)
 
   
 

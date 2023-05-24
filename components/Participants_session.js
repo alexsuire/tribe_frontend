@@ -9,12 +9,11 @@ import {
   View,
   ScrollView,
 } from "react-native";
-
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 export default function Participants_session(props) {
-  console.log("props", props);
   const participants = props.users?.map((data, i) => {
     return (
-      <View key={i} style={[styles.body, i === 0 && styles.firstParticipant]}>
+      <View key={i} style={styles.body}>
         <View style={styles.firstnameContainer}>
           <Text style={styles.firstname}>{data.firstname}</Text>
         </View>
@@ -34,6 +33,26 @@ export default function Participants_session(props) {
       </View>
 
       <ScrollView style={styles.participantsContainer}>
+        <View style={styles.body2}>
+          <View style={styles.firstnameContainer2}>
+            <Text style={styles.firstname}>
+              {" "}
+              <MaterialCommunityIcons
+                style={styles.cloud}
+                name={"crown"}
+                size={0}
+                color={"#F2CB02"}
+              />{" "}
+              {props.admin?.firstname}
+            </Text>
+          </View>
+          <View style={styles.ageContainer}>
+            <Text style={styles.age}>{props.admin?.age} y.o</Text>
+          </View>
+          <View style={styles.levelContainer}>
+            <Text style={styles.level}>{props.admin?.level}</Text>
+          </View>
+        </View>
         {participants}
       </ScrollView>
     </View>
@@ -82,6 +101,7 @@ const styles = StyleSheet.create({
   },
   levelContainer: { width: 90, marginLeft: 20 },
   firstnameContainer: { width: 90 },
+  firstnameContainer2: { width: 110 },
   firstname: { fontSize: 11, marginTop: 12, color: "#646262" },
   age: { fontSize: 10, marginTop: 12, color: "#646262", textAlign: "center" },
   level: { fontSize: 10, marginTop: 12, color: "#646262" },
@@ -95,6 +115,16 @@ const styles = StyleSheet.create({
     borderColor: "#F0F0F0",
     marginBottom: 15,
     marginHorizontal: 20, // Ajouter des marges horizontales
+  },
+  body2: {
+    display: "flex",
+    justifyContent: "space-between",
+    flexDirection: "row",
+    alignItems: "center",
+    borderTopWidth: 1,
+    borderColor: "#F0F0F0",
+    marginBottom: 15,
+    marginRight: 20, // Ajouter des marges horizontales
   },
 
   firstParticipant: {

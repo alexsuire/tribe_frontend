@@ -26,7 +26,6 @@ export default function CreateSessionDateScreen({ navigation }) {
 
   const dispatch = useDispatch();
   const session = useSelector((state) => state.session.value);
-  console.log("session", session);
 
   const formattedStartDate = startDate ? moment(startDate).format("DD/MM/YYYY HH:mm") : "";
   const formattedEndDate = endDate ? moment(endDate).format("DD/MM/YYYY HH:mm") : "";
@@ -63,7 +62,6 @@ export default function CreateSessionDateScreen({ navigation }) {
       const formattedEndDate = endDate.toISOString();
       dispatch(addStartSession(formattedStartDate));
       dispatch(addEndSession(formattedEndDate));
-      console.log("session", session);
       navigation.navigate("CreateSessionDescriptionScreen");
     } else {
       alert("Please complete your session Bodhi 🤙");
