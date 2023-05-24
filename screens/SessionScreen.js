@@ -23,7 +23,8 @@ import MY_FETCH_API from "../myfetchapi";
 export default function SessionScreen({ navigation }) {
   const user = useSelector((state) => state.users.value);
   const [sessions, setSessions] = useState([]);
-  const [messages, setMessages] = useState([]);
+  const [userInfo, setUserInfo] = useState([]);
+  const [justJoined, setJustJoined] = useState(false);
 
   useEffect(() => {
     const fetchSession = async () => {
@@ -32,15 +33,16 @@ export default function SessionScreen({ navigation }) {
           MY_FETCH_API + `/sessions/oneSession/${user.session}`
         );
         const fetchSessionsUser = await sessionResponse.json();
+
         setSessions(fetchSessionsUser);
       } catch (error) {
         console.error(error);
       }
     };
     fetchSession();
-  }, [user.session]);
+  }, [user.session, justJoined]);
 
-  console.log("session", sessions);
+  console.log(justJoined);
 
   const startDateTime = new Date(sessions.data?.date_start);
   const endDateTime = new Date(sessions.data?.date_end);
@@ -82,32 +84,37 @@ export default function SessionScreen({ navigation }) {
 
   const tokenAdmin = tokenAdminExists();
 
-  const handleJoinSession = async () => {
-    try {
-      const sessionId = sessions.data?._id; // Récupérer l'ID de la session
-      const userId = user._id; // Récupérer l'ID de l'utilisateur
+  console.log("tadmin", tokenAdmin);
 
-      const response = await fetch(
-        MY_FETCH_API + `/addUser/${sessionId}/${userId}`,
-        {
-          method: "POST",
-        }
-      );
+  function handlePress() {
+    fetch(MY_FETCH_API + `/users/${user.token}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ session: sessions.data._id }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setUserInfo(data);
 
-      const data = await response.json();
-
-      if (data.error) {
-        // Gérer l'erreur, par exemple afficher un message d'erreur à l'utilisateur
-        console.error(data.error);
-      } else {
-        // L'utilisateur a été ajouté avec succès à la session
-        // Vous pouvez mettre à jour l'état ou effectuer toute autre action nécessaire
-        console.log("User joined session successfully");
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
+        fetch(
+          MY_FETCH_API +
+            `/sessions/addUser/${sessions.data._id}/${userInfo._id}`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("data", data);
+            setJustJoined(!justJoined);
+          });
+      });
+  }
 
   return (
     <View style={styles.container}>
@@ -144,16 +151,15 @@ export default function SessionScreen({ navigation }) {
                 admin={sessions.data?.admin}
               />
               <Messages_session sessionId={sessions.data?._id} />
-              {!tokenParticipantExists ||
-                (tokenAdmin && (
-                  <TouchableOpacity
-                    style={styles.button}
-                    activeOpacity={0.8}
-                    onPress={handleJoinSession}
-                  >
-                    <Text style={styles.textButton}>Join</Text>
-                  </TouchableOpacity>
-                ))}
+              {!(tokenAdmin || tokenParticipantExists) && (
+                <TouchableOpacity
+                  style={styles.button}
+                  activeOpacity={0.8}
+                  onPress={handlePress}
+                >
+                  <Text style={styles.textButton}>Join</Text>
+                </TouchableOpacity>
+              )}
             </View>
           </KeyboardAwareScrollView>
         </ScrollView>

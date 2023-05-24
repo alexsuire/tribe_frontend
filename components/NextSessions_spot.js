@@ -1,7 +1,11 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { addSession } from "../reducers/users";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function NextSessionsSpot(props) {
+  const dispatch = useDispatch();
+  const { navigation } = props;
   console.log("props", props);
 
   if (props.sessions.length === 0) {
@@ -18,6 +22,11 @@ export default function NextSessionsSpot(props) {
   }
 
   const session = props.sessions.map((data, i) => {
+    console.log("data", data);
+    const handlePress = () => {
+      dispatch(addSession(data._id));
+      navigation.navigate("SessionScreen");
+    };
     const inputDate = data.date_start;
     const inputDateEnd = data.date_end;
     const date = new Date(inputDate);
@@ -32,13 +41,18 @@ export default function NextSessionsSpot(props) {
       year: "numeric",
     });
 
+
     return (
-      <View key={i} style={[styles.body, i === 0 && styles.firstSession]}>
-        <Text style={styles.date}>{formattedDate}</Text>
-        <Text style={styles.border}>|</Text>
-        <Text style={styles.hour}>{hour}h-{hour_end}h</Text>
-        <Text style={styles.number}>{data.users.length} people</Text>
-      </View>
+      <TouchableOpacity onPress={handlePress}>
+        <View key={i} style={[styles.body, i === 0 && styles.firstSession]}>
+          <Text style={styles.date}>{formattedDate}</Text>
+          <Text style={styles.border}>|</Text>
+          <Text style={styles.hour}>
+            {hour}h-{hour_end}h
+          </Text>
+          <Text style={styles.number}>{data.users.length} people</Text>
+        </View>
+      </TouchableOpacity>
     );
   });
 
@@ -63,7 +77,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 3,
   },
-  
+
   header: {
     display: "flex",
     backgroundColor: "#F2CB05",
