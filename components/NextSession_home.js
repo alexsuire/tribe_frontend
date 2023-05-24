@@ -14,6 +14,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 export default function NextSession_home() {
   const [sessions, setSessions] = useState([]);
+  const [firstNextSession, setFirstNextSession] = useState([]);
+
   const user = useSelector((state) => state.users.value);
 
   useEffect(() => {
@@ -28,9 +30,10 @@ export default function NextSession_home() {
       }
     };
     fetchData();
+
   }, []);
 
-  console.log(sessions);
+  console.log(sessions)
 
   function getClosestSession(data) {
     const currentDate = new Date();
@@ -44,29 +47,15 @@ export default function NextSession_home() {
     return data[0];
   }
 
-  const nextSession = getClosestSession(sessions);
 
-  function ajusthourfrance(nextSession) {
-    const fuseauBordeaux = 2; // Fuseau horaire de Bordeaux en heures par rapport à UTC
+  useEffect(() => {
+    const nextSession = getClosestSession(sessions)
+    setFirstNextSession(nextSession)
+  }, [sessions]);
 
-    // Récupérer les horaires de début et de fin de l'objet JSON
-    const dateDebut = new Date(nextSession.date_start);
-    const dateFin = new Date(nextSession.date_end);
+  
 
-    // Ajouter le décalage du fuseau horaire de Bordeaux aux horaires
-    dateDebut.setHours(dateDebut.getHours() + fuseauBordeaux);
-    dateFin.setHours(dateFin.getHours() + fuseauBordeaux);
 
-    // Mettre à jour les horaires dans l'objet JSON
-    nextSession.date_start = dateDebut.toISOString();
-    nextSession.date_end = dateFin.toISOString();
-
-    return objetJSON;
-  }
-
-  const adjusHour = ajusthourfrance(nextSession);
-
-  console.log("adjustjour", adjusHour);
 
   return (
     <View style={styles.container}>
@@ -78,7 +67,7 @@ export default function NextSession_home() {
         <Text style={styles.myNextSession}> My Next Session</Text>
       </View>
       <View style={styles.body}>
-        <Text style={styles.sessionPlace}>Lacanau</Text>
+        {/* <Text style={styles.sessionPlace}>{firstNextSession.name}</Text> */}
         <Text style={styles.border}>|</Text>
         <Text style={styles.sessionName}>Session de Titi</Text>
       </View>

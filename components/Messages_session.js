@@ -70,7 +70,6 @@ export default function Messages_session(props) {
         );
 
         const messageInfo = await messageResponse.json();
-        console.log("messageInfo", messageInfo);
         setMessages(messageInfo.messages);
       } catch (error) {
         console.error(error);

@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   View,
   ImageBackground,
-  ScrollView, 
+  ScrollView,
 } from "react-native";
 import Header_spot from "../components/Header_spot";
 import NextSessions_spot from "../components/NextSessions_spot";
@@ -21,11 +21,6 @@ import MY_FETCH_API from "../myfetchapi";
 export default function SpotScreen({ navigation }) {
   const [spot, setSpot] = useState(null); // Initialize spot as null
   const user = useSelector((state) => state.users.value);
-<<<<<<< HEAD
-  console.log('userOnspot', user)
-=======
-
->>>>>>> 96a11a8379aa9f3fe325730cbf3aaf96c8e8f21e
 
   useEffect(() => {
     const fetchData = async () => {
@@ -51,9 +46,6 @@ export default function SpotScreen({ navigation }) {
     );
   }
 
-
-  
-
   return (
     <View style={styles.container}>
       <Header_spot
@@ -61,9 +53,8 @@ export default function SpotScreen({ navigation }) {
         type={spot.data?.type}
         reliability={spot.data?.reliability}
         rating={spot.data?.rating}
-        latitude= {spot.data?.latitude}
-        longitude= {spot.data?.longitude}
-
+        latitude={spot.data?.latitude}
+        longitude={spot.data?.longitude}
       />
       <ImageBackground
         style={styles.wave2}
@@ -74,9 +65,17 @@ export default function SpotScreen({ navigation }) {
           showsVerticalScrollIndicator={false}
         >
           <View style={styles.all}>
-            <NextSessions_spot sessions={spot.data?.sessions} name={spot.data?.name} />
+            <NextSessions_spot
+              sessions={spot.data?.sessions}
+              name={spot.data?.name}
+              navigation={navigation}
+            />
             <Forecast_spot />
-            <TouchableOpacity style={styles.button} activeOpacity={0.8} onPress={ () => navigation.navigate("ReportScreen")}>
+            <TouchableOpacity
+              style={styles.button}
+              activeOpacity={0.8}
+              onPress={() => navigation.navigate("ReportScreen")}
+            >
               <Text style={styles.textButton}>See more</Text>
             </TouchableOpacity>
           </View>
