@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   scrollView: {
-    paddingBottom: 320,
+    paddingBottom: 390,
   },
   button: {
     display: "flex",

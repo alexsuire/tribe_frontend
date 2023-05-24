@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: '#E0CDA9',
+    backgroundColor: '#FFFFFF',
   },
   menu:{
     display: 'flex',
@@ -125,30 +125,45 @@ const styles = StyleSheet.create({
   title:{
     fontSize: 35,
     fontWeight: '600',
-    color: '#0487D9',
+    color: '#F2CB05',
   },
   information:{
     marginBottom: '5%',
-    color: '#0487D9',
+    color: '#E0CDA9',
+    
   },
-  body:{
-    backgroundColor: 'white',
-    width: '80%',
-    height: '70%',
-    borderRadius: 10,
-  },
+  // body:{
+  //   backgroundColor: '#0487D9',
+  //   width: '80%',
+  //   height: '70%',
+  //   borderRadius: 10,
+  // },
   infobasic:{
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     paddingLeft: 30,
     margin: 10,
+    backgroundColor: '#0487D9',
+    borderRadius: 10,
+    shadowColor: "#E0CDA9",
+    shadowOffset: { width: -2, height: 4 },
+    shadowOpacity: 0.5,
+    shadowRadius: 0.5,
   },
   infobasicspot:{
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     paddingLeft: 40,
+    backgroundColor: '#0487D9',
+    borderRadius: 10,
+    margin: 10,
+    shadowColor: "#E0CDA9",
+    shadowOffset: { width: -2, height: 4 },
+    shadowOpacity: 0.5,
+    shadowRadius: 0.5,
+
   },
  
   textinfobasiccontainer:{
@@ -160,14 +175,14 @@ const styles = StyleSheet.create({
   textinfobasic:{
     fontSize: 15,
     fontWeight: "600",
-    color: '#0487D9',
+    color: '#5FB6DA',
   },
   textContainer:{
     textAlign:'center',
     padding: '3%',
   },
   text:{
-    color: '#646262',
+    color: 'white',
   },
 
 

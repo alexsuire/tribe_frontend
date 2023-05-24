@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#F0F0F0",
 
     width: "100%",
-    height: 180,
+    height: "20%",
   },
   allText: {
     display: "flex",
