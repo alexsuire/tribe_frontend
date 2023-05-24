@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
   },
   type: {
     color: "#646262",
-    paddingBottom: "30%",
+    paddingBottom: "20%",
     fontSize: 10,
   },
   maps: {
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
   },
   rating: {
     color: "#646262",
-    paddingBottom: "20%",
+    paddingBottom: "10%",
     fontSize: 10,
   },
 
