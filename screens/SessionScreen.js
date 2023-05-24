@@ -87,20 +87,19 @@ export default function SessionScreen({ navigation }) {
   console.log("sessionsdata", sessions.data?._id);
 
   function handlePress() {
-    fetch(MY_FETCH_API + `/users/addsession/${user.token}`, {
+    fetch(MY_FETCH_API + `/users/addSession/${user.token}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ session: sessions.data._id }),
+      body: JSON.stringify({ sessions: sessions.data._id }),
     })
       .then((response) => response.json())
       .then((data) => {
         setUserInfo(data);
-  
+
         fetch(
-          MY_FETCH_API +
-            `/sessions/addUser/${sessions.data._id}/${data._id}`, // Use the 'data' returned from the previous fetch
+          MY_FETCH_API + `/sessions/addUser/${sessions.data._id}/${data._id}`, // Use the 'data' returned from the previous fetch
           {
             method: "POST",
             headers: {
@@ -119,40 +118,6 @@ export default function SessionScreen({ navigation }) {
         // Handle any errors that occur during the fetch requests
       });
   }
-  function handlePress() {
-    fetch(MY_FETCH_API + `/users/addsession/${user.token}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ session: sessions.data._id }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setUserInfo(data);
-  
-        fetch(
-          MY_FETCH_API +
-            `/sessions/addUser/${sessions.data._id}/${data._id}`, // Use the 'data' returned from the previous fetch
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        )
-          .then((response) => response.json())
-          .then((data) => {
-            console.log("data", data);
-            setJustJoined(!justJoined);
-          });
-      })
-      .catch((error) => {
-        console.error(error);
-        // Handle any errors that occur during the fetch requests
-      });
-  }
-    
 
   return (
     <View style={styles.container}>
