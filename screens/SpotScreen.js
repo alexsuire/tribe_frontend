@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   View,
   ImageBackground,
-  ScrollView,
+  ScrollView, 
 } from "react-native";
 import Header_spot from "../components/Header_spot";
 import NextSessions_spot from "../components/NextSessions_spot";
@@ -18,11 +18,9 @@ import { useDispatch, useSelector } from "react-redux";
 import React, { useState, useEffect } from "react";
 import MY_FETCH_API from "../myfetchapi";
 
-
 export default function SpotScreen({ navigation }) {
   const [spot, setSpot] = useState(null); // Initialize spot as null
   const user = useSelector((state) => state.users.value);
-
   console.log('userOnspot', user)
 
   useEffect(() => {
@@ -51,6 +49,8 @@ export default function SpotScreen({ navigation }) {
   }
 
   console.log(spot)
+
+  
 
   return (
     <View style={styles.container}>

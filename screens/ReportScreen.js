@@ -4,7 +4,7 @@ import {
   Text,
   StyleSheet,
   SafeAreaView,
-  ImageBackground,
+  ImageBackground, TouchableOpacity, Image
 } from "react-native";
 import rawData from "../data/report_exemple";
 import * as React from "react";
@@ -276,7 +276,13 @@ export default function ReportScreen({ navigation }) {
 
   return (
     <View style={styles.background}>
-      <Header_spot />
+      <View style={styles.header}>
+        <TouchableOpacity
+          onPress={() => navigation.pop()}
+        >
+          <Image style={styles.back} source={require("../assets/back.png")} />
+        </TouchableOpacity>
+      </View>
       <ScrollView horizontal={true} style={styles.scrollView}>
         <View>
           <Table borderStyle={{ borderColor: "#C1C0B9" }}>
@@ -302,15 +308,28 @@ const styles = StyleSheet.create({
   background: {
     backgroundColor: "#16A1F7",
     flex: 1,
+   
   },
-  container: {
-    flex: 1,
-    padding: 16,
-    paddingTop: 30,
-    backgroundColor: "#ffffff",
+ 
+  header:{
+    height: '12%',
+    width: "100%",
+    display: "flex",
+    justifyContent: "flex-end",
+    alignItems: "flex-start",
+    backgroundColor: '#16A1F7',
+
+  },
+  back:{
+    width: 30,
+    height: 30,
+    tintColor: "white",
+    marginLeft: '5%',
+    marginBottom: '5%',
+
   },
   scrollView: {
-    marginTop: 60,
+    // marginTop: 60,
   },
   head: {
     height: 50,

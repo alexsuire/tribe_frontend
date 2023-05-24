@@ -51,6 +51,29 @@ const store = configureStore({
 
 const persistor = persistStore(store);
 
+const HomeStack = createNativeStackNavigator();
+
+function HomeStackScreen() {
+  return (
+    <HomeStack.Navigator  screenOptions={{ headerShown: false }}>
+      <HomeStack.Screen name="Home" component={HomeScreen} />
+      <HomeStack.Screen name="SpotScreen" component={SpotScreen}/>
+    </HomeStack.Navigator>
+  );
+}
+
+const SessionStack = createNativeStackNavigator();
+
+function SessionStackScreen() {
+  return (
+    <SessionStack.Navigator  screenOptions={{ headerShown: false }}>
+      <SessionStack.Screen name="Session" component={MySessionsScreen} />
+      <SessionStack.Screen name="SessionScreen" component={SessionScreen}/>
+    </SessionStack.Navigator>
+  );
+}
+
+
 const TabNavigator = () => {
   return (
     <Tab.Navigator
@@ -77,13 +100,16 @@ const TabNavigator = () => {
         headerShown: false,
       })}
     >
-      <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Session" component={MySessionsScreen} />
+      <Tab.Screen name="Home" component={HomeStackScreen} />
+      <Tab.Screen name="Session" component={SessionStackScreen} />
       <Tab.Screen name="Spots" component={SearchSpotsScreen} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
+
     </Tab.Navigator>
+    
   );
 };
+
 
 export default function App() {
   return (
@@ -107,16 +133,13 @@ export default function App() {
               component={SignupScreen3_final}
             />
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
-            <Stack.Screen name="SpotScreen" component={SpotScreen} />
-            <Stack.Screen name="SessionScreen" component={SessionScreen} />
-            <Stack.Screen
-              name="MySessionsScreen"
-              component={MySessionsScreen}
-            />
-
             <Stack.Screen
               name="CreateSessionScreen"
               component={CreateSessionScreen}
+            />
+            <Stack.Screen
+              name="MySessionsScreen"
+              component={MySessionsScreen}
             />
             <Stack.Screen
               name="CreateSessionDateScreen"
