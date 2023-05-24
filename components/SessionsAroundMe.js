@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import MY_FETCH_API from "../myfetchapi";
 import * as Location from "expo-location";
+import { useDispatch, useSelector } from "react-redux";
+import { addSession } from "../reducers/users";
 
-export default function SessionsAroundMe() {
+export default function SessionsAroundMe(props) {
+  const { navigation } = props;
+  const dispatch = useDispatch();
   const [sessions, setSessions] = useState([]);
   const [closestSessions, setClosestSessions] = useState([]);
   const [currentLocation, setCurrentLocation] = useState(null);
@@ -93,7 +97,6 @@ export default function SessionsAroundMe() {
     return angle * (Math.PI / 180);
   };
 
-  console.log("closest", closestSessions);
 
   if (closestSessions.length === 0) {
     return (
@@ -108,12 +111,47 @@ export default function SessionsAroundMe() {
     );
   }
 
+  const session = closestSessions.map((data, i) => {
+    const handlePress = () => {
+      dispatch(addSession(data._id));
+      navigation.navigate("SessionScreen");
+    };
+    const spot = data.spot.name;
+    const inputDate = data.date_start;
+    const inputDateEnd = data.date_end;
+    const date = new Date(inputDate);
+    const date_end = new Date(inputDateEnd);
+
+    const hour = date.getHours();
+    const hour_end = date_end.getHours();
+
+    const formattedDate = date.toLocaleDateString("en-GB", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    });
+
+    return (
+      <TouchableOpacity onPress={handlePress}>
+        <View key={i} style={[styles.body, i === 0 && styles.firstSession]}>
+          <Text style={styles.date}>{spot}</Text>
+          <Text style={styles.border}>|</Text>
+          <Text style={styles.hour}>
+            {hour}h-{hour_end}h
+          </Text>
+          <Text style={styles.number}>{formattedDate}</Text>
+        </View>
+      </TouchableOpacity>
+    );
+  });
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.myNextSession}>Next Sessions in :</Text>
+        <Text style={styles.session}>Session</Text>
+        <Text style={styles.myNextSession}>Sessions around me</Text>
       </View>
-      <View style={styles.sessionContainer}></View>
+      <View style={styles.sessionContainer}>{session}</View>
     </View>
   );
 }
@@ -147,5 +185,45 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 18,
     fontWeight: 600,
+  },
+  sessionContainer: {
+    backgroundColor: "white",
+    display: "flex",
+    justifyContent: "space-around",
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+  },
+  body: {
+    display: "flex",
+    justifyContent: "space-between",
+    flexDirection: "row",
+    alignItems: "center",
+    borderTopWidth: 1,
+    borderColor: "#F0F0F0",
+    marginBottom: 15,
+    marginHorizontal: 20,
+  },
+  date: {
+    fontSize: 11,
+    marginTop: 12,
+    color: "#646262",
+  },
+  hour: {
+    fontSize: 10,
+    marginTop: 12,
+    color: "#646262",
+  },
+  border: {
+    fontSize: 20,
+    marginTop: 12,
+    color: "#646262",
+  },
+  firstSession: {
+    borderTopWidth: 0,
+  },
+  number: {
+    fontSize: 10,
+    marginTop: 12,
+    color: "#646262",
   },
 });
