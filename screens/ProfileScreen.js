@@ -99,10 +99,11 @@ export default function ProfileScreen({ navigation }) {
         <View style={styles.textinfobasiccontainer}>
           <Text style={styles.textinfobasic}>Spots Favorit : </Text>
         </View>
-          <View style={styles.textspot}>
+          <View style={styles.textContainer}>
           {userData?.spots?.map((spot) => (
-            <Text style={[styles.onetextspot, styles.textWithBorderBottom]} key={spot._id}>{spot.name}</Text>
+            <Text style={styles.text} key={spot._id}>{spot.name}   </Text>
           ))}
+           
           </View>
         </View>
       </View>
@@ -114,6 +115,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: '#E0CDA9',
   },
   menu:{
     display: 'flex',
@@ -124,18 +126,16 @@ const styles = StyleSheet.create({
     fontSize: 35,
     fontWeight: '600',
     color: '#0487D9',
-
   },
   information:{
-    margin: '5%',
+    marginBottom: '5%',
     color: '#0487D9',
   },
   body:{
-    backgroundColor: '#E0CDA9',
+    backgroundColor: 'white',
     width: '80%',
-    height: '80%',
+    height: '70%',
     borderRadius: 10,
-  
   },
   infobasic:{
     display: 'flex',
@@ -143,55 +143,32 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingLeft: 30,
     margin: 10,
-    
   },
   infobasicspot:{
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    paddingLeft: 30,
-    margin: 10,
-
+    paddingLeft: 40,
   },
+ 
   textinfobasiccontainer:{
     display: 'flex',
+    flexDirection: 'row',
     justifyContent:'flex-start',
     alignItems:'flex-start',
-
-
   },
   textinfobasic:{
     fontSize: 15,
     fontWeight: "600",
-    color: '#0487D9'
+    color: '#0487D9',
   },
   textContainer:{
-    borderRadius: 8,
-    borderBottomColor: 'black',
-    borderBottomWidth: 3,
-    marginTop: 5,
-    marginLeft: 5,
     textAlign:'center',
     padding: '3%',
-
+  },
+  text:{
+    color: '#646262',
   },
 
-  textspot:{
-    borderRadius: 8,
-    borderBottomColor: 'black',
-    borderBottomWidth: 3,
-    display: 'flex',
-    // flexDirection: 'row',
-    marginTop: 5,
-    padding: '3%',
-  },
-  onetextspot:{
-    margin: "2%",
-  },
-  textWithBorderBottom: {
-    borderBottomColor: 'black',
-    borderBottomWidth: 1,
-    paddingBottom: 5,
-  },
 
 });

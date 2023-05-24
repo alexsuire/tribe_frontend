@@ -1,7 +1,13 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View, Image } from "react-native";
+import { addSession } from "../reducers/users";
+import { useDispatch, useSelector } from "react-redux";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+
 
 export default function NextSessionsSpot(props) {
+  const dispatch = useDispatch();
+  const { navigation } = props;
   console.log("props", props);
 
   if (props.sessions.length === 0) {
@@ -18,6 +24,11 @@ export default function NextSessionsSpot(props) {
   }
 
   const session = props.sessions.map((data, i) => {
+    console.log("data", data);
+    const handlePress = () => {
+      dispatch(addSession(data._id));
+      navigation.navigate("SessionScreen");
+    };
     const inputDate = data.date_start;
     const inputDateEnd = data.date_end;
     const date = new Date(inputDate);
@@ -32,22 +43,44 @@ export default function NextSessionsSpot(props) {
       year: "numeric",
     });
 
+    
+
     return (
-      <View key={i} style={[styles.body, i === 0 && styles.firstSession]}>
-        <Text style={styles.date}>{formattedDate}</Text>
-        <Text style={styles.border}>|</Text>
-        <Text style={styles.hour}>{hour}h-{hour_end}h</Text>
-        <Text style={styles.number}>{data.users.length} people</Text>
-      </View>
+      <TouchableOpacity onPress={handlePress}>
+        <View key={i} style={[styles.body, i === 0 && styles.firstSession]}>
+          <Text style={styles.date}>{formattedDate}</Text>
+          <Text style={styles.border}>|</Text>
+          <Text style={styles.hour}>
+            {hour}h-{hour_end}h
+          </Text>
+          <Text style={styles.number}>{data.users.length} people</Text>
+        </View>
+      </TouchableOpacity>
     );
   });
+  const handlePlusButtonPress = () => {
+      navigation.navigate("CreateSessionScreen");
+    };
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
+        <View style={styles.headerplus}>
         <Text style={styles.myNextSession}>
           Next Sessions in : {props.name}
         </Text>
+        <TouchableOpacity
+            style={styles.button}
+            onPress={handlePlusButtonPress}
+          >
+            <MaterialCommunityIcons
+              style={styles.plus}
+              name={"plus"}
+              size={28}
+              color={"white"}
+            />
+          </TouchableOpacity>
+        </View>
       </View>
       <View style={styles.sessionContainer}>{session}</View>
     </View>
@@ -63,7 +96,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 3,
   },
-  
+
   header: {
     display: "flex",
     backgroundColor: "#F2CB05",
@@ -73,6 +106,13 @@ const styles = StyleSheet.create({
     padding: "3%",
     justifyContent: "space-around",
   },
+  headerplus:{
+    display:'flex',
+    flexDirection: 'row',
+    justifyContent: "space-around",
+    alignItems:'center',
+  },
+
   header_no_sessions: {
     display: "flex",
     backgroundColor: "#F2CB05",
