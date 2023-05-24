@@ -35,7 +35,7 @@ export default function SpotScreen({ navigation }) {
       }
     };
     fetchData();
-  }, []);
+  }, [user.active_spot]);
 
   if (!spot) {
     // Render loading state if spot is still null

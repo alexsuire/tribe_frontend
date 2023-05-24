@@ -95,7 +95,7 @@ export default function SessionsAroundMe() {
 
   console.log("closest", closestSessions);
 
-  if (closestSessions.length > 0) {
+  if (closestSessions.length === 0) {
     return (
       <View style={styles.container}>
         <View style={styles.header}>

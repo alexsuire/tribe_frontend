@@ -41,6 +41,7 @@ export default function NextSessionsSpot(props) {
       year: "numeric",
     });
 
+    
 
     return (
       <TouchableOpacity onPress={handlePress}>
@@ -50,7 +51,7 @@ export default function NextSessionsSpot(props) {
           <Text style={styles.hour}>
             {hour}h-{hour_end}h
           </Text>
-          <Text style={styles.number}>{data.users.length} people</Text>
+          <Text style={styles.number}>{data.users.length + 1} people</Text>
         </View>
       </TouchableOpacity>
     );
