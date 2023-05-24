@@ -87,12 +87,12 @@ export default function SessionScreen({ navigation }) {
   console.log("tadmin", tokenAdmin);
 
   function handlePress() {
-    fetch(MY_FETCH_API + `/users/${user.token}`, {
+    fetch(MY_FETCH_API + `/users/addSession/${user.token}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ session: sessions.data._id }),
+      body: JSON.stringify({ sessions: sessions.data._id }),
     })
       .then((response) => response.json())
       .then((data) => {
