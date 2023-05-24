@@ -15,6 +15,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 export default function NextSession_home() {
   const [sessions, setSessions] = useState([]);
+  const [firstNextSession, setFirstNextSession] = useState([]);
+
   const user = useSelector((state) => state.users.value);
 
 
@@ -31,9 +33,9 @@ export default function NextSession_home() {
       }
     };
     fetchData();
+
   }, []);
 
-  console.log(sessions)
 
   function getClosestSession(data) {
     const currentDate = new Date();
@@ -47,12 +49,15 @@ export default function NextSession_home() {
     return data[0];
   }
 
- const nextSession =  getClosestSession(sessions)
+
+  useEffect(() => {
+    const nextSession = getClosestSession(sessions)
+    setFirstNextSession(nextSession)
+  }, [sessions]);
 
 
+console.log('first', firstNextSession)
 
-
-console.log('adjustjour', nextSession)
 
 
 
@@ -66,7 +71,7 @@ console.log('adjustjour', nextSession)
         <Text style={styles.myNextSession}> My Next Session</Text>
       </View>
       <View style={styles.body}>
-        <Text style={styles.sessionPlace}>Lacanau</Text>
+        {/* <Text style={styles.sessionPlace}>{firstNextSession.name}</Text> */}
         <Text style={styles.border}>|</Text>
         <Text style={styles.sessionName}>Session de Titi</Text>
       </View>
