@@ -9,17 +9,14 @@ import {
   View,
 } from "react-native";
 import React, { useState, useEffect } from "react";
-import MY_FETCH_API from "../myfetchapi"
+import MY_FETCH_API from "../myfetchapi";
 import { useDispatch, useSelector } from "react-redux";
-
 
 export default function NextSession_home() {
   const [sessions, setSessions] = useState([]);
   const [firstNextSession, setFirstNextSession] = useState([]);
 
   const user = useSelector((state) => state.users.value);
-
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,6 +33,7 @@ export default function NextSession_home() {
 
   }, []);
 
+  console.log(sessions)
 
   function getClosestSession(data) {
     const currentDate = new Date();
@@ -55,9 +53,7 @@ export default function NextSession_home() {
     setFirstNextSession(nextSession)
   }, [sessions]);
 
-
-console.log('first', firstNextSession)
-
+  
 
 
 
