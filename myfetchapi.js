@@ -1,1 +1,1 @@
-export default MY_FETCH_API = "http://localhost:3000/";
+export default MY_FETCH_API = "http://localhost:3000";
