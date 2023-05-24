@@ -64,7 +64,7 @@ export default function CreateSessionScreen({ navigation }) {
           setSpotInfo(data);
           dispatch(addSessionName(sessionName));
           dispatch(addSpot(data.data._id)); // Access the _id property from the data directly
-          navigation.navigate("CreateSessionDateScreen");
+          navigation.navigate("CreateSessionDateSession");
         })
         .catch((error) => {
           console.error(error);
@@ -81,7 +81,7 @@ export default function CreateSessionScreen({ navigation }) {
     >
       <View style={styles.header}>
         <TouchableOpacity
-          onPress={() => navigation.navigate("MySessionsScreen")}
+          onPress={() => navigation.pop()}
         >
           <Image style={styles.back} source={require("../assets/back.png")} />
         </TouchableOpacity>
