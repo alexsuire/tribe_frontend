@@ -10,6 +10,7 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import { useNavigation } from "@react-navigation/native";
 import { addSession } from "../reducers/users";
 import { useDispatch } from "react-redux";
+import React, { useState } from "react";
 
 export default function Preview_mysessions(props) {
   const dispatch = useDispatch();

@@ -22,21 +22,22 @@ export default function MySessionsScreen({ navigation }) {
 
   const user = useSelector((state) => state.users.value);
 
-
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch(FETCH_API + `/users/${user.token}`);
         const fetchSessionsUser = await response.json();
+        const fetchSorted = fetchSessionsUser.sort(
+          (a, b) => new Date(a.date_start) - new Date(b.date_start)
+        );
 
-        setSessions(fetchSessionsUser);
+        setSessions(fetchSorted);
       } catch (error) {
         console.error(error);
       }
     };
     fetchData();
   }, []);
-
   let content;
   if (sessions.length === 0) {
     content = (
@@ -50,6 +51,7 @@ export default function MySessionsScreen({ navigation }) {
     ));
   }
 
+  console.log("session", sessions);
   return (
     <View style={styles.container}>
       <View style={styles.header}>

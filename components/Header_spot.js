@@ -11,7 +11,7 @@ import {
   SafeAreaView,
   Linking,
 } from "react-native";
-import React, { useState, useEffect } from "react";
+
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 export default function Header_spot(props) {
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#F0F0F0",
 
     width: "100%",
-    height: 180,
+    height: "20%",
   },
   allText: {
     display: "flex",
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     paddingBottom: "5%",
   },
   spotNameText: {
-    fontSize: "18",
+    fontSize: 12,
   },
   typeAndmaps: {
     marginLeft: "3%",
