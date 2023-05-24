@@ -9,7 +9,7 @@ import {
   View,
   ImageBackground,
   SafeAreaView,
-  Linking
+  Linking,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -20,7 +20,9 @@ export default function Header_spot(props) {
     const starIcons = [];
 
     for (let i = 0; i < rating; i++) {
-      starIcons.push(<MaterialCommunityIcons name="star" style={styles.starIcon} key={i} />);
+      starIcons.push(
+        <MaterialCommunityIcons name="star" style={styles.starIcon} key={i} />
+      );
     }
 
     return starIcons;
@@ -35,8 +37,16 @@ export default function Header_spot(props) {
         <View style={styles.allText}>
           <View style={styles.typeAndmaps}>
             <Text style={styles.type}>Type: {props.type}</Text>
-            <Text style={styles.maps} onPress={() => {
-              Linking.openURL(`https://maps.google.com/maps?q=${props.latitude},${props.longitude}`) }}>Google maps</Text>
+            <Text
+              style={styles.maps}
+              onPress={() => {
+                Linking.openURL(
+                  `https://maps.google.com/maps?q=${props.latitude},${props.longitude}`
+                );
+              }}
+            >
+              Google maps
+            </Text>
           </View>
           <View style={styles.ratingAndrealiability}>
             <Text style={styles.rating}>
@@ -52,13 +62,12 @@ export default function Header_spot(props) {
   );
 }
 
-
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#F0F0F0",
 
     width: "100%",
-    height: "20%",
+    height: 180,
   },
   allText: {
     display: "flex",
@@ -73,7 +82,7 @@ const styles = StyleSheet.create({
     paddingBottom: "5%",
   },
   spotNameText: {
-    fontSize: "18"
+    fontSize: "18",
   },
   typeAndmaps: {
     marginLeft: "3%",

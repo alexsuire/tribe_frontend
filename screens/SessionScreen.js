@@ -84,7 +84,7 @@ export default function SessionScreen({ navigation }) {
 
   const tokenAdmin = tokenAdminExists();
 
-  console.log("tadmin", tokenAdmin);
+  console.log("sessionsdata", sessions.data?._id);
 
   function handlePress() {
     fetch(MY_FETCH_API + `/users/addSession/${user.token}`, {
@@ -99,8 +99,7 @@ export default function SessionScreen({ navigation }) {
         setUserInfo(data);
 
         fetch(
-          MY_FETCH_API +
-            `/sessions/addUser/${sessions.data._id}/${userInfo._id}`,
+          MY_FETCH_API + `/sessions/addUser/${sessions.data._id}/${data._id}`, // Use the 'data' returned from the previous fetch
           {
             method: "POST",
             headers: {
@@ -113,6 +112,10 @@ export default function SessionScreen({ navigation }) {
             console.log("data", data);
             setJustJoined(!justJoined);
           });
+      })
+      .catch((error) => {
+        console.error(error);
+        // Handle any errors that occur during the fetch requests
       });
   }
 
