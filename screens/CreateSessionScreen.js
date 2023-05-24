@@ -64,7 +64,7 @@ export default function CreateSessionScreen({ navigation }) {
           setSpotInfo(data);
           dispatch(addSessionName(sessionName));
           dispatch(addSpot(data.data._id)); // Access the _id property from the data directly
-          navigation.navigate("CreateSessionDateSession");
+          navigation.navigate("CreateSessionDateScreen");
         })
         .catch((error) => {
           console.error(error);
