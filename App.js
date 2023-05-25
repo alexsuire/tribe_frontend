@@ -57,6 +57,8 @@ function SearchSpotsStackScreen() {
     <SpotStack.Navigator screenOptions={{ headerShown: false}} >
       <SpotStack.Screen name="SpotsSearch" component={SearchSpotsScreen} />
       <SpotStack.Screen name="SpotScreen" component={SpotScreen} />
+      <SpotStack.Screen name="MapScreen" component={MapScreen} />
+      <SpotStack.Screen name="ReportScreen" component={ReportScreen} />
     </SpotStack.Navigator>
   );
 }
@@ -67,9 +69,25 @@ function SessionStackScreen() {
   return (
     <SessionStack.Navigator screenOptions={{ headerShown: false}}>
       <SessionStack.Screen name="MySession" component={MySessionsScreen} />
+      <SessionStack.Screen
+        name="MySessionScreen"
+        component={MySessionsScreen}
+      />
       <SessionStack.Screen name="SessionScreen" component={SessionScreen} />
+      <SessionStack.Screen
+        name="CreateSessionScreen"
+        component={CreateSessionScreen}
+      />
+      <SessionStack.Screen
+        name="CreateSessionDateScreen"
+        component={CreateSessionDateScreen}
+      />
+      <SessionStack.Screen
+        name="CreateSessionDescriptionScreen"
+        component={CreateSessionDescriptionScreen}
+      />
     </SessionStack.Navigator>
-  );
+  )
 }
 
 const TabNavigator = () => {
@@ -164,4 +182,4 @@ const styles = StyleSheet.create({
   },
 });
 
-// ...
+

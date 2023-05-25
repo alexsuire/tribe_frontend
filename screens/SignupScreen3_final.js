@@ -5,16 +5,13 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { loginCountry, addToken } from "../reducers/users";
 import { AutocompleteDropdown } from "react-native-autocomplete-dropdown";
 import MY_FETCH_API from "../myfetchapi";
-import { SelectList } from 'react-native-dropdown-select-list'
-
-
-
+import { SelectList } from "react-native-dropdown-select-list";
 
 export default function SignupScreen3_final({ navigation }) {
   const [selectedCountry, setSelectedCountry] = useState(null);
@@ -27,7 +24,9 @@ export default function SignupScreen3_final({ navigation }) {
   useEffect(() => {
     const fetchCountries = async () => {
       try {
-        const response = await fetch(MY_FETCH_API + "/nationalities/allCountries");
+        const response = await fetch(
+          MY_FETCH_API + "/nationalities/allCountries"
+        );
         const json = await response.json();
         const data = json.data;
         setNationalities(data);
@@ -53,13 +52,14 @@ export default function SignupScreen3_final({ navigation }) {
 
   const CreateNewUser = async () => {
     try {
-      const response = await fetch(MY_FETCH_API + `/nationalities/oneCountry/${selectedCountry.title}`
+      const response = await fetch(
+        MY_FETCH_API + `/nationalities/oneCountry/${selectedCountry.title}`
       );
       const data = await response.json();
       dispatch(loginCountry(data.data._id));
 
       // Exécuter le deuxième fetch seulement si le premier fetch a renvoyé des données
-      const secondResponse = await fetch( MY_FETCH_API + "/users/signup", {
+      const secondResponse = await fetch(MY_FETCH_API + "/users/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -74,12 +74,13 @@ export default function SignupScreen3_final({ navigation }) {
         }),
       });
       const responseData = await secondResponse.json();
-      dispatch(addToken(responseData.data.token));
+      console.log("response", responseData)
+      dispatch(addToken(responseData.token));
+      navigation.navigate("TabNavigator");
     } catch (error) {
       // Gérer les erreurs
       console.log(error);
     }
-    navigation.navigate("TabNavigator");
   };
 
   // Data utilisée pour choisir le level du surfeur
@@ -96,41 +97,45 @@ export default function SignupScreen3_final({ navigation }) {
       style={styles.container}
     >
       <Text style={styles.title}>Tribe</Text>
-      <View style={{ width: "80%" }}>
-
-      <SelectList
-  setSelected={(val) => setSelectedLevel(val)}
-  data={levelData}
-  placeholder="Level"
-  save="value"
-  style={{ ...styles.level, width: "80%" }} // Add width property
-/>
-      <AutocompleteDropdown
-        clearOnFocus={false}
-        closeOnBlur={true}
-        closeOnSubmit={false}
-        initialValue={{ id: "2" }}
-        onSelectItem={setSelectedCountry}
-        dataSet={transformedCountries}
-        textInputProps={{
-          placeholder: 'Country',
-        }}
+      <View style={styles.inputAndbutton}>
+        {/* <View style={styles.input}> */}
+        <View style={styles.input}>
+          <SelectList
+            setSelected={(val) => setSelectedLevel(val)}
+            data={levelData}
+            placeholder="Level"
+            save="value"
+            style={{ ...styles.level, width: "200px" }} // Add width property
+          />
+        </View>
+        <AutocompleteDropdown
+          clearOnFocus={false}
+          closeOnBlur={true}
+          closeOnSubmit={false}
+          initialValue={{ id: "2" }}
+          onSelectItem={setSelectedCountry}
+          dataSet={transformedCountries}
+          textInputProps={{
+            placeholder: "Country",
+          }}
           containerStyle={{
-          marginTop: 10,
-          backgroundColor: "white",
-          borderColor: "#E0CDA9",
-          borderWidth: 1,
-          borderRadius: 7,
-        }}
-      />
-</View>
-      <TouchableOpacity
-        onPress={CreateNewUser}
-        style={styles.button}
-        activeOpacity={0.8}
-      >
-        <Text style={styles.textButton}>Next</Text>
-      </TouchableOpacity>
+            marginTop: 10,
+            backgroundColor: "white",
+            borderColor: "#E0CDA9",
+            borderWidth: 1,
+            borderRadius: 7,
+            width: "80%",
+          }}
+        />
+        {/* </View> */}
+        <TouchableOpacity
+          onPress={CreateNewUser}
+          style={styles.button}
+          activeOpacity={0.8}
+        >
+          <Text style={styles.textButton}>Next</Text>
+        </TouchableOpacity>
+      </View>
     </KeyboardAvoidingView>
   );
 }
@@ -140,6 +145,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    display: "flex",
   },
   title: {
     fontSize: 50,
@@ -148,21 +154,18 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   input: {
+    // display: "flex",
+    // alignItems: "center",
     textAlign: "center",
-    borderColor: "black",
-    borderWidth: 1,
-    width: "80%",
-    height: "7%",
-    marginTop: 15,
-    borderRadius: 7,
-    borderColor: "#E0CDA9",
+
+    width: "79%",
   },
   button: {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     width: "40%",
-    height: "8%",
+    height: "15%",
     marginTop: 30,
     backgroundColor: "#0287D9",
     borderRadius: 10,
@@ -172,5 +175,12 @@ const styles = StyleSheet.create({
     color: "#ffffff",
     fontWeight: "600",
     fontSize: 23,
+  },
+  inputAndbutton: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    textAlign: "center",
   },
 });

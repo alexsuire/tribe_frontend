@@ -125,9 +125,7 @@ export default function SessionsAroundMe(props) {
   const session = closestSessions.map((data, i) => {
     const handlePress = () => {
       dispatch(addSession(data._id));
-      navigation.navigate('Session', { screen: 'SessionScreen' });
-
-      
+      navigation.navigate("Session", { screen: "SessionScreen" });
     };
     const spot = data.spot?.name;
     const inputDate = data.date_start;
@@ -144,18 +142,33 @@ export default function SessionsAroundMe(props) {
       year: "numeric",
     });
 
-    return (
-      <TouchableOpacity onPress={handlePress} key={i}>
-        <View style={[styles.body, i === 0 && styles.firstSession]}>
-          <Text style={styles.date}>{spot}</Text>
-          <Text style={styles.border}>|</Text>
-          <Text style={styles.hour}>
-            {hour}h-{hour_end}h
-          </Text>
-          <Text style={styles.number}>{formattedDate}</Text>
-        </View>
-      </TouchableOpacity>
-    );
+    if (closestSessions.length > 0) {
+      return (
+        <TouchableOpacity onPress={handlePress} key={i}>
+          <View style={[styles.body, i === 0 && styles.firstSession]}>
+            <Text style={styles.date}>{spot}</Text>
+            <Text style={styles.border}>|</Text>
+            <Text style={styles.hour}>
+              {hour}h-{hour_end}h
+            </Text>
+            <Text style={styles.number}>{formattedDate}</Text>
+          </View>
+        </TouchableOpacity>
+      );
+    } else {
+      return (
+        <TouchableOpacity onPress={handlePress} key={i}>
+          <View style={[styles.body, i === 0 && styles.firstSession]}>
+            <Text style={styles.date}>{spot}</Text>
+            <Text style={styles.border}>|</Text>
+            <Text style={styles.hour}>
+              {hour}h-{hour_end}h
+            </Text>
+            <Text style={styles.number}>{formattedDate}</Text>
+          </View>
+        </TouchableOpacity>
+      );
+    }
   });
 
   return (
@@ -164,16 +177,19 @@ export default function SessionsAroundMe(props) {
         <Text style={styles.session}>Session</Text>
         <Text style={styles.myNextSession}>Sessions around me</Text>
       </View>
-      <View style={styles.sessionContainer}>{session}</View>
+      {session !== undefined && (
+        <View style={styles.sessionContainer}>{session}</View>
+      )}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    margin: "10%",
-    width: "85%",
+    flex: 1,
+    width: "100%",
     maxHeight: 250,
+    marginTop: 40,
   },
 
   header: {

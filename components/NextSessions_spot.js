@@ -46,7 +46,7 @@ export default function NextSessionsSpot(props) {
     
 
     return (
-      <TouchableOpacity onPress={handlePress}>
+      <TouchableOpacity onPress={handlePress} key={i}>
         <View key={i} style={[styles.body, i === 0 && styles.firstSession]}>
           <Text style={styles.date}>{formattedDate}</Text>
           <Text style={styles.border}>|</Text>

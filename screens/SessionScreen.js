@@ -146,7 +146,7 @@ export default function SessionScreen({ navigation }) {
             contentContainerStyle={styles.scrollContainer}
             keyboardShouldPersistTaps="handled"
             enableOnAndroid={true}
-            extraScrollHeight={50}
+            extraScrollHeight={80}
           >
             <View style={styles.all}>
               <Participants_session

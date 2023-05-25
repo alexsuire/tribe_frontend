@@ -89,7 +89,6 @@
       width: "100%",
     },
     title: {
-      fontFamily: "Lato-Bold",
       fontSize: 25,
       fontWeight: 700,
       marginTop: 20,

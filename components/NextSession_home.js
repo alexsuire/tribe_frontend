@@ -37,7 +37,6 @@ export default function NextSession_home(props) {
     fetchData();
   }, []);
 
-
   useEffect(() => {
     const nextSession = getClosestSession(sessions);
     setFirstNextSession(nextSession);
@@ -52,8 +51,12 @@ export default function NextSession_home(props) {
   }, [sessions]);
 
   function getClosestSession(data) {
+    console.log('data', data)
+    if (data === undefined) {
+      return
+    }
     const currentDate = new Date();
-    const upcomingSessions = data.filter(session => {
+    const upcomingSessions = data?.filter((session) => {
       const sessionDate = new Date(session.date_start);
       return sessionDate > currentDate;
     });
@@ -65,14 +68,13 @@ export default function NextSession_home(props) {
       return diffA - diffB;
     });
     return upcomingSessions[0];
+  
   }
-
-
 
   const handlePress = () => {
-    dispatch(addSession(firstNextSession._id))
-    navigation.navigate('Session', { screen: 'SessionScreen' });
-  }
+    dispatch(addSession(firstNextSession._id));
+    navigation.navigate("Session", { screen: "SessionScreen" });
+  };
 
   return (
     <View style={styles.container}>
@@ -84,13 +86,20 @@ export default function NextSession_home(props) {
         <Text style={styles.myNextSession}> My Next Session</Text>
       </View>
       {firstNextSession !== undefined && (
-          <TouchableOpacity onPress={handlePress}>
-        <View style={styles.body}>
-          <Text style={styles.sessionPlace}>{firstNextSession.spot?.name}</Text>
-          <Text style={styles.border}>|</Text>
-          <Text style={styles.sessionName}>{firstNextSession.name}</Text>
-        </View>
+        <TouchableOpacity onPress={handlePress}>
+          <View style={styles.body}>
+            <Text style={styles.sessionPlace}>
+              {firstNextSession.spot?.name}
+            </Text>
+            <Text style={styles.border}>|</Text>
+            <Text style={styles.sessionName}>{firstNextSession.name}</Text>
+          </View>
         </TouchableOpacity>
+      )}
+      {firstNextSession == undefined && (
+        <View style={styles.body}>
+          <Text style={styles.sessionName}>No session scheduled...🏄‍♀️</Text>
+        </View>
       )}
     </View>
   );
@@ -98,9 +107,9 @@ export default function NextSession_home(props) {
 
 const styles = StyleSheet.create({
   container: {
-    margin: "10%",
-    width: "85%",
+    flex: 1,
     maxHeight: 200,
+    marginTop: 40,
   },
 
   header: {
@@ -139,7 +148,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     flexDirection: "row",
     alignItems: "center",
-    height: 60
+    height: 60,
   },
   sessionPlace: {},
   sessionName: {

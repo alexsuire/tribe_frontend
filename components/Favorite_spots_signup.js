@@ -58,7 +58,7 @@ export default function Favorite_spots_signup(props) {
           <View style={styles.propertyimage}>
             <View style={styles.check}> 
               {checked && (
-                <MaterialCommunityIcons name="check" color="green" size="20%" />
+                <MaterialCommunityIcons name="check" color="green" size={20} />
               )}
             </View>
             <View style={styles.name}>
