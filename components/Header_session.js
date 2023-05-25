@@ -1,4 +1,11 @@
-import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, Image } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  TouchableOpacity,
+  Image,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import MySessionsScreen from "../screens/MySessionsScreen";
 
@@ -8,12 +15,21 @@ export default function Header_session(props) {
     <View style={styles.container}>
       <SafeAreaView>
         <View style={styles.header}>
+<<<<<<< HEAD
         {/* <TouchableOpacity onPress={() => navigation.navigate("Home")}>
           <Image style={styles.back} source={require("../assets/back.png")} />
         </TouchableOpacity> */}
         <View style={styles.sessionName}>
           <Text style={styles.sessionNametitle}>{props.name}</Text>
         </View>
+=======
+          <TouchableOpacity onPress={() => navigation.pop(4)}>
+            <Image style={styles.back} source={require("../assets/back.png")} />
+          </TouchableOpacity>
+          <View style={styles.sessionName}>
+            <Text style={styles.sessionNametitle}>{props.name}</Text>
+          </View>
+>>>>>>> c2d81a3f74297e85f0b638e07e479316e9052f8e
         </View>
         <View style={styles.allText}>
           <View style={styles.spotAndmaps}>
@@ -52,7 +68,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    },
+  },
   allText: {
     display: "flex",
     justifyContent: "space-between",
@@ -68,6 +84,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     fontSize: "18",
+
+    height: 40,
   },
   sessionNametitle: {
     color: "#646262",
@@ -115,5 +133,5 @@ const styles = StyleSheet.create({
     height: 20,
     tintColor: "#646262",
     marginTop: 20,
-    },
+  },
 });

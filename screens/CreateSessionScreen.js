@@ -52,7 +52,7 @@ export default function CreateSessionScreen({ navigation }) {
 
   function handlePress() {
     if (sessionName !== "" && spot !== "") {
-      fetch(MY_FETCH_API + `/spots/bySpotName`, { 
+      fetch(MY_FETCH_API + `/spots/bySpotName`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -80,9 +80,7 @@ export default function CreateSessionScreen({ navigation }) {
       style={styles.container}
     >
       <View style={styles.header}>
-        <TouchableOpacity
-          onPress={() => navigation.pop()}
-        >
+        <TouchableOpacity onPress={() => navigation.pop()}>
           <Image style={styles.back} source={require("../assets/back.png")} />
         </TouchableOpacity>
         <View style={styles.placetitle}>

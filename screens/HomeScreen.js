@@ -9,7 +9,7 @@ import {
   TextInput,
   TouchableOpacity,
   SafeAreaView,
-  ScrollView
+  ScrollView,
 } from "react-native";
 import My_next_session from "../components/NextSession_home";
 import SessionsAroundMe from "../components/SessionsAroundMe";
@@ -20,18 +20,23 @@ export default function HomeScreen({ navigation }) {
   const user = useSelector((state) => state.users.value);
 
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
       <ImageBackground
         style={styles.water}
         source={require("../assets/wave.png")}
       >
-        <SafeAreaView style={styles.components}>
-          <My_next_session navigation={navigation}/>
-        <SessionsAroundMe navigation={navigation}/>
-        <Favorite_spots_home navigation={navigation}/>
-        </SafeAreaView>
+        <ScrollView
+          contentContainerStyle={styles.scrollView}
+          showsVerticalScrollIndicator={false}
+        >
+          <SafeAreaView style={styles.components}>
+            <My_next_session navigation={navigation} />
+            <SessionsAroundMe navigation={navigation} />
+            <Favorite_spots_home navigation={navigation} />
+          </SafeAreaView>
+        </ScrollView>
       </ImageBackground>
-    </ScrollView>
+    </View>
   );
 }
 const styles = StyleSheet.create({
@@ -40,8 +45,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#E0CDA9",
   },
   water: {
-    width: "100%",
-    height: "80%",
+    flex: 1,
   },
   text: {
     display: "flex",
@@ -49,5 +53,8 @@ const styles = StyleSheet.create({
   components: {
     display: "flex",
     alignItems: "center",
+  },
+  scrollView: {
+    paddingBottom: 300,
   },
 });
