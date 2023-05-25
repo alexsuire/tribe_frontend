@@ -13,17 +13,15 @@ import { calculatePreview } from "../modules/calculatePreview";
 import { date, nextDay } from "../modules/date";
 import rawData from "../data/report_exemple";
 
-
 export default function Forecast_spot() {
-const day = date();
+  const day = date();
 
-const averagedData = calculatePreview(rawData);
-
+  const averagedData = calculatePreview(rawData);
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.day}>{day}</Text>
+        <Text style={styles.day}>Today</Text>
         <Text style={styles.hour}>Morning</Text>
         <Text style={styles.hour}>Afternoon</Text>
         <Text style={styles.hour}>Evening</Text>
@@ -55,57 +53,59 @@ const averagedData = calculatePreview(rawData);
             color={"#0487D9"}
           />
         </View>
-        <View style={styles.contentRight}>
-          <View style={styles.firstColumn}>
-            <MaterialCommunityIcons
-              style={styles.star2}
-              name={"star"}
-              size={30}
-            >
-              <Text style={styles.numberStars}>2</Text>
-            </MaterialCommunityIcons>
-            <Text style={styles.wave2}>{averagedData.waveHeight[0]}m</Text>
-            <Text style={styles.wind2}>{averagedData.windSpeed[0]}km/h</Text>
-            <MaterialCommunityIcons
-              style={styles.cloud2}
-              name={"weather-partly-cloudy"}
-              size={30}
-              color={"#0487D9"}
-            />
-          </View>
-          <View style={styles.secondColumn}>
-            <MaterialCommunityIcons
-              style={styles.star2}
-              name={"star"}
-              size={30}
-            >
-              <Text style={styles.numberStars}>0</Text>
-            </MaterialCommunityIcons>
-            <Text style={styles.wave2}>{averagedData.waveHeight[1]}m</Text>
-            <Text style={styles.wind2}>{averagedData.windSpeed[1]}km/h</Text>
-            <MaterialCommunityIcons
-              style={styles.cloud2}
-              name={"weather-partly-cloudy"}
-              size={30}
-              color={"#0487D9"}
-            />
-          </View>
-          <View style={styles.thirdColumn}>
-            <MaterialCommunityIcons
-              style={styles.star2}
-              name={"star"}
-              size={30}
-            >
-              <Text style={styles.numberStars}>4</Text>
-            </MaterialCommunityIcons>
-            <Text style={styles.wave2}>{averagedData.waveHeight[2]}m</Text>
-            <Text style={styles.wind2}>{averagedData.windSpeed[2]}km/h</Text>
-            <MaterialCommunityIcons
-              style={styles.cloud2}
-              name={"weather-partly-cloudy"}
-              size={30}
-              color={"#0487D9"}
-            />
+        <View style={styles.allContentRight}>
+          <View style={styles.contentRight}>
+            <View style={styles.firstColumn}>
+              <MaterialCommunityIcons
+                style={styles.star2}
+                name={"star"}
+                size={30}
+              >
+                <Text style={styles.numberStars}>2</Text>
+              </MaterialCommunityIcons>
+              <Text style={styles.wave2}>{averagedData.waveHeight[0]}m</Text>
+              <Text style={styles.wind2}>{averagedData.windSpeed[0]}km/h</Text>
+              <MaterialCommunityIcons
+                style={styles.cloud2}
+                name={"weather-partly-cloudy"}
+                size={30}
+                color={"#0487D9"}
+              />
+            </View>
+            <View style={styles.secondColumn}>
+              <MaterialCommunityIcons
+                style={styles.star2}
+                name={"star"}
+                size={30}
+              >
+                <Text style={styles.numberStars}>0</Text>
+              </MaterialCommunityIcons>
+              <Text style={styles.wave2}>{averagedData.waveHeight[1]}m</Text>
+              <Text style={styles.wind2}>{averagedData.windSpeed[1]}km/h</Text>
+              <MaterialCommunityIcons
+                style={styles.cloud2}
+                name={"weather-partly-cloudy"}
+                size={30}
+                color={"#0487D9"}
+              />
+            </View>
+            <View style={styles.thirdColumn}>
+              <MaterialCommunityIcons
+                style={styles.star2}
+                name={"star"}
+                size={30}
+              >
+                <Text style={styles.numberStars}>4</Text>
+              </MaterialCommunityIcons>
+              <Text style={styles.wave2}>{averagedData.waveHeight[2]}m</Text>
+              <Text style={styles.wind2}>{averagedData.windSpeed[2]}km/h</Text>
+              <MaterialCommunityIcons
+                style={styles.cloud2}
+                name={"weather-partly-cloudy"}
+                size={30}
+                color={"#0487D9"}
+              />
+            </View>
           </View>
         </View>
       </View>
@@ -128,17 +128,18 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     backgroundColor: "#16A1F7",
     height: 60,
-
+    alignItems: "center",
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     padding: "3%",
-    justifyContent: "space-around",
+    justifyContent: "space-between",
   },
 
   day: {
     color: "white",
     fontSize: 10,
-    marginTop: 12,
+
+    marginLeft: 10,
   },
   forecastContainer: {
     backgroundColor: "white",
@@ -149,30 +150,17 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 20,
   },
 
-  body: {
-    display: "flex",
-    justifyContent: "space-between",
-    flexDirection: "row",
-    alignItems: "center",
-    borderTopWidth: 1,
-    borderColor: "#F0F0F0",
-    marginBottom: 15,
-    marginHorizontal: 20, // Ajouter des marges horizontales
-  },
   date: {
     fontSize: 11,
-    marginTop: 12,
+
     color: "#646262",
   },
   hour: {
     fontSize: 10,
-    marginTop: 12,
+
     color: "white",
   },
 
-  firstSession: {
-    borderTopWidth: 0, // Remove the top border for the first session
-  },
   icons: {
     display: "flex",
     flexDirection: "column",
@@ -180,7 +168,7 @@ const styles = StyleSheet.create({
     borderColor: "#F0F0F0",
     paddingRight: 20,
     paddingTop: 20,
-    paddingLeft: 30,
+    paddingLeft: 20,
     paddingBottom: 20,
   },
   star: { borderBottomWidth: 1 },
@@ -191,30 +179,32 @@ const styles = StyleSheet.create({
   wave2: { marginTop: 20, fontSize: 10, color: "#646262", marginLeft: 32 },
   wind2: { marginTop: 25, fontSize: 10, color: "#646262", marginLeft: 28 },
   cloud2: { marginTop: 20, marginLeft: 28 },
-  contentRight: {
+  allContentRight: {
     display: "flex",
     flexDirection: "row",
+    flex: 1,
+    justifyContent: "space-between",
+  },
+  contentRight: {
+    display: "flex",
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+
+    marginRight: 10,
   },
   firstColumn: {
     display: "flex",
     flexDirection: "column",
-    paddingTop: 20,
-    // paddingLeft: 32,
-    paddingBottom: 20,
   },
   secondColumn: {
     display: "flex",
     flexDirection: "column",
-    paddingTop: 20,
-    paddingLeft: 15,
-    paddingBottom: 20,
   },
   thirdColumn: {
     display: "flex",
     flexDirection: "column",
-    paddingTop: 20,
-    paddingLeft: 15,
-    paddingBottom: 20,
   },
 
   numberStars: {},
