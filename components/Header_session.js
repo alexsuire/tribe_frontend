@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    fontSize: "16",
+    fontSize: 16,
   },
   spotAndmaps: {
     marginLeft: "3%",

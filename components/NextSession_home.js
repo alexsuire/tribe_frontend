@@ -67,11 +67,11 @@ export default function NextSession_home(props) {
     return upcomingSessions[0];
   }
 
-  console.log("first", firstNextSession)
+
 
   const handlePress = () => {
     dispatch(addSession(firstNextSession._id))
-    navigation.navigate("SessionScreen")
+    navigation.navigate('Session', { screen: 'SessionScreen' });
   }
 
   return (
