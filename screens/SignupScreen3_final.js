@@ -97,40 +97,43 @@ export default function SignupScreen3_final({ navigation }) {
     >
       <Text style={styles.title}>Tribe</Text>
       <View style={styles.inputAndbutton}>
+        {/* <View style={styles.input}> */}
         <View style={styles.input}>
           <SelectList
             setSelected={(val) => setSelectedLevel(val)}
             data={levelData}
             placeholder="Level"
             save="value"
-            style={{ ...styles.level, width: "100%" }} // Add width property
+            style={{ ...styles.level, width: "200px" }} // Add width property
           />
-          <AutocompleteDropdown
-            clearOnFocus={false}
-            closeOnBlur={true}
-            closeOnSubmit={false}
-            initialValue={{ id: "2" }}
-            onSelectItem={setSelectedCountry}
-            dataSet={transformedCountries}
-            textInputProps={{
-              placeholder: "Country",
-            }}
-            containerStyle={{
-              marginTop: 10,
-              backgroundColor: "white",
-              borderColor: "#E0CDA9",
-              borderWidth: 1,
-              borderRadius: 7,
-            }}
-          />
-          <TouchableOpacity
-            onPress={CreateNewUser}
-            style={styles.button}
-            activeOpacity={0.8}
-          >
-            <Text style={styles.textButton}>Next</Text>
-          </TouchableOpacity>
         </View>
+        <AutocompleteDropdown
+          clearOnFocus={false}
+          closeOnBlur={true}
+          closeOnSubmit={false}
+          initialValue={{ id: "2" }}
+          onSelectItem={setSelectedCountry}
+          dataSet={transformedCountries}
+          textInputProps={{
+            placeholder: "Country",
+          }}
+          containerStyle={{
+            marginTop: 10,
+            backgroundColor: "white",
+            borderColor: "#E0CDA9",
+            borderWidth: 1,
+            borderRadius: 7,
+            width: "80%",
+          }}
+        />
+        {/* </View> */}
+        <TouchableOpacity
+          onPress={CreateNewUser}
+          style={styles.button}
+          activeOpacity={0.8}
+        >
+          <Text style={styles.textButton}>Next</Text>
+        </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
   );
@@ -150,11 +153,11 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   input: {
-    display: "flex",
-    alignItems: "center",
+    // display: "flex",
+    // alignItems: "center",
     textAlign: "center",
 
-    width: "85%",
+    width: "79%",
   },
   button: {
     display: "flex",
@@ -177,5 +180,6 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    textAlign: "center",
   },
 });
