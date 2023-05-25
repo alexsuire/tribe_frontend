@@ -17,6 +17,7 @@ const FETCH_API = getFetchAPI();
 import { useDispatch, useSelector } from "react-redux";
 import Preview_mysessions from "../components/Preview_mysessions";
 
+
 export default function MySessionsScreen({ navigation }) {
   const [sessions, setSessions] = useState([]);
 
@@ -27,7 +28,15 @@ export default function MySessionsScreen({ navigation }) {
       try {
         const response = await fetch(FETCH_API + `/users/${user.token}`);
         const fetchSessionsUser = await response.json();
-        const fetchSorted = fetchSessionsUser.sort(
+
+        // Filter sessions based on the current date
+        const currentDate = new Date();
+        const filteredSessions = fetchSessionsUser.filter(
+          (session) => new Date(session.date_start) > currentDate
+        );
+
+        // Sort the filtered sessions by date_start
+        const fetchSorted = filteredSessions.sort(
           (a, b) => new Date(a.date_start) - new Date(b.date_start)
         );
 

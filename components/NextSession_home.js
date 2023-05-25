@@ -11,8 +11,11 @@ import {
 import React, { useState, useEffect } from "react";
 import MY_FETCH_API from "../myfetchapi";
 import { useDispatch, useSelector } from "react-redux";
+import { addSession } from "../reducers/users";
 
-export default function NextSession_home() {
+export default function NextSession_home(props) {
+  const { navigation } = props;
+  const dispatch = useDispatch();
   const [sessions, setSessions] = useState([]);
   const [firstNextSession, setFirstNextSession] = useState([]);
   const [remainingTime, setRemainingTime] = useState("");
@@ -34,7 +37,6 @@ export default function NextSession_home() {
     fetchData();
   }, []);
 
-  console.log('sessions',sessions)
 
   useEffect(() => {
     const nextSession = getClosestSession(sessions);
@@ -65,6 +67,12 @@ export default function NextSession_home() {
     return upcomingSessions[0];
   }
 
+  console.log("first", firstNextSession)
+
+  const handlePress = () => {
+    dispatch(addSession(firstNextSession._id))
+    navigation.navigate("SessionScreen")
+  }
 
   return (
     <View style={styles.container}>
@@ -76,11 +84,13 @@ export default function NextSession_home() {
         <Text style={styles.myNextSession}> My Next Session</Text>
       </View>
       {firstNextSession !== undefined && (
+          <TouchableOpacity onPress={handlePress}>
         <View style={styles.body}>
           <Text style={styles.sessionPlace}>{firstNextSession.spot?.name}</Text>
           <Text style={styles.border}>|</Text>
           <Text style={styles.sessionName}>{firstNextSession.name}</Text>
         </View>
+        </TouchableOpacity>
       )}
     </View>
   );

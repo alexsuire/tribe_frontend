@@ -15,12 +15,6 @@ export default function Header_session(props) {
     <View style={styles.container}>
       <SafeAreaView>
         <View style={styles.header}>
-        {/* <TouchableOpacity onPress={() => navigation.navigate("Home")}>
-          <Image style={styles.back} source={require("../assets/back.png")} />
-        </TouchableOpacity> */}
-        <View style={styles.sessionName}>
-          <Text style={styles.sessionNametitle}>{props.name}</Text>
-        </View>
           <TouchableOpacity onPress={() => navigation.pop(4)}>
             <Image style={styles.back} source={require("../assets/back.png")} />
           </TouchableOpacity>
@@ -80,7 +74,7 @@ const styles = StyleSheet.create({
     width: "90%",
     alignItems: "center",
     justifyContent: "center",
-    fontSize: "18",
+    fontSize: 18,
 
     height: 40,
   },
