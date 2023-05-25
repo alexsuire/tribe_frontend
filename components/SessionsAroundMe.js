@@ -125,7 +125,9 @@ export default function SessionsAroundMe(props) {
   const session = closestSessions.map((data, i) => {
     const handlePress = () => {
       dispatch(addSession(data._id));
-      navigation.navigate("SessionScreen");
+      navigation.navigate('Session', { screen: 'SessionScreen' });
+
+      
     };
     const spot = data.spot?.name;
     const inputDate = data.date_start;

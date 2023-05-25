@@ -148,8 +148,8 @@ export default function App() {
             />
             <Stack.Screen name="MapScreen" component={MapScreen} />
             <Stack.Screen name="ReportScreen" component={ReportScreen} />
-            <SessionStack.Screen name="SessionScreen" component={SessionScreen} />
-            <SessionStack.Screen name="SpotScreen" component={SpotScreen} />
+            {/* <SessionStack.Screen name="SessionScreen" component={SessionScreen} /> */}
+            {/* <SessionStack.Screen name="SpotScreen" component={SpotScreen} /> */}
 
 
           </Stack.Navigator>

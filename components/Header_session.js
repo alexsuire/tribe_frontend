@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     width: "90%",
     alignItems: "center",
     justifyContent: "center",
-    fontSize: "18",
+    fontSize: 18,
 
     height: 40,
   },
