@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import MySessionsScreen from "../screens/MySessionsScreen";
 
 export default function Header_session(props) {
   const navigation = useNavigation();
@@ -7,7 +8,7 @@ export default function Header_session(props) {
     <View style={styles.container}>
       <SafeAreaView>
         <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.pop()}>
+        <TouchableOpacity onPress={() => navigation.pop(4)}>
           <Image style={styles.back} source={require("../assets/back.png")} />
         </TouchableOpacity>
         <View style={styles.sessionName}>
