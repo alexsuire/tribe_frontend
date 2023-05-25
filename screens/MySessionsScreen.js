@@ -16,15 +16,21 @@ const { getFetchAPI } = require("../modules/util");
 const FETCH_API = getFetchAPI();
 import { useDispatch, useSelector } from "react-redux";
 import Preview_mysessions from "../components/Preview_mysessions";
-
+import { useIsFocused } from '@react-navigation/native';
 
 export default function MySessionsScreen({ navigation }) {
+  const isFocused = useIsFocused()
+  console.log("isfocused", isFocused)
+
   const [sessions, setSessions] = useState([]);
 
   const user = useSelector((state) => state.users.value);
 
   useEffect(() => {
     const fetchData = async () => {
+      if (!isFocused) {
+        return
+      }
       try {
         const response = await fetch(FETCH_API + `/users/${user.token}`);
         const fetchSessionsUser = await response.json();
@@ -46,7 +52,7 @@ export default function MySessionsScreen({ navigation }) {
       }
     };
     fetchData();
-  }, []);
+  }, [isFocused]);
   
   let content;
   if (sessions.length === 0) {

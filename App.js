@@ -54,7 +54,7 @@ const SpotStack = createNativeStackNavigator();
 
 function SearchSpotsStackScreen() {
   return (
-    <SpotStack.Navigator screenOptions={{ headerShown: false }}>
+    <SpotStack.Navigator screenOptions={{ headerShown: false}} >
       <SpotStack.Screen name="SpotsSearch" component={SearchSpotsScreen} />
       <SpotStack.Screen name="SpotScreen" component={SpotScreen} />
     </SpotStack.Navigator>
@@ -65,7 +65,7 @@ const SessionStack = createNativeStackNavigator();
 
 function SessionStackScreen() {
   return (
-    <SessionStack.Navigator screenOptions={{ headerShown: false }}>
+    <SessionStack.Navigator screenOptions={{ headerShown: false}}>
       <SessionStack.Screen name="MySession" component={MySessionsScreen} />
       <SessionStack.Screen name="SessionScreen" component={SessionScreen} />
     </SessionStack.Navigator>
@@ -96,6 +96,7 @@ const TabNavigator = () => {
         tabBarActiveTintColor: "#0287D9",
         tabBarInactiveTintColor: "#8686AF",
         headerShown: false,
+        lazy: false
       })}
     >
       <Tab.Screen name="Home" component={HomeScreen} />
@@ -147,8 +148,6 @@ export default function App() {
             />
             <Stack.Screen name="MapScreen" component={MapScreen} />
             <Stack.Screen name="ReportScreen" component={ReportScreen} />
-
-
           </Stack.Navigator>
         </NavigationContainer>
       </PersistGate>

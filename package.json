@@ -45,6 +45,7 @@
     "react-native-tableview-simple": "^4.4.0",
     "react-native-vector-icons": "^6.6.0",
     "react-native-view-shot": "^3.6.0",
+    "react-native-webview": "^12.1.0",
     "react-redux": "^8.0.5",
     "redux": "^4.2.1",
     "redux-persist": "^6.0.0"
