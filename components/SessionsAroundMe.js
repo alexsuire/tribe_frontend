@@ -18,7 +18,7 @@ export default function SessionsAroundMe(props) {
         const response = await fetch(MY_FETCH_API + `/sessions/`);
         const fetchSessionsUser = await response.json();
         setSessions(fetchSessionsUser);
-        console.log("la sess1111", sessions)
+        console.log("la sess1111", sessions);
       } catch (error) {
         console.error(error);
       }
@@ -26,9 +26,6 @@ export default function SessionsAroundMe(props) {
 
     fetchData();
   }, []);
-
-
-
 
   useEffect(() => {
     const fetchClosestSessions = async () => {
@@ -39,7 +36,7 @@ export default function SessionsAroundMe(props) {
             longitude: currentLocation.longitude,
           };
           const sessionsWithDistance = sessions.data.map((session) => {
-            console.log("la sess", session)
+            console.log("la sess", session);
             const sessionLocation = session.spot; // Replace this with the actual session location object
             if (
               sessionLocation &&
@@ -61,7 +58,6 @@ export default function SessionsAroundMe(props) {
         console.error(error);
       }
     };
-
 
     fetchClosestSessions();
   }, [sessions, currentLocation]);
@@ -112,7 +108,6 @@ export default function SessionsAroundMe(props) {
     return angle * (Math.PI / 180);
   };
 
-
   if (sessions.length === 0 || closestSessions.length === 0) {
     // Return a loading indicator or placeholder while fetching data
     return (
@@ -127,11 +122,12 @@ export default function SessionsAroundMe(props) {
     );
   }
 
-
   const session = closestSessions.map((data, i) => {
     const handlePress = () => {
       dispatch(addSession(data._id));
-      navigation.navigate("SessionScreen");
+      navigation.navigate('Session', { screen: 'SessionScreen' });
+
+      
     };
     const spot = data.spot?.name;
     const inputDate = data.date_start;
@@ -154,14 +150,13 @@ export default function SessionsAroundMe(props) {
           <Text style={styles.date}>{spot}</Text>
           <Text style={styles.border}>|</Text>
           <Text style={styles.hour}>
-            {hour}h-{hour_end}hx
+            {hour}h-{hour_end}h
           </Text>
           <Text style={styles.number}>{formattedDate}</Text>
         </View>
       </TouchableOpacity>
     );
   });
-
 
   return (
     <View style={styles.container}>
@@ -178,7 +173,7 @@ const styles = StyleSheet.create({
   container: {
     margin: "10%",
     width: "85%",
-    maxHeight: 200,
+    maxHeight: 250,
   },
 
   header: {
