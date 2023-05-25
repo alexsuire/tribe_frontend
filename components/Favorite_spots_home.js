@@ -1,7 +1,4 @@
 import React, { useState, useEffect } from "react";
-<<<<<<< HEAD
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Image} from "react-native";
-=======
 import {
   StyleSheet,
   Text,
@@ -9,7 +6,6 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
->>>>>>> c2d81a3f74297e85f0b638e07e479316e9052f8e
 import MY_FETCH_API from "../myfetchapi";
 import * as Location from "expo-location";
 import { useDispatch, useSelector } from "react-redux";
@@ -40,18 +36,6 @@ export default function Favorite_spots_home(props) {
     fetchData();
   }, []);
 
-<<<<<<< HEAD
-      const session = userSessions.map((data, i) => {
-        console.log(data)
-        const handlePress = () => {
-          dispatch(addActive_spot(data._id));
-          navigation.navigate("SpotScreen");
-        };
-        const spot = data.name;
-        const rating = data.rating
-        const region = data.region
-    
-=======
   console.log("user", userSessions);
 
   const session = userSessions.map((data, i) => {
@@ -63,7 +47,6 @@ export default function Favorite_spots_home(props) {
     const spot = data.name;
     const rating = data.rating;
     const region = data.region;
->>>>>>> c2d81a3f74297e85f0b638e07e479316e9052f8e
 
     return (
       <TouchableOpacity onPress={handlePress} key={data._id}>

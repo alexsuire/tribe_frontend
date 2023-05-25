@@ -15,21 +15,18 @@ export default function Header_session(props) {
     <View style={styles.container}>
       <SafeAreaView>
         <View style={styles.header}>
-<<<<<<< HEAD
         {/* <TouchableOpacity onPress={() => navigation.navigate("Home")}>
           <Image style={styles.back} source={require("../assets/back.png")} />
         </TouchableOpacity> */}
         <View style={styles.sessionName}>
           <Text style={styles.sessionNametitle}>{props.name}</Text>
         </View>
-=======
           <TouchableOpacity onPress={() => navigation.pop(4)}>
             <Image style={styles.back} source={require("../assets/back.png")} />
           </TouchableOpacity>
           <View style={styles.sessionName}>
             <Text style={styles.sessionNametitle}>{props.name}</Text>
           </View>
->>>>>>> c2d81a3f74297e85f0b638e07e479316e9052f8e
         </View>
         <View style={styles.allText}>
           <View style={styles.spotAndmaps}>
