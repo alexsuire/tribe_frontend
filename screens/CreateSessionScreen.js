@@ -163,8 +163,8 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    fontSize: 25,
-    fontWeight: 500,
+    fontSize: 23,
+    fontWeight: 300,
     color: "#0487D9",
   },
   body: {

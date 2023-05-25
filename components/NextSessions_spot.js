@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity, View, Image } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View, Image, ScrollView } from "react-native";
 import { addSession } from "../reducers/users";
 import { useDispatch, useSelector } from "react-redux";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -59,7 +59,7 @@ export default function NextSessionsSpot(props) {
     );
   });
   const handlePlusButtonPress = () => {
-      navigation.navigate("CreateSessionScreen");
+    navigation.navigate("CreateSessionScreen");
     };
 
   return (
@@ -82,7 +82,11 @@ export default function NextSessionsSpot(props) {
           </TouchableOpacity>
         </View>
       </View>
-      <View style={styles.sessionContainer}>{session}</View>
+      <View style={styles.sessionContainer}>
+      <ScrollView ContentContainerStyle  style={styles.scrollview}>
+      {session}
+      </ScrollView>
+      </View>
     </View>
   );
 }
@@ -166,5 +170,10 @@ const styles = StyleSheet.create({
     fontSize: 10,
     marginTop: 12,
     color: "#646262",
+  },
+  scrollview:{
+    maxHeight: 360,
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
   },
 });
