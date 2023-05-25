@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView} from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Image} from "react-native";
 import MY_FETCH_API from "../myfetchapi";
 import * as Location from "expo-location";
 import { useDispatch, useSelector } from "react-redux";
 import { addActive_spot } from "../reducers/users";
+
 
 export default function Favorite_spots_home(props) {
 
@@ -34,7 +35,7 @@ console.log(user.token)
         console.log(data)
         const handlePress = () => {
           dispatch(addActive_spot(data._id));
-          navigation.navigate("spotScreen");
+          navigation.navigate("SpotScreen");
         };
         const spot = data.name;
         const rating = data.rating

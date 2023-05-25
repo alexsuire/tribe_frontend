@@ -11,10 +11,13 @@ import {
   SafeAreaView,
   Linking,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 export default function Header_spot(props) {
+  const navigation = useNavigation();
+
   const renderStars = () => {
     const rating = props.rating;
     const starIcons = [];
@@ -31,8 +34,13 @@ export default function Header_spot(props) {
   return (
     <View style={styles.container}>
       <SafeAreaView>
+      <View style={styles.header}>
+      {/* <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+          <Image style={styles.back} source={require("../assets/back.png")} />
+        </TouchableOpacity> */}
         <View style={styles.spotName}>
           <Text style={styles.spotNameText}>{props.name}</Text>
+        </View>
         </View>
         <View style={styles.allText}>
           <View style={styles.typeAndmaps}>
@@ -69,17 +77,36 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "20%",
   },
+  header: {
+    height: "18%",
+    width: "100%",
+    backgroundColor: "#F0F0F0",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    },
   allText: {
     display: "flex",
     justifyContent: "space-between",
     flexDirection: "row",
+    marginTop: "5%",
+    height: "50%",
   },
   spotName: {
     color: "#646262",
     display: "flex",
+    flexDirection: "row",
+    width: "90%",
+    height: 30,
     alignItems: "center",
     justifyContent: "center",
-    paddingBottom: "5%",
+    fontSize: "18",
+    // color: "#646262",
+    // display: "flex",
+    // alignItems: "center",
+    // justifyContent: "center",
+    // paddingBottom: "5%",
   },
   spotNameText: {
     fontSize: 12,
@@ -112,4 +139,10 @@ const styles = StyleSheet.create({
   stars: {
     color: "#F2CB05",
   },
+  back: {
+    width: 20,
+    height: 20,
+    tintColor: "#646262",
+    marginTop: 20,
+    },
 });
