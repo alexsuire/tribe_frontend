@@ -40,7 +40,7 @@ export default function Preview_mysessions(props) {
   console.log("props", props);
   const handleNavigateSession = () => {
     dispatch(addSession(props._id));
-    navigation.navigate('Session', { screen: 'SessionScreen' });
+    navigation.navigate('SessionScreen');
   };
 
   return (
