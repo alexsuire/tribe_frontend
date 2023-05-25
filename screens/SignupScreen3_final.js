@@ -99,12 +99,14 @@ export default function SignupScreen3_final({ navigation }) {
       <View style={{ width: "80%" }}>
 
       <SelectList
-  setSelected={(val) => setSelectedLevel(val)}
-  data={levelData}
-  placeholder="Level"
-  save="value"
-  style={{ ...styles.level, width: "80%" }} // Add width property
-/>
+        setSelected={(val) => setSelectedLevel(val)}
+        data={levelData}
+        placeholder="Level"
+        save="value"
+        style={{ ...styles.level, width: "80%",  borderColor: "#E0CDA9",
+        borderWidth: 1,
+        borderRadius: 7,}} // Add width property
+      />
       <AutocompleteDropdown
         clearOnFocus={false}
         closeOnBlur={true}
@@ -118,9 +120,9 @@ export default function SignupScreen3_final({ navigation }) {
           containerStyle={{
           marginTop: 10,
           backgroundColor: "white",
-          borderColor: "#E0CDA9",
+          borderColor: "grey",
           borderWidth: 1,
-          borderRadius: 7,
+          borderRadius: 6,
         }}
       />
 </View>
