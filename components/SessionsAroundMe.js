@@ -148,7 +148,7 @@ export default function SessionsAroundMe(props) {
           <Text style={styles.date}>{spot}</Text>
           <Text style={styles.border}>|</Text>
           <Text style={styles.hour}>
-            {hour}h-{hour_end}hx
+            {hour}h-{hour_end}h
           </Text>
           <Text style={styles.number}>{formattedDate}</Text>
         </View>
