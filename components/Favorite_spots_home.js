@@ -8,14 +8,14 @@ import { addSession } from "../reducers/users";
 export default function Favorite_spots_home(props) {
 
     const user = useSelector((state) => state.users.value);
-    const [UserSessions, setUserSessions] = useState([]);
+    const [userSessions, setUserSessions] = useState([]);
 
 console.log(user.token)
 
     useEffect(() => {
         const fetchData = async () => {
           try {
-            const response = await fetch(MY_FETCH_API + `users/${user.token}/`);
+            const response = await fetch(MY_FETCH_API + `/users/userFavoriteSpot/${user.token}/`);
             const fetchSessionsUser = await response.json();
             setUserSessions(fetchSessionsUser);
           } catch (error) {
@@ -26,15 +26,39 @@ console.log(user.token)
         fetchData();
       }, []);
 
-      console.log("user", UserSessions)
+      console.log("user", userSessions)
+
+      const session = userSessions.map((data, i) => {
+        const handlePress = () => {
+          dispatch(addSession(data._id));
+          navigation.navigate("SessionScreen");
+        };
+        const spot = data.name;
+        const rating = data.rating
+        const region = data.region
+    
+
+    return (
+        <TouchableOpacity onPress={handlePress}>
+          <View key={i} style={[styles.body, i === 0 && styles.firstSession]}>
+            <Text style={styles.date}>{spot}</Text>
+            <Text style={styles.border}>|</Text>
+            <Text style={styles.hour}>
+             rating: {rating}
+            </Text>
+            <Text style={styles.number}>{region}</Text>
+          </View>
+        </TouchableOpacity>
+      );
+    })
 
     return (
         <View style={styles.container}>
           <View style={styles.header}>
-            <Text style={styles.session}>Session</Text>
-            <Text style={styles.myNextSession}>Sessions around me</Text>
+            <Text style={styles.session}>Spot</Text>
+            <Text style={styles.myNextSession}>Your favorite spots</Text>
           </View>
-          <View style={styles.sessionContainer}></View>
+          <View style={styles.sessionContainer}>{session}</View>
         </View>
       );
 
@@ -43,8 +67,8 @@ console.log(user.token)
 
 const styles = StyleSheet.create({
     container: {
-        
-      marginTop: "27%",
+        marginTop: 110,
+      margin: "10%",
       width: "85%",
       maxHeight: 200,
     },
@@ -52,7 +76,7 @@ const styles = StyleSheet.create({
     header: {
       display: "flex",
       flexDirection: "column",
-      backgroundColor: "#5FB6D9",
+      backgroundColor: "#16A1F7",
       height: 90,
       borderTopLeftRadius: 20,
       borderTopRightRadius: 20,
@@ -79,4 +103,38 @@ const styles = StyleSheet.create({
       borderBottomLeftRadius: 20,
       borderBottomRightRadius: 20,
     },
-})
+    body: {
+      display: "flex",
+      justifyContent: "space-between",
+      flexDirection: "row",
+      alignItems: "center",
+      borderTopWidth: 1,
+      borderColor: "#F0F0F0",
+      marginBottom: 15,
+      marginHorizontal: 20,
+    },
+    date: {
+      fontSize: 11,
+      marginTop: 12,
+      color: "#646262",
+    },
+    hour: {
+      fontSize: 10,
+      marginTop: 12,
+      color: "#646262",
+    },
+    border: {
+      fontSize: 20,
+      marginTop: 12,
+      color: "#646262",
+    },
+    firstSession: {
+      borderTopWidth: 0,
+    },
+    number: {
+      fontSize: 10,
+      marginTop: 12,
+      color: "#646262",
+    },
+  });
+  
