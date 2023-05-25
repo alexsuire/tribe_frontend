@@ -149,7 +149,9 @@ export default function App() {
             />
             <Stack.Screen name="MapScreen" component={MapScreen} />
             <Stack.Screen name="ReportScreen" component={ReportScreen} />
-            <Stack.Screen name="SessionScreen" component={SessionScreen} />
+            <SessionStack.Screen name="SessionScreen" component={SessionScreen} />
+
+
           </Stack.Navigator>
         </NavigationContainer>
       </PersistGate>

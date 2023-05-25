@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
     shadowRadius: 0.5,
 
-  },
+  }, 
  
   textinfobasiccontainer:{
     display: 'flex',
