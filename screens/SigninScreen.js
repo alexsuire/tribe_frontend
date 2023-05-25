@@ -94,8 +94,7 @@ export default function SigninScreen({ navigation }) {
       >
         <Text style={styles.textButton}>Suivant</Text>
       </TouchableOpacity>
-      <Text>Forgot password ?</Text>
-    </KeyboardAvoidingView>
+     </KeyboardAvoidingView>
   );
 }
 const styles = StyleSheet.create({

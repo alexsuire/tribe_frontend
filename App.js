@@ -51,14 +51,14 @@ const store = configureStore({
 
 const persistor = persistStore(store);
 
-const HomeStack = createNativeStackNavigator();
+const SpotStack = createNativeStackNavigator();
 
-function HomeStackScreen() {
+function SearchSpotsStackScreen() {
   return (
-    <HomeStack.Navigator screenOptions={{ headerShown: false }}>
-      <HomeStack.Screen name="Home" component={HomeScreen} />
-      <HomeStack.Screen name="SpotScreen" component={SpotScreen} />
-    </HomeStack.Navigator>
+    <SpotStack.Navigator screenOptions={{ headerShown: false }}>
+      <SpotStack.Screen name="Spots" component={SearchSpotsScreen} />
+      <SpotStack.Screen name="SpotScreen" component={SpotScreen} />
+    </SpotStack.Navigator>
   );
 }
 
@@ -99,9 +99,9 @@ const TabNavigator = () => {
         headerShown: false,
       })}
     >
-      <Tab.Screen name="Home" component={HomeStackScreen} />
+      <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Session" component={SessionStackScreen} />
-      <Tab.Screen name="Spots" component={SearchSpotsScreen} />
+      <Tab.Screen name="Spots" component={SearchSpotsStackScreen} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
   );

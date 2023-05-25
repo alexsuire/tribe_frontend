@@ -1,7 +1,9 @@
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View, Image } from "react-native";
 import { addSession } from "../reducers/users";
 import { useDispatch, useSelector } from "react-redux";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+
 
 export default function NextSessionsSpot(props) {
   const dispatch = useDispatch();
@@ -56,13 +58,29 @@ export default function NextSessionsSpot(props) {
       </TouchableOpacity>
     );
   });
+  const handlePlusButtonPress = () => {
+      navigation.navigate("CreateSessionScreen");
+    };
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
+        <View style={styles.headerplus}>
         <Text style={styles.myNextSession}>
           Next Sessions in : {props.name}
         </Text>
+        <TouchableOpacity
+            style={styles.button}
+            onPress={handlePlusButtonPress}
+          >
+            <MaterialCommunityIcons
+              style={styles.plus}
+              name={"plus"}
+              size={28}
+              color={"white"}
+            />
+          </TouchableOpacity>
+        </View>
       </View>
       <View style={styles.sessionContainer}>{session}</View>
     </View>
@@ -88,6 +106,13 @@ const styles = StyleSheet.create({
     padding: "3%",
     justifyContent: "space-around",
   },
+  headerplus:{
+    display:'flex',
+    flexDirection: 'row',
+    justifyContent: "space-around",
+    alignItems:'center',
+  },
+
   header_no_sessions: {
     display: "flex",
     backgroundColor: "#F2CB05",

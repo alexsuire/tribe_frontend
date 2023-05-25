@@ -52,7 +52,7 @@ export default function CreateSessionScreen({ navigation }) {
 
   function handlePress() {
     if (sessionName !== "" && spot !== "") {
-      fetch(MY_FETCH_API + `/spots/bySpotName`, {
+      fetch(MY_FETCH_API + `/spots/bySpotName`, { 
         method: "POST",
         headers: {
           "Content-Type": "application/json",
