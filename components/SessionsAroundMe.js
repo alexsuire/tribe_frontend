@@ -18,7 +18,7 @@ export default function SessionsAroundMe(props) {
         const response = await fetch(MY_FETCH_API + `/sessions/`);
         const fetchSessionsUser = await response.json();
         setSessions(fetchSessionsUser);
-        console.log("la sess1111", sessions)
+        console.log("la sess1111", sessions);
       } catch (error) {
         console.error(error);
       }
@@ -26,9 +26,6 @@ export default function SessionsAroundMe(props) {
 
     fetchData();
   }, []);
-
-
-
 
   useEffect(() => {
     const fetchClosestSessions = async () => {
@@ -39,7 +36,7 @@ export default function SessionsAroundMe(props) {
             longitude: currentLocation.longitude,
           };
           const sessionsWithDistance = sessions.data.map((session) => {
-            console.log("la sess", session)
+            console.log("la sess", session);
             const sessionLocation = session.spot; // Replace this with the actual session location object
             if (
               sessionLocation &&
@@ -61,7 +58,6 @@ export default function SessionsAroundMe(props) {
         console.error(error);
       }
     };
-
 
     fetchClosestSessions();
   }, [sessions, currentLocation]);
@@ -112,13 +108,8 @@ export default function SessionsAroundMe(props) {
     return angle * (Math.PI / 180);
   };
 
-<<<<<<< HEAD
-  if (closestSessions.length === 0) {
-=======
-
   if (sessions.length === 0 || closestSessions.length === 0) {
     // Return a loading indicator or placeholder while fetching data
->>>>>>> 677a6926ccaee5e2680669d416b4278af9a4f8e5
     return (
       <View style={styles.container}>
         <View style={styles.header}>
@@ -130,7 +121,6 @@ export default function SessionsAroundMe(props) {
       </View>
     );
   }
-
 
   const session = closestSessions.map((data, i) => {
     const handlePress = () => {
@@ -165,7 +155,6 @@ export default function SessionsAroundMe(props) {
       </TouchableOpacity>
     );
   });
-
 
   return (
     <View style={styles.container}>
