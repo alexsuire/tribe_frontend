@@ -10,8 +10,9 @@ import {
 } from "react-native";
 import MY_FETCH_API from "../myfetchapi";
 import { useDispatch, useSelector } from "react-redux";
-
+import { useIsFocused } from "@react-navigation/native";
 export default function Messages_session(props) {
+  const isFocused = useIsFocused();
   const [message, setMessage] = useState("");
   const [userInformations, setUserInformations] = useState("");
   const [messages, setMessages] = useState([]);
@@ -76,7 +77,7 @@ export default function Messages_session(props) {
       }
     };
     fetchMessage();
-  }, [messageSend]);
+  }, [messageSend, isFocused]);
 
   let messageViews;
   if (messages) {
