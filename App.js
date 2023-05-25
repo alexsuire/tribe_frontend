@@ -57,6 +57,8 @@ function SearchSpotsStackScreen() {
     <SpotStack.Navigator screenOptions={{ headerShown: false }}>
       <SpotStack.Screen name="SpotsSearch" component={SearchSpotsScreen} />
       <SpotStack.Screen name="SpotScreen" component={SpotScreen} />
+      <SpotStack.Screen name="MapScreen" component={MapScreen} />
+      <SpotStack.Screen name="ReportScreen" component={ReportScreen} />
     </SpotStack.Navigator>
   );
 }
@@ -66,8 +68,23 @@ const SessionStack = createNativeStackNavigator();
 function SessionStackScreen() {
   return (
     <SessionStack.Navigator screenOptions={{ headerShown: false }}>
-      <SessionStack.Screen name="MySession" component={MySessionsScreen} />
+      <SessionStack.Screen
+        name="MySessionScreen"
+        component={MySessionsScreen}
+      />
       <SessionStack.Screen name="SessionScreen" component={SessionScreen} />
+      <SessionStack.Screen
+        name="CreateSessionScreen"
+        component={CreateSessionScreen}
+      />
+      <SessionStack.Screen
+        name="CreateSessionDateScreen"
+        component={CreateSessionDateScreen}
+      />
+      <SessionStack.Screen
+        name="CreateSessionDescriptionScreen"
+        component={CreateSessionDescriptionScreen}
+      />
     </SessionStack.Navigator>
   );
 }
@@ -128,27 +145,6 @@ export default function App() {
               component={SignupScreen3_final}
             />
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
-
-            <Stack.Screen
-              name="CreateSessionScreen"
-              component={CreateSessionScreen}
-            />
-            <Stack.Screen
-              name="MySessionsScreen"
-              component={MySessionsScreen}
-            />
-            <Stack.Screen
-              name="CreateSessionDateScreen"
-              component={CreateSessionDateScreen}
-            />
-            <Stack.Screen
-              name="CreateSessionDescriptionScreen"
-              component={CreateSessionDescriptionScreen}
-            />
-            <Stack.Screen name="MapScreen" component={MapScreen} />
-            <Stack.Screen name="ReportScreen" component={ReportScreen} />
-
-
           </Stack.Navigator>
         </NavigationContainer>
       </PersistGate>

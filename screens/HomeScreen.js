@@ -25,16 +25,16 @@ export default function HomeScreen({ navigation }) {
         style={styles.water}
         source={require("../assets/wave.png")}
       >
-        <ScrollView
-          contentContainerStyle={styles.scrollView}
-          showsVerticalScrollIndicator={false}
-        >
-          <SafeAreaView style={styles.components}>
+        <SafeAreaView style={styles.components}>
+          <ScrollView
+            contentContainerStyle={styles.scrollView}
+            showsVerticalScrollIndicator={false}
+          >
             <My_next_session navigation={navigation} />
             <SessionsAroundMe navigation={navigation} />
             <Favorite_spots_home navigation={navigation} />
-          </SafeAreaView>
-        </ScrollView>
+          </ScrollView>
+        </SafeAreaView>
       </ImageBackground>
     </View>
   );
@@ -42,6 +42,8 @@ export default function HomeScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    display: "flex",
+
     backgroundColor: "#E0CDA9",
   },
   water: {
@@ -51,10 +53,12 @@ const styles = StyleSheet.create({
     display: "flex",
   },
   components: {
+    flex: 1,
     display: "flex",
     alignItems: "center",
   },
   scrollView: {
     paddingBottom: 300,
+    width: 350,
   },
 });

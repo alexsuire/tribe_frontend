@@ -4,7 +4,9 @@ import {
   Text,
   StyleSheet,
   SafeAreaView,
-  ImageBackground, TouchableOpacity, Image
+  ImageBackground,
+  TouchableOpacity,
+  Image,
 } from "react-native";
 import rawData from "../data/report_exemple";
 import * as React from "react";
@@ -22,9 +24,6 @@ export default function ReportScreen({ navigation }) {
   const [longitude, setLongitude] = useState(null);
   const [latitude, setLatitude] = useState(null);
   const [dataFetched, setDataFetched] = useState(null);
-
-
-  
 
   // useEffect(() => {
   //   const fetchData = async () => {
@@ -60,9 +59,6 @@ export default function ReportScreen({ navigation }) {
 
   //   fetchData();
   // }, []);
-
-
-  
 
   // ---- Gère l'affichage des dates -----
 
@@ -277,9 +273,7 @@ export default function ReportScreen({ navigation }) {
   return (
     <View style={styles.background}>
       <View style={styles.header}>
-        <TouchableOpacity
-          onPress={() => navigation.pop()}
-        >
+        <TouchableOpacity onPress={() => navigation.pop()}>
           <Image style={styles.back} source={require("../assets/back.png")} />
         </TouchableOpacity>
       </View>
@@ -308,25 +302,22 @@ const styles = StyleSheet.create({
   background: {
     backgroundColor: "#16A1F7",
     flex: 1,
-   
   },
- 
-  header:{
-    height: '12%',
+
+  header: {
+    height: "12%",
     width: "100%",
     display: "flex",
     justifyContent: "flex-end",
     alignItems: "flex-start",
-    backgroundColor: '#16A1F7',
-
+    backgroundColor: "#16A1F7",
   },
-  back:{
+  back: {
     width: 30,
     height: 30,
     tintColor: "white",
-    marginLeft: '5%',
-    marginBottom: '5%',
-
+    marginLeft: "5%",
+    marginBottom: "5%",
   },
   scrollView: {
     // marginTop: 60,

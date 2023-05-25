@@ -11,7 +11,6 @@ import * as Location from "expo-location";
 import { useDispatch, useSelector } from "react-redux";
 import { addActive_spot } from "../reducers/users";
 
-
 export default function Favorite_spots_home(props) {
   const user = useSelector((state) => state.users.value);
   const [userSessions, setUserSessions] = useState([]);
@@ -42,7 +41,7 @@ export default function Favorite_spots_home(props) {
     console.log(data);
     const handlePress = () => {
       dispatch(addActive_spot(data._id));
-      navigation.navigate('Spots', { screen: 'SpotScreen' });
+      navigation.navigate("Spots", { screen: "SpotScreen" });
     };
     const spot = data.name;
     const rating = data.rating;
@@ -81,10 +80,11 @@ export default function Favorite_spots_home(props) {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 110,
-    margin: "10%",
-    width: "85%",
+    marginTop: 40,
+    flex: 1,
+    // width: "100%",
     maxHeight: 200,
+    display: "flex",
   },
 
   header: {
