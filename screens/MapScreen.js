@@ -18,7 +18,7 @@ import { useNavigation } from "@react-navigation/native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import MY_FETCH_API from "../myfetchapi";
-import {addActive_spot} from "../reducers/users"
+import { addActive_spot } from "../reducers/users";
 import { useDispatch, useSelector } from "react-redux";
 import { useRef } from "react";
 
@@ -28,7 +28,6 @@ export default function MapScreen({ navigation }) {
   const [spots, setSpots] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
   const dispatch = useDispatch();
-
 
   const mapViewRef = useRef(null);
   const [mapReady, setMapReady] = useState(false);
@@ -60,7 +59,7 @@ export default function MapScreen({ navigation }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(MY_FETCH_API+ "/spots");
+        const response = await fetch(MY_FETCH_API + "/spots");
         const json = await response.json();
         const data = json.data;
         setSpots(data);
@@ -108,9 +107,10 @@ export default function MapScreen({ navigation }) {
       coordinate={{ latitude: spot.latitude, longitude: spot.longitude }}
       title={spot.name}
       onCalloutPress={() => {
-        dispatch(addActive_spot(spot._id)); 
+        dispatch(addActive_spot(spot._id));
         navigation.navigate("SpotScreen", { spot });
-      }}    >
+      }}
+    >
       <Image source={icon.surfboard} style={{ width: 40, height: 40 }} />
     </Marker>
   ));
@@ -140,7 +140,7 @@ export default function MapScreen({ navigation }) {
       </MapView>
 
       <View style={styles.menu}>
-        <TouchableOpacity onPress={() => navigation.navigate("TabNavigator")}>
+        <TouchableOpacity onPress={() => navigation.pop()}>
           <Image style={styles.back} source={require("../assets/back.png")} />
         </TouchableOpacity>
         <TouchableOpacity onPress={handleClearButtonPress}>
