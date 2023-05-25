@@ -55,7 +55,7 @@ const SpotStack = createNativeStackNavigator();
 function SearchSpotsStackScreen() {
   return (
     <SpotStack.Navigator screenOptions={{ headerShown: false }}>
-      <SpotStack.Screen name="Spots" component={SearchSpotsScreen} />
+      <SpotStack.Screen name="SpotsSearch" component={SearchSpotsScreen} />
       <SpotStack.Screen name="SpotScreen" component={SpotScreen} />
     </SpotStack.Navigator>
   );
@@ -66,7 +66,7 @@ const SessionStack = createNativeStackNavigator();
 function SessionStackScreen() {
   return (
     <SessionStack.Navigator screenOptions={{ headerShown: false }}>
-      <SessionStack.Screen name="Session" component={MySessionsScreen} />
+      <SessionStack.Screen name="MySession" component={MySessionsScreen} />
       <SessionStack.Screen name="SessionScreen" component={SessionScreen} />
     </SessionStack.Navigator>
   );
@@ -128,7 +128,6 @@ export default function App() {
               component={SignupScreen3_final}
             />
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
-            {/* <Stack.Screen name="SessionScreen" component={SessionScreen} /> */}
 
             <Stack.Screen
               name="CreateSessionScreen"
@@ -148,8 +147,6 @@ export default function App() {
             />
             <Stack.Screen name="MapScreen" component={MapScreen} />
             <Stack.Screen name="ReportScreen" component={ReportScreen} />
-            {/* <SessionStack.Screen name="SessionScreen" component={SessionScreen} /> */}
-            {/* <SessionStack.Screen name="SpotScreen" component={SpotScreen} /> */}
 
 
           </Stack.Navigator>
@@ -167,3 +164,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 });
+
+// ...
