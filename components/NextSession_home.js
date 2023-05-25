@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     maxHeight: 200,
-    marginTop: 20,
+    marginTop: 40,
   },
 
   header: {
