@@ -18,6 +18,7 @@ export default function SessionsAroundMe(props) {
         const response = await fetch(MY_FETCH_API + `/sessions/`);
         const fetchSessionsUser = await response.json();
         setSessions(fetchSessionsUser);
+        console.log("la sess1111", sessions)
       } catch (error) {
         console.error(error);
       }
@@ -25,6 +26,9 @@ export default function SessionsAroundMe(props) {
 
     fetchData();
   }, []);
+
+
+
 
   useEffect(() => {
     const fetchClosestSessions = async () => {
@@ -35,6 +39,7 @@ export default function SessionsAroundMe(props) {
             longitude: currentLocation.longitude,
           };
           const sessionsWithDistance = sessions.data.map((session) => {
+            console.log("la sess", session)
             const sessionLocation = session.spot; // Replace this with the actual session location object
             if (
               sessionLocation &&
@@ -57,18 +62,28 @@ export default function SessionsAroundMe(props) {
       }
     };
 
+
     fetchClosestSessions();
   }, [sessions, currentLocation]);
 
   useEffect(() => {
-    (async () => {
-      const { status } = await Location.requestForegroundPermissionsAsync();
-      if (status === "granted") {
-        Location.watchPositionAsync({ distanceInterval: 10 }, (newLocation) => {
-          setCurrentLocation(newLocation.coords);
-        });
+    const requestLocationPermission = async () => {
+      try {
+        const { status } = await Location.requestForegroundPermissionsAsync();
+        if (status === "granted") {
+          Location.watchPositionAsync(
+            { distanceInterval: 10 },
+            (newLocation) => {
+              setCurrentLocation(newLocation.coords);
+            }
+          );
+        }
+      } catch (error) {
+        console.error(error);
       }
-    })();
+    };
+
+    requestLocationPermission();
   }, []);
 
   const calculateDistance = (location1, location2) => {
@@ -97,18 +112,25 @@ export default function SessionsAroundMe(props) {
     return angle * (Math.PI / 180);
   };
 
+<<<<<<< HEAD
   if (closestSessions.length === 0) {
+=======
+
+  if (sessions.length === 0 || closestSessions.length === 0) {
+    // Return a loading indicator or placeholder while fetching data
+>>>>>>> 677a6926ccaee5e2680669d416b4278af9a4f8e5
     return (
       <View style={styles.container}>
         <View style={styles.header}>
           <View style={styles.twoFirstText}>
             <Text style={styles.session}>Session</Text>
           </View>
-          <Text style={styles.myNextSession}> Sessions around me</Text>
+          <Text style={styles.myNextSession}>Sessions around me</Text>
         </View>
       </View>
     );
   }
+
 
   const session = closestSessions.map((data, i) => {
     const handlePress = () => {
@@ -131,18 +153,19 @@ export default function SessionsAroundMe(props) {
     });
 
     return (
-      <TouchableOpacity onPress={handlePress}>
-        <View key={i} style={[styles.body, i === 0 && styles.firstSession]}>
+      <TouchableOpacity onPress={handlePress} key={i}>
+        <View style={[styles.body, i === 0 && styles.firstSession]}>
           <Text style={styles.date}>{spot}</Text>
           <Text style={styles.border}>|</Text>
           <Text style={styles.hour}>
-            {hour}h-{hour_end}h
+            {hour}h-{hour_end}hx
           </Text>
           <Text style={styles.number}>{formattedDate}</Text>
         </View>
       </TouchableOpacity>
     );
   });
+
 
   return (
     <View style={styles.container}>
@@ -183,7 +206,7 @@ const styles = StyleSheet.create({
   myNextSession: {
     color: "white",
     fontSize: 18,
-    fontWeight: 600,
+    fontWeight: "600",
   },
   sessionContainer: {
     backgroundColor: "white",

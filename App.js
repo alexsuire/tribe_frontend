@@ -1,4 +1,3 @@
-import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -30,8 +29,8 @@ import SpotScreen from "./screens/SpotScreen";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { persistStore, persistReducer } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
-import storage from "redux-persist/lib/storage";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import Spot from "./components/Spot";
 
 const reducers = combineReducers({ users, count, map, session });
 const persistConfig = {
@@ -150,6 +149,7 @@ export default function App() {
             <Stack.Screen name="MapScreen" component={MapScreen} />
             <Stack.Screen name="ReportScreen" component={ReportScreen} />
             <SessionStack.Screen name="SessionScreen" component={SessionScreen} />
+            <SessionStack.Screen name="SpotScreen" component={SpotScreen} />
 
 
           </Stack.Navigator>

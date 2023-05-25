@@ -84,7 +84,7 @@ import {
         {renderPasswordVisibilityButton()}
         </View>
         <TouchableOpacity onPress={handleRegisterSignUp} style={[styles.button, !isFormValid && styles.disabledButton]} disabled={!isFormValid} activeOpacity={0.8}>                
-            <Text style={styles.textButton}>Suivant</Text>
+            <Text style={styles.textButton}>Next</Text>
         </TouchableOpacity>
 
     </KeyboardAvoidingView>

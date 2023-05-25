@@ -44,7 +44,7 @@ export default function ProfileScreen({ navigation }) {
     <View style={styles.container}>
       <View style={styles.menu}>
         <Text style={styles.title}>Profil</Text>
-        <Text style={styles.information}>Informations sur le Bodhi</Text>
+        <Text style={styles.information}>Information about the Bodhi</Text>
       </View>
       <View style={styles.body}>
         <View style={styles.infobasic}>
@@ -97,7 +97,7 @@ export default function ProfileScreen({ navigation }) {
         </View>
         <View style={styles.infobasicspot}>
         <View style={styles.textinfobasiccontainer}>
-          <Text style={styles.textinfobasic}>Spots Favorit : </Text>
+          <Text style={styles.textinfobasic}>Favorite spots : </Text>
         </View>
           <View style={styles.textContainer}>
           {userData?.spots?.map((spot) => (
@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    paddingLeft: 40,
+    paddingLeft: 30,
     backgroundColor: '#0487D9',
     borderRadius: 10,
     margin: 10,

@@ -38,6 +38,7 @@ export default function MySessionsScreen({ navigation }) {
     };
     fetchData();
   }, []);
+  
   let content;
   if (sessions.length === 0) {
     content = (

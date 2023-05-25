@@ -34,6 +34,8 @@ export default function NextSession_home() {
     fetchData();
   }, []);
 
+  console.log('sessions',sessions)
+
   useEffect(() => {
     const nextSession = getClosestSession(sessions);
     setFirstNextSession(nextSession);
