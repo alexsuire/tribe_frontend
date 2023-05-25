@@ -75,7 +75,7 @@ export default function SessionScreen({ navigation }) {
   );
 
   const tokenAdminExists = () => {
-    if (sessions.data?.admin.token == user.token) {
+    if (sessions.data?.admin?.token == user.token) {
       return true;
     } else {
       return false;

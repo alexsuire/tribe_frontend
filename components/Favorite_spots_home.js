@@ -37,7 +37,7 @@ export default function Favorite_spots_home(props) {
 
   console.log("user", userSessions);
 
-  const session = userSessions.map((data, i) => {
+  const session = userSessions?.map((data, i) => {
     console.log(data);
     const handlePress = () => {
       dispatch(addActive_spot(data._id));
