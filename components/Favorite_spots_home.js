@@ -3,12 +3,14 @@ import { StyleSheet, Text, View, TouchableOpacity, ScrollView} from "react-nativ
 import MY_FETCH_API from "../myfetchapi";
 import * as Location from "expo-location";
 import { useDispatch, useSelector } from "react-redux";
-import { addSession } from "../reducers/users";
+import { addActive_spot } from "../reducers/users";
 
 export default function Favorite_spots_home(props) {
 
     const user = useSelector((state) => state.users.value);
     const [userSessions, setUserSessions] = useState([]);
+    const { navigation } = props;
+  const dispatch = useDispatch();
 
 console.log(user.token)
 
@@ -29,9 +31,10 @@ console.log(user.token)
       console.log("user", userSessions)
 
       const session = userSessions.map((data, i) => {
+        console.log(data)
         const handlePress = () => {
-          dispatch(addSession(data._id));
-          navigation.navigate("SessionScreen");
+          dispatch(addActive_spot(data._id));
+          navigation.navigate("spotScreen");
         };
         const spot = data.name;
         const rating = data.rating
@@ -39,7 +42,7 @@ console.log(user.token)
     
 
     return (
-        <TouchableOpacity onPress={handlePress}>
+        <TouchableOpacity onPress={handlePress} key={data._id}>
           <View key={i} style={[styles.body, i === 0 && styles.firstSession]}>
             <Text style={styles.date}>{spot}</Text>
             <Text style={styles.border}>|</Text>

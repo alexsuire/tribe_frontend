@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
   titlesignup: {
     fontSize: 30,
     fontWeight: "100",
-    color: "Black",
+    color: "black",
     marginBottom: 20,
   },
   inputemail: {

@@ -28,7 +28,7 @@ export default function HomeScreen({ navigation }) {
         <SafeAreaView style={styles.components}>
           <My_next_session navigation={navigation}/>
         <SessionsAroundMe navigation={navigation}/>
-        <Favorite_spots_home/>
+        <Favorite_spots_home navigation={navigation}/>
         </SafeAreaView>
       </ImageBackground>
     </ScrollView>
