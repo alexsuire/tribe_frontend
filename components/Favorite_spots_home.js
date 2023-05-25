@@ -42,7 +42,7 @@ export default function Favorite_spots_home(props) {
     console.log(data);
     const handlePress = () => {
       dispatch(addActive_spot(data._id));
-      navigation.navigate('Session', { screen: 'SpotScreen' });
+      navigation.navigate('Spots', { screen: 'SpotScreen' });
     };
     const spot = data.name;
     const rating = data.rating;
