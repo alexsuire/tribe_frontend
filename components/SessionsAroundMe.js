@@ -97,7 +97,6 @@ export default function SessionsAroundMe(props) {
     return angle * (Math.PI / 180);
   };
 
-
   if (closestSessions.length === 0) {
     return (
       <View style={styles.container}>
@@ -116,7 +115,7 @@ export default function SessionsAroundMe(props) {
       dispatch(addSession(data._id));
       navigation.navigate("SessionScreen");
     };
-    const spot = data.spot.name;
+    const spot = data.spot?.name;
     const inputDate = data.date_start;
     const inputDateEnd = data.date_end;
     const date = new Date(inputDate);
@@ -160,7 +159,7 @@ const styles = StyleSheet.create({
   container: {
     margin: "10%",
     width: "85%",
-    maxHeight: 200,
+    maxHeight: 250,
   },
 
   header: {
