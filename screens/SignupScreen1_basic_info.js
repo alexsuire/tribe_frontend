@@ -64,7 +64,7 @@ export default function SignupScreen1_basic_info({ navigation }) {
         style={styles.button}
         activeOpacity={0.8}
       >
-        <Text style={styles.textButton}>Suivant</Text>
+        <Text style={styles.textButton}>Next</Text>
       </TouchableOpacity>
     </KeyboardAvoidingView>
   );

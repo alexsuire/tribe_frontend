@@ -116,7 +116,7 @@ export default function SessionsAroundMe(props) {
       dispatch(addSession(data._id));
       navigation.navigate("SessionScreen");
     };
-    const spot = data.spot.name;
+    const spot = data.spot?.name;
     const inputDate = data.date_start;
     const inputDateEnd = data.date_end;
     const date = new Date(inputDate);

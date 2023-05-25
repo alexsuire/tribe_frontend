@@ -84,9 +84,9 @@ export default function SignupScreen3_final({ navigation }) {
 
   // Data utilisée pour choisir le level du surfeur
   const levelData = [
-    { key: "1", value: "Débutant" },
-    { key: "2", value: "Intermediaire" },
-    { key: "3", value: "Confirmé" },
+    { key: "1", value: "Beginner" },
+    { key: "2", value: "Intermediate" },
+    { key: "3", value: "Confirmed" },
     { key: "4", value: "Expert" },
   ];
 
@@ -129,7 +129,7 @@ export default function SignupScreen3_final({ navigation }) {
         style={styles.button}
         activeOpacity={0.8}
       >
-        <Text style={styles.textButton}>Suivant</Text>
+        <Text style={styles.textButton}>Next</Text>
       </TouchableOpacity>
     </KeyboardAvoidingView>
   );
