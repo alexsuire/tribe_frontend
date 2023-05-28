@@ -19,28 +19,34 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import MY_FETCH_API from "../myfetchapi";
+import { useIsFocused } from "@react-navigation/native";
 
 export default function SessionScreen({ navigation }) {
   const user = useSelector((state) => state.users.value);
   const [sessions, setSessions] = useState([]);
   const [userInfo, setUserInfo] = useState([]);
   const [justJoined, setJustJoined] = useState(false);
+  const isFocused = useIsFocused();
 
-  useEffect(() => {
-    const fetchSession = async () => {
-      try {
-        const sessionResponse = await fetch(
-          MY_FETCH_API + `/sessions/oneSession/${user.session}`
-        );
-        const fetchSessionsUser = await sessionResponse.json();
+  useEffect(
+    () => {
+      const fetchSession = async () => {
+        try {
+          const sessionResponse = await fetch(
+            MY_FETCH_API + `/sessions/oneSession/${user.session}`
+          );
+          const fetchSessionsUser = await sessionResponse.json();
 
-        setSessions(fetchSessionsUser);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchSession();
-  }, [user.session, justJoined]);
+          setSessions(fetchSessionsUser);
+        } catch (error) {
+          console.error(error);
+        }
+      };
+      fetchSession();
+    },
+    [user.session, justJoined],
+    isFocused
+  );
 
   console.log(justJoined);
 
@@ -146,7 +152,7 @@ export default function SessionScreen({ navigation }) {
             contentContainerStyle={styles.scrollContainer}
             keyboardShouldPersistTaps="handled"
             enableOnAndroid={true}
-            extraScrollHeight={80}
+            extraScrollHeight={120}
           >
             <View style={styles.all}>
               <Participants_session

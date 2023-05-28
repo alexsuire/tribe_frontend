@@ -80,7 +80,7 @@ export default function Favorite_spots_home(props) {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 40,
+    marginTop: 130,
     flex: 1,
     // width: "100%",
     maxHeight: 200,

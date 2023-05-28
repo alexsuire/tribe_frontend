@@ -39,6 +39,8 @@ const persistConfig = {
   storage: AsyncStorage,
 };
 
+console.disableYellowBox = true;
+
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -54,7 +56,7 @@ const SpotStack = createNativeStackNavigator();
 
 function SearchSpotsStackScreen() {
   return (
-    <SpotStack.Navigator screenOptions={{ headerShown: false}} >
+    <SpotStack.Navigator screenOptions={{ headerShown: false }}>
       <SpotStack.Screen name="SpotsSearch" component={SearchSpotsScreen} />
       <SpotStack.Screen name="SpotScreen" component={SpotScreen} />
       <SpotStack.Screen name="MapScreen" component={MapScreen} />
@@ -67,7 +69,7 @@ const SessionStack = createNativeStackNavigator();
 
 function SessionStackScreen() {
   return (
-    <SessionStack.Navigator screenOptions={{ headerShown: false}}>
+    <SessionStack.Navigator screenOptions={{ headerShown: false }}>
       <SessionStack.Screen name="MySession" component={MySessionsScreen} />
       <SessionStack.Screen
         name="MySessionScreen"
@@ -87,7 +89,7 @@ function SessionStackScreen() {
         component={CreateSessionDescriptionScreen}
       />
     </SessionStack.Navigator>
-  )
+  );
 }
 
 const TabNavigator = () => {
@@ -114,7 +116,7 @@ const TabNavigator = () => {
         tabBarActiveTintColor: "#0287D9",
         tabBarInactiveTintColor: "#8686AF",
         headerShown: false,
-        lazy: false
+        lazy: false,
       })}
     >
       <Tab.Screen name="Home" component={HomeScreen} />
@@ -126,6 +128,8 @@ const TabNavigator = () => {
 };
 
 export default function App() {
+  console.disableYellowBox = true;
+
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
@@ -181,5 +185,3 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 });
-
-

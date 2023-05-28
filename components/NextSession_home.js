@@ -12,6 +12,7 @@ import React, { useState, useEffect } from "react";
 import MY_FETCH_API from "../myfetchapi";
 import { useDispatch, useSelector } from "react-redux";
 import { addSession } from "../reducers/users";
+import { useIsFocused } from "@react-navigation/native";
 
 export default function NextSession_home(props) {
   const { navigation } = props;
@@ -19,6 +20,7 @@ export default function NextSession_home(props) {
   const [sessions, setSessions] = useState([]);
   const [firstNextSession, setFirstNextSession] = useState([]);
   const [remainingTime, setRemainingTime] = useState("");
+  const isFocused = useIsFocused();
 
   const user = useSelector((state) => state.users.value);
 
@@ -35,7 +37,7 @@ export default function NextSession_home(props) {
     };
 
     fetchData();
-  }, []);
+  }, [isFocused]);
 
   useEffect(() => {
     const nextSession = getClosestSession(sessions);
@@ -51,9 +53,9 @@ export default function NextSession_home(props) {
   }, [sessions]);
 
   function getClosestSession(data) {
-    console.log('data', data)
+    console.log("data", data);
     if (data === undefined) {
-      return
+      return;
     }
     const currentDate = new Date();
     const upcomingSessions = data?.filter((session) => {
@@ -68,7 +70,6 @@ export default function NextSession_home(props) {
       return diffA - diffB;
     });
     return upcomingSessions[0];
-  
   }
 
   const handlePress = () => {
