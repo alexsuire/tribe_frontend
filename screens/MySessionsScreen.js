@@ -13,14 +13,14 @@ import {
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import React, { useState, useEffect } from "react";
 const { getFetchAPI } = require("../modules/util");
-const FETCH_API = getFetchAPI();
+
 import { useDispatch, useSelector } from "react-redux";
 import Preview_mysessions from "../components/Preview_mysessions";
-import { useIsFocused } from '@react-navigation/native';
+import { useIsFocused } from "@react-navigation/native";
 
 export default function MySessionsScreen({ navigation }) {
-  const isFocused = useIsFocused()
-  console.log("isfocused", isFocused)
+  const isFocused = useIsFocused();
+  console.log("isfocused", isFocused);
 
   const [sessions, setSessions] = useState([]);
 
@@ -29,10 +29,10 @@ export default function MySessionsScreen({ navigation }) {
   useEffect(() => {
     const fetchData = async () => {
       if (!isFocused) {
-        return
+        return;
       }
       try {
-        const response = await fetch(FETCH_API + `/users/${user.token}`);
+        const response = await fetch(MY_FETCH_API + `/users/${user.token}`);
         const fetchSessionsUser = await response.json();
 
         // Filter sessions based on the current date
@@ -53,7 +53,7 @@ export default function MySessionsScreen({ navigation }) {
     };
     fetchData();
   }, [isFocused]);
-  
+
   let content;
   if (sessions.length === 0) {
     content = (
